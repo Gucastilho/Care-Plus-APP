@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VidaPlus — Missões</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <!-- Shared CSS -->
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ══════════════ SIDEBAR ══════════════ -->
+<aside class="sidebar">
+
+  <!-- Profile -->
+  <div class="sidebar-profile">
+    <div class="avatar-wrap">
+      <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Gustavo&backgroundColor=ffdfbf" alt="Avatar"/>
+      <span class="avatar-level">15</span>
+    </div>
+    <div class="profile-info">
+      <div class="name">Gustavo Castilho</div>
+      <div class="email">gustavo.castilho@gmail.com</div>
+      <div class="xp-bar-wrap">
+        <div class="xp-bar"></div>
+      </div>
+      <div class="xp-label">67%</div>
+    </div>
+  </div>
+
+  <!-- Menu -->
+  <div class="sidebar-section-label">Menu</div>
+  <a class="nav-link-item" href="index.html">
+    <i class="bi bi-house-door-fill"></i> Início
+  </a>
+  <a class="nav-link-item active" href="missoes.html">
+    <i class="bi bi-crosshair2"></i> Missões
+  </a>
+  <a class="nav-link-item" href="#">
+    <i class="bi bi-gift"></i> Recompensas
+  </a>
+  <a class="nav-link-item" href="#">
+    <i class="bi bi-trophy"></i> Conquistas
+  </a>
+  <a class="nav-link-item" href="#">
+    <i class="bi bi-bar-chart-steps"></i> Ranking
+  </a>
+
+  <!-- Geral -->
+  <div class="sidebar-bottom">
+    <div class="sidebar-section-label">Geral</div>
+    <a class="nav-link-item" href="#">
+      <i class="bi bi-gear"></i> Configurações
+    </a>
+    <a class="nav-link-item" href="#">
+      <i class="bi bi-question-circle"></i> Ajuda
+    </a>
+    <a class="nav-link-item" href="#">
+      <i class="bi bi-box-arrow-right"></i> Sair
+    </a>
+  </div>
+
+</aside>
+
+<!-- ══════════════ MAIN ══════════════ -->
+<main class="main">
+
+  <!-- Top row: page title (left) + chips/bell (right) -->
+  <div class="d-flex align-items-start justify-content-between">
+
+    <div class="page-header">
+      <h1>Missões</h1>
+      <p>Veja todas sua missões</p>
+    </div>
+
+    <div class="topbar-right">
+      <div class="chip">
+        <span class="chip-icon">🏆</span>
+        <div>
+          <div class="chip-label">Seus pontos</div>
+          <div>1500 pts</div>
+        </div>
+      </div>
+      <div class="topbar-bell">
+        <i class="bi bi-bell"></i>
+        <span class="badge">5</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Missions content -->
+  <div class="missions-content">
+
+    <!-- ── Missões Diárias ── -->
+    <div class="missions-group">
+      <div class="missions-section-header">
+        <h2>Missões Diárias</h2>
+        <span class="section-arrow" title="Ver todas">
+          <i class="bi bi-arrow-up-right"></i>
+        </span>
+      </div>
+      <div id="daily-missions"></div>
+    </div>
+
+    <!-- ── Missões Semanais ── -->
+    <div class="missions-group">
+      <div class="missions-section-header">
+        <h2>Missões Semanais</h2>
+        <span class="section-arrow" title="Ver todas">
+          <i class="bi bi-arrow-up-right"></i>
+        </span>
+      </div>
+      <div id="weekly-missions"></div>
+    </div>
+
+  </div><!-- /missions-content -->
+
+</main>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Shared JS -->
+<script src="main.js"></script>
+
+</body>
+</html>
