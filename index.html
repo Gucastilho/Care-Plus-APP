@@ -1,226 +1,306 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>VidaPlus — Dashboard</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="styles/style.css"/>
+  <title>Care Plus — Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles/index.css"/>
+  <!-- Prevent flash on theme load -->
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('cp-theme') || 'light');</script>
 </head>
 <body>
 
-<!-- Overlay mobile -->
-<div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true" role="presentation"></div>
-
 <!-- Toast container -->
-<div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+<div class="toast-container" id="toastContainer"></div>
 
-<!-- ══════════════ SIDEBAR ══════════════ -->
-<aside class="sidebar" id="sidebar" role="navigation" aria-label="Menu principal">
+<div class="shell">
 
-  <!-- Profile -->
-  <div class="sidebar-profile">
-    <div class="avatar-wrap">
-      <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Gustavo&backgroundColor=ffdfbf" alt="Avatar de Gustavo Castilho"/>
-      <span class="avatar-level" aria-label="Nível 15">15</span>
-    </div>
-    <div class="profile-info">
-      <div class="name">Gustavo Castilho</div>
-      <div class="email">gustavo@email.com</div>
-      <div class="xp-bar-wrap" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" aria-label="XP: 67%">
-        <div class="xp-bar"></div>
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="profile">
+      <div class="avatar-wrap">
+        <div class="avatar">🧑</div>
+        <div class="avatar-lvl">LV 15</div>
       </div>
-      <div class="xp-label">67% para o nível 16</div>
+      <div class="profile-name">Gustavo Castilho</div>
+      <div class="profile-email">gustavo@email.com</div>
+      <div class="xp-bar-wrap">
+        <div class="xp-label">
+          <span>XP 1.340</span>
+          <span>2.000</span>
+        </div>
+        <div class="xp-track"><div class="xp-fill"></div></div>
+      </div>
     </div>
-  </div>
 
-  <!-- Menu -->
-  <div class="sidebar-section-label">Menu</div>
-  <a class="nav-link-item active" href="index.html" aria-current="page">
-    <i class="bi bi-house-door-fill" aria-hidden="true"></i> Início
-  </a>
-  <a class="nav-link-item" href="pages/missoes.html">
-    <i class="bi bi-crosshair2" aria-hidden="true"></i> Missões
-  </a>
-  <a class="nav-link-item" href="#">
-    <i class="bi bi-gift" aria-hidden="true"></i> Recompensas
-  </a>
-  <a class="nav-link-item" href="#">
-    <i class="bi bi-trophy" aria-hidden="true"></i> Conquistas
-  </a>
-  <a class="nav-link-item" href="#">
-    <i class="bi bi-bar-chart-steps" aria-hidden="true"></i> Ranking
-  </a>
+    <div class="nav-section-label">Menu</div>
 
-  <!-- Geral -->
-  <div class="sidebar-bottom">
-    <div class="sidebar-section-label">Geral</div>
-    <a class="nav-link-item" href="#">
-      <i class="bi bi-gear" aria-hidden="true"></i> Configurações
+    <a class="nav-item active" href="index.html" data-href="index.html">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+        <path d="M2 6L8 1.5L14 6V14H10V10H6V14H2V6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+      Início
     </a>
-    <a class="nav-link-item" href="#">
-      <i class="bi bi-question-circle" aria-hidden="true"></i> Ajuda
+    <a class="nav-item" href="pages/missoes.html" data-href="pages/missoes.html">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M8 5V8L10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Missões
     </a>
-    <a class="nav-link-item" href="#" style="color: var(--red);">
-      <i class="bi bi-box-arrow-right" aria-hidden="true"></i> Sair
+    <a class="nav-item" href="#" data-href="#">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+        <rect x="2" y="4" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M5 4V2.5M11 4V2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M5 8H11M5 11H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Recompensas
     </a>
+    <a class="nav-item" href="#" data-href="#">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+        <path d="M8 2L9.8 5.8L14 6.3L11 9.2L11.7 13.5L8 11.5L4.3 13.5L5 9.2L2 6.3L6.2 5.8L8 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+      Conquistas
+    </a>
+    <a class="nav-item" href="#" data-href="#">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+        <path d="M3 12L6 9M6 9L8 11L11 6M11 6L13 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Ranking
+    </a>
+
+    <div class="nav-spacer"></div>
+
+    <div class="nav-section-label">Geral</div>
+    <div class="nav-bottom">
+      <a class="nav-item" href="#" data-href="#">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M8 1.5V3M8 13V14.5M1.5 8H3M13 8H14.5M3.2 3.2L4.3 4.3M11.7 11.7L12.8 12.8M3.2 12.8L4.3 11.7M11.7 4.3L12.8 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        Configurações
+      </a>
+      <a class="nav-item" href="#" data-href="#">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M8 11V10M8 7.5C8 6 10 6 10 7.5C10 8.5 8 9 8 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        Ajuda
+      </a>
+      <a class="nav-item logout" href="#" data-href="#">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+          <path d="M6 3H3C2.4 3 2 3.4 2 4V12C2 12.6 2.4 13 3 13H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M10 5L13 8L10 11M6 8H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Sair
+      </a>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <div class="main">
+
+    <!-- topbar -->
+    <div class="topbar">
+      <div class="greeting-block">
+        <div class="greeting-hi">
+          Olá, Gustavo
+          <span class="greeting-wave">👋</span>
+        </div>
+        <div class="greeting-sub">Continue sua jornada de bem-estar</div>
+      </div>
+
+      <div class="stat-pill pill-pts">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-info">
+          <div class="stat-val">1.500 pts</div>
+          <div class="stat-label">Seus pontos</div>
+        </div>
+      </div>
+
+      <div class="stat-pill pill-seq">
+        <div class="stat-icon">🔥</div>
+        <div class="stat-info">
+          <div class="stat-val">7 dias</div>
+          <div class="stat-label">Sequência</div>
+        </div>
+      </div>
+
+      <div class="notif-btn">
+        🔔
+        <div class="notif-dot"></div>
+      </div>
+
+      <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">🌙</button>
+    </div>
+
+    <!-- content -->
+    <div class="content-row">
+
+      <!-- missions column -->
+      <div class="col-missions">
+
+        <div>
+          <div class="section-header">
+            <div class="section-title">Missões Diárias</div>
+            <a class="section-link" href="pages/missoes.html">Ver todas →</a>
+          </div>
+
+          <!-- Caminhada -->
+          <div class="mission-card done" style="margin-bottom:10px;">
+            <div class="ring-wrap">
+              <svg width="58" height="58" viewBox="0 0 58 58">
+                <circle class="ring-bg" cx="29" cy="29" r="23"/>
+                <circle class="ring-fill" cx="29" cy="29" r="23"
+                  stroke="var(--green)"
+                  style="stroke-dasharray:144.51;stroke-dashoffset:36.1;"/>
+              </svg>
+              <div class="ring-icon">🚶</div>
+            </div>
+            <div class="mission-body">
+              <div class="mission-top">
+                <div class="mission-name" style="color:var(--green)">Caminhada Matinal</div>
+                <div class="mission-badge">🏆 50 pts</div>
+              </div>
+              <div class="mission-desc">Caminhe 5.000 passos hoje · 3.750 / 5.000 passos</div>
+              <div class="mission-progress-wrap">
+                <div class="progress-track">
+                  <div class="progress-fill" style="width:75%;background:linear-gradient(90deg,var(--green2),var(--green));"></div>
+                </div>
+                <div class="pct-label" style="color:var(--green)">75%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hidratação -->
+          <div class="mission-card" style="margin-bottom:10px;">
+            <div class="ring-wrap">
+              <svg width="58" height="58" viewBox="0 0 58 58">
+                <circle class="ring-bg" cx="29" cy="29" r="23"/>
+                <circle class="ring-fill" cx="29" cy="29" r="23"
+                  stroke="var(--blue)"
+                  style="stroke-dasharray:144.51;stroke-dashoffset:90.8;"/>
+              </svg>
+              <div class="ring-icon">💧</div>
+            </div>
+            <div class="mission-body">
+              <div class="mission-top">
+                <div class="mission-name" style="color:var(--blue)">Hidratação</div>
+                <div class="mission-badge">🏆 30 pts</div>
+              </div>
+              <div class="mission-desc">Beba 2 litros de água · 740ml / 2.000ml</div>
+              <div class="mission-progress-wrap">
+                <div class="progress-track">
+                  <div class="progress-fill" style="width:37%;background:linear-gradient(90deg,#2e6fff,var(--blue));"></div>
+                </div>
+                <div class="pct-label" style="color:var(--blue)">37%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alongamento -->
+          <div class="mission-card">
+            <div class="ring-wrap">
+              <svg width="58" height="58" viewBox="0 0 58 58">
+                <circle class="ring-bg" cx="29" cy="29" r="23"/>
+                <circle class="ring-fill" cx="29" cy="29" r="23"
+                  stroke="var(--muted2)"
+                  style="stroke-dasharray:144.51;stroke-dashoffset:144.51;"/>
+              </svg>
+              <div class="ring-icon" style="opacity:0.4">🧘</div>
+            </div>
+            <div class="mission-body">
+              <div class="mission-top">
+                <div class="mission-name" style="color:var(--muted)">Alongamento</div>
+                <div class="mission-badge">🏆 40 pts</div>
+              </div>
+              <div class="mission-desc">Faça 10 minutos de alongamento · Não iniciado</div>
+              <div class="mission-progress-wrap">
+                <div class="progress-track">
+                  <div class="progress-fill" style="width:0%;background:var(--muted2);"></div>
+                </div>
+                <div class="pct-label" style="color:var(--muted2)">0%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Boost -->
+        <div class="boost-section">
+          <div class="section-header">
+            <div class="section-title">Impulsione sua saúde</div>
+          </div>
+          <div class="boost-empty">
+            <div class="boost-empty-icon">✦</div>
+            <div class="boost-empty-text">Nenhuma meta ainda</div>
+            <div class="boost-empty-sub">Adicione uma meta personalizada</div>
+          </div>
+          <div class="boost-add-btn">+ Adicionar Meta</div>
+        </div>
+
+      </div>
+
+      <!-- right column -->
+      <div class="col-right">
+
+        <!-- wellness score -->
+        <div class="score-card">
+          <div class="score-header">
+            <div class="score-title">Score de Bem-estar</div>
+            <div class="score-link">Detalhes →</div>
+          </div>
+          <div class="score-ring-row">
+            <div>
+              <svg width="72" height="72" viewBox="0 0 72 72">
+                <circle cx="36" cy="36" r="29" fill="none" stroke="var(--surface3)" stroke-width="7"/>
+                <circle cx="36" cy="36" r="29" fill="none" stroke="var(--green)" stroke-width="7"
+                  stroke-linecap="round"
+                  stroke-dasharray="182.2" stroke-dashoffset="54.7"
+                  transform="rotate(-90 36 36)"/>
+                <text x="36" y="41" text-anchor="middle"
+                  font-family="Outfit,sans-serif" font-size="17" font-weight="700" fill="var(--green)">70</text>
+              </svg>
+            </div>
+            <div class="score-dims">
+              <div class="dim-row">
+                <span class="dim-label">Atividade</span>
+                <div class="dim-track"><div class="dim-fill" style="width:75%;background:var(--green);"></div></div>
+                <span class="dim-val" style="color:var(--green)">75</span>
+              </div>
+              <div class="dim-row">
+                <span class="dim-label">Hidratação</span>
+                <div class="dim-track"><div class="dim-fill" style="width:37%;background:var(--blue);"></div></div>
+                <span class="dim-val" style="color:var(--blue)">37</span>
+              </div>
+              <div class="dim-row">
+                <span class="dim-label">Sono</span>
+                <div class="dim-track"><div class="dim-fill" style="width:80%;background:var(--teal);"></div></div>
+                <span class="dim-val" style="color:var(--teal)">80</span>
+              </div>
+              <div class="dim-row">
+                <span class="dim-label">Nutrição</span>
+                <div class="dim-track"><div class="dim-fill" style="width:60%;background:var(--amber);"></div></div>
+                <span class="dim-val" style="color:var(--amber)">60</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- appointments -->
+        <div class="appt-card">
+          <div class="appt-header">
+            <div class="appt-title">Consultas e Exames</div>
+            <div class="appt-link">↗</div>
+          </div>
+          <div class="appt-list" id="appt-list"></div>
+        </div>
+
+      </div>
+    </div>
   </div>
+</div>
 
-</aside>
-
-<!-- ══════════════ MAIN ══════════════ -->
-<main class="main" id="main-content">
-
-  <!-- Top Bar -->
-  <div class="topbar">
-
-    <div style="display:flex; align-items:center; gap:12px;">
-      <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="sidebar">
-        <i class="bi bi-list" aria-hidden="true"></i>
-      </button>
-      <div class="topbar-greeting">
-        <h2>Olá, Gustavo <span aria-hidden="true">👋</span></h2>
-        <p>Continue sua jornada de bem-estar</p>
-      </div>
-    </div>
-
-    <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-      <span class="date-badge" id="currentDate" aria-label="Data atual"></span>
-
-      <div class="topbar-chips">
-        <div class="chip" role="status" aria-label="1500 pontos acumulados">
-          <span class="chip-icon" aria-hidden="true">🏆</span>
-          <div>
-            <div class="chip-label">Seus pontos</div>
-            <div>1.500 pts</div>
-          </div>
-        </div>
-        <div class="chip" role="status" aria-label="Sequência de 7 dias">
-          <span class="chip-icon" aria-hidden="true">🔥</span>
-          <div>
-            <div class="chip-label">Sequência</div>
-            <div>7 dias</div>
-          </div>
-        </div>
-      </div>
-
-      <button class="topbar-bell" aria-label="Notificações — 5 não lidas">
-        <i class="bi bi-bell" aria-hidden="true"></i>
-        <span class="badge" aria-hidden="true">5</span>
-      </button>
-    </div>
-
-  </div>
-
-  <!-- Content Grid -->
-  <div class="content-grid">
-
-    <!-- LEFT: Missions + Boost -->
-    <div>
-      <div class="section-title">Missões Diárias</div>
-
-      <!-- Caminhada Matinal -->
-      <article class="mission-card" aria-label="Missão: Caminhada Matinal">
-        <div class="mission-header">
-          <div class="mission-title">
-            <i class="bi bi-person-walking" aria-hidden="true"></i>
-            Caminhada Matinal
-          </div>
-          <div class="pts-badge" aria-label="50 pontos">
-            <i class="bi bi-trophy-fill" aria-hidden="true"></i> 50 pts
-          </div>
-        </div>
-        <div class="mission-desc">Caminhe 5.000 passos hoje</div>
-        <div class="progress-row">
-          <div class="progress-bar-wrap" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso: 75%">
-            <div class="progress-fill" style="--target-w:75%"></div>
-          </div>
-          <span class="progress-pct" aria-hidden="true">75%</span>
-        </div>
-      </article>
-
-      <!-- Hidratação -->
-      <article class="mission-card" aria-label="Missão: Hidratação">
-        <div class="mission-header">
-          <div class="mission-title">
-            <i class="bi bi-droplet-fill" aria-hidden="true"></i>
-            Hidratação
-          </div>
-          <div class="pts-badge" aria-label="30 pontos">
-            <i class="bi bi-trophy-fill" aria-hidden="true"></i> 30 pts
-          </div>
-        </div>
-        <div class="mission-desc">Beba 2 litros de água</div>
-        <div class="progress-row">
-          <div class="progress-bar-wrap" role="progressbar" aria-valuenow="37" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso: 37%">
-            <div class="progress-fill" style="--target-w:37%"></div>
-          </div>
-          <span class="progress-pct" aria-hidden="true">37%</span>
-        </div>
-      </article>
-
-      <!-- Alongamento -->
-      <article class="mission-card" aria-label="Missão: Alongamento">
-        <div class="mission-header">
-          <div class="mission-title">
-            <i class="bi bi-person-arms-up" aria-hidden="true"></i>
-            Alongamento
-          </div>
-          <div class="pts-badge" aria-label="40 pontos">
-            <i class="bi bi-trophy-fill" aria-hidden="true"></i> 40 pts
-          </div>
-        </div>
-        <div class="mission-desc">Faça 10 minutos de alongamento</div>
-        <div class="progress-row">
-          <div class="progress-bar-wrap" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso: 0%">
-            <div class="progress-fill" style="--target-w:0%"></div>
-          </div>
-          <span class="progress-pct" aria-hidden="true">0%</span>
-        </div>
-      </article>
-
-      <!-- Boost Section -->
-      <div class="section-title mt-3">Impulsione sua saúde</div>
-      <div class="boost-card" role="status">
-        <div class="boost-icon" aria-hidden="true">💤</div>
-        <div style="font-size:15px; font-weight:700; color:var(--text);">
-          Nenhuma meta ainda por aqui
-        </div>
-        <div style="margin-top:4px; font-size:13px;">
-          Adicione metas de saúde para acompanhar seu progresso
-        </div>
-        <button style="margin-top:14px; background:var(--green); color:#fff; border:none; border-radius:99px; padding:8px 20px; font-size:13px; font-weight:700; cursor:pointer; transition:background .18s;"
-                onmouseover="this.style.background='var(--green-dark)'" onmouseout="this.style.background='var(--green)'">
-          + Adicionar meta
-        </button>
-      </div>
-    </div>
-
-    <!-- RIGHT: Consultations -->
-    <div class="right-panel" role="region" aria-label="Consultas e Exames">
-      <div class="panel-header">
-        <div class="section-title mb-0">Consulta e Exames</div>
-        <button class="panel-arrow" aria-label="Ver todas as consultas">
-          <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-        </button>
-      </div>
-      <!-- Skeleton shown while JS loads -->
-      <div id="consultations-skeleton">
-        <div class="skeleton-card"><div class="skeleton" style="height:14px; width:60%; margin-bottom:8px;"></div><div class="skeleton" style="height:11px; width:40%;"></div><div class="skeleton" style="height:28px; margin-top:10px; border-radius:99px;"></div></div>
-        <div class="skeleton-card"><div class="skeleton" style="height:14px; width:60%; margin-bottom:8px;"></div><div class="skeleton" style="height:11px; width:40%;"></div><div class="skeleton" style="height:28px; margin-top:10px; border-radius:99px;"></div></div>
-        <div class="skeleton-card"><div class="skeleton" style="height:14px; width:60%; margin-bottom:8px;"></div><div class="skeleton" style="height:11px; width:40%;"></div><div class="skeleton" style="height:28px; margin-top:10px; border-radius:99px;"></div></div>
-      </div>
-      <div id="consultations" aria-live="polite"></div>
-    </div>
-
-  </div>
-
-</main>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="scripts/main.js"></script>
+<script src="scripts/index.js"></script>
 </body>
 </html>

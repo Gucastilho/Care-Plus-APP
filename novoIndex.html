@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bem-estar — Gustavo</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #080b12;
+  --bg2:       #0d1220;
+  --surface:   #111827;
+  --surface2:  #1a2235;
+  --surface3:  #202d42;
+  --border:    rgba(255,255,255,0.06);
+  --border2:   rgba(255,255,255,0.11);
+  --text:      #f0f4ff;
+  --muted:     #6b7a99;
+  --muted2:    #3d4d6a;
+  --green:     #00e57a;
+  --green2:    #00b861;
+  --green-glow:rgba(0,229,122,0.18);
+  --amber:     #ffb830;
+  --amber-glow:rgba(255,184,48,0.15);
+  --blue:      #4d9fff;
+  --rose:      #ff6b8a;
+  --teal:      #00cfc8;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
+  position:relative;
+}
+
+/* ── ambient glow ── */
+body::before{
+  content:'';
+  position:absolute;
+  top:-200px; left:220px;
+  width:600px; height:600px;
+  background:radial-gradient(ellipse, rgba(0,229,122,0.07) 0%, transparent 65%);
+  pointer-events:none;
+}
+body::after{
+  content:'';
+  position:absolute;
+  bottom:-100px; right:100px;
+  width:400px; height:400px;
+  background:radial-gradient(ellipse, rgba(77,159,255,0.06) 0%, transparent 65%);
+  pointer-events:none;
+}
+
+/* ── LAYOUT ── */
+.shell{display:flex;height:100vh;}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:230px;
+  flex-shrink:0;
+  background:var(--bg2);
+  border-right:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  padding:24px 0;
+  position:relative;
+  z-index:1;
+}
+.sidebar::after{
+  content:'';
+  position:absolute;
+  right:0; top:0; bottom:0;
+  width:1px;
+  background:linear-gradient(180deg,transparent,rgba(0,229,122,0.3) 40%,rgba(0,229,122,0.1) 70%,transparent);
+  pointer-events:none;
+}
+
+/* profile */
+.profile{padding:0 20px 24px;border-bottom:1px solid var(--border);}
+.avatar-wrap{position:relative;display:inline-block;margin-bottom:12px;}
+.avatar{
+  width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(135deg,#2d6a4f,#1b4332);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;
+  border:2px solid var(--green2);
+  box-shadow:0 0 16px rgba(0,229,122,0.25);
+}
+.avatar-lvl{
+  position:absolute;bottom:-4px;right:-6px;
+  background:var(--green);color:#000;
+  font-size:9px;font-weight:700;
+  padding:2px 5px;border-radius:8px;
+  font-family:'Outfit',sans-serif;
+  letter-spacing:0.02em;
+}
+.profile-name{font-size:14px;font-weight:600;color:var(--text);line-height:1.2;}
+.profile-email{font-size:11px;color:var(--muted);margin-top:2px;}
+.xp-bar-wrap{margin-top:10px;}
+.xp-label{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:5px;}
+.xp-track{
+  height:5px;border-radius:3px;
+  background:var(--surface3);
+  overflow:hidden;
+}
+.xp-fill{
+  height:100%;width:67%;
+  background:linear-gradient(90deg,var(--green2),var(--green));
+  border-radius:3px;
+  box-shadow:0 0 8px var(--green-glow);
+}
+
+/* nav */
+.nav-section-label{
+  padding:20px 20px 6px;
+  font-size:10px;font-weight:600;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--muted2);
+}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 20px;
+  font-size:13px;font-weight:500;color:var(--muted);
+  cursor:pointer;border-radius:0;
+  transition:color 0.15s,background 0.15s;
+  position:relative;
+}
+.nav-item:hover{color:var(--text);background:rgba(255,255,255,0.03);}
+.nav-item.active{color:var(--green);}
+.nav-item.active::before{
+  content:'';
+  position:absolute;left:0;top:4px;bottom:4px;
+  width:3px;border-radius:0 2px 2px 0;
+  background:var(--green);
+  box-shadow:0 0 8px var(--green);
+}
+.nav-icon{width:16px;height:16px;opacity:0.7;flex-shrink:0;}
+.nav-item.active .nav-icon{opacity:1;}
+.nav-spacer{flex:1;}
+.nav-bottom{border-top:1px solid var(--border);padding-top:8px;}
+
+/* ── MAIN ── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+
+/* top bar */
+.topbar{
+  display:flex;align-items:center;gap:16px;
+  padding:20px 28px 0;
+}
+.greeting-block{flex:1;}
+.greeting-hi{
+  font-family:'Outfit',sans-serif;
+  font-size:26px;font-weight:700;
+  color:var(--text);
+  display:flex;align-items:center;gap:8px;
+  line-height:1.1;
+}
+.greeting-wave{font-size:22px;}
+.greeting-sub{font-size:13px;color:var(--muted);margin-top:3px;}
+
+.stat-pill{
+  display:flex;align-items:center;gap:10px;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:14px;
+  padding:10px 18px;
+  min-width:130px;
+}
+.stat-icon{font-size:20px;}
+.stat-info{}
+.stat-val{
+  font-family:'Outfit',sans-serif;
+  font-size:15px;font-weight:700;color:var(--text);
+  line-height:1.1;
+}
+.stat-label{font-size:10px;color:var(--muted);margin-top:1px;}
+
+.pill-pts .stat-val{color:var(--amber);}
+.pill-pts{border-color:rgba(255,184,48,0.2);box-shadow:0 0 20px rgba(255,184,48,0.06);}
+.pill-seq .stat-val{color:var(--green);}
+.pill-seq{border-color:rgba(0,229,122,0.2);box-shadow:0 0 20px rgba(0,229,122,0.06);}
+
+.notif-btn{
+  width:38px;height:38px;border-radius:10px;
+  background:var(--surface);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:16px;position:relative;
+}
+.notif-dot{
+  position:absolute;top:7px;right:8px;
+  width:7px;height:7px;border-radius:50%;
+  background:var(--rose);
+  box-shadow:0 0 6px var(--rose);
+  border:1.5px solid var(--bg);
+}
+
+/* content row */
+.content-row{
+  flex:1;display:flex;gap:0;overflow:hidden;
+  padding:20px 28px 20px;
+  gap:20px;
+}
+
+/* missions column */
+.col-missions{flex:1;display:flex;flex-direction:column;gap:16px;overflow:hidden;}
+
+.section-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:4px;
+}
+.section-title{
+  font-family:'Outfit',sans-serif;
+  font-size:16px;font-weight:600;color:var(--text);
+}
+.section-link{
+  font-size:12px;color:var(--green);cursor:pointer;
+  display:flex;align-items:center;gap:4px;
+}
+
+/* mission card */
+.mission-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px 20px;
+  display:flex;align-items:center;gap:16px;
+  cursor:pointer;
+  transition:border-color 0.2s,transform 0.15s,box-shadow 0.2s;
+  position:relative;
+  overflow:hidden;
+}
+.mission-card::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.02) 0%,transparent 60%);
+  pointer-events:none;
+}
+.mission-card:hover{
+  border-color:var(--border2);
+  transform:translateY(-1px);
+  box-shadow:0 8px 32px rgba(0,0,0,0.25);
+}
+.mission-card.done{border-color:rgba(0,229,122,0.2);}
+.mission-card.done::after{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(0,229,122,0.04) 0%,transparent 50%);
+  pointer-events:none;
+}
+
+/* circular progress */
+.ring-wrap{position:relative;flex-shrink:0;}
+.ring-wrap svg{transform:rotate(-90deg);}
+.ring-bg{fill:none;stroke:var(--surface3);stroke-width:5;}
+.ring-fill{fill:none;stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset 0.8s ease;}
+.ring-icon{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;
+}
+
+/* mission body */
+.mission-body{flex:1;min-width:0;}
+.mission-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.mission-name{
+  font-family:'Outfit',sans-serif;
+  font-size:15px;font-weight:600;
+}
+.mission-badge{
+  display:flex;align-items:center;gap:4px;
+  background:rgba(255,184,48,0.12);
+  border:1px solid rgba(255,184,48,0.2);
+  border-radius:8px;padding:3px 8px;
+  font-size:11px;font-weight:600;color:var(--amber);
+  font-family:'Outfit',sans-serif;
+}
+.mission-desc{font-size:12px;color:var(--muted);margin-bottom:10px;}
+.mission-progress-wrap{display:flex;align-items:center;gap:10px;}
+.progress-track{
+  flex:1;height:5px;border-radius:3px;
+  background:var(--surface3);overflow:hidden;
+}
+.progress-fill{
+  height:100%;border-radius:3px;
+  transition:width 0.8s ease;
+}
+.pct-label{
+  font-family:'Outfit',sans-serif;
+  font-size:12px;font-weight:700;min-width:32px;text-align:right;
+}
+
+/* boost section */
+.boost-section{flex:1;display:flex;flex-direction:column;gap:10px;}
+.boost-empty{
+  flex:1;
+  background:var(--surface);
+  border:1px dashed var(--border2);
+  border-radius:18px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;color:var(--muted);
+  cursor:pointer;
+  transition:border-color 0.2s,background 0.2s;
+}
+.boost-empty:hover{border-color:var(--green);background:rgba(0,229,122,0.03);}
+.boost-empty-icon{font-size:28px;opacity:0.4;}
+.boost-empty-text{font-size:13px;font-weight:500;}
+.boost-empty-sub{font-size:11px;color:var(--muted2);}
+.boost-add-btn{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  background:linear-gradient(135deg,var(--green2),var(--green));
+  color:#000;font-size:13px;font-weight:700;
+  padding:10px;border-radius:12px;cursor:pointer;
+  font-family:'Outfit',sans-serif;
+  box-shadow:0 4px 20px rgba(0,229,122,0.25);
+  transition:opacity 0.15s,transform 0.1s;
+}
+.boost-add-btn:hover{opacity:0.9;transform:scale(0.99);}
+
+/* right column */
+.col-right{
+  width:280px;flex-shrink:0;
+  display:flex;flex-direction:column;gap:14px;
+}
+
+/* wellness score card */
+.score-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:16px;
+}
+.score-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:12px;
+}
+.score-title{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;}
+.score-link{font-size:11px;color:var(--blue);cursor:pointer;}
+.score-ring-row{display:flex;align-items:center;gap:14px;}
+.score-number{
+  font-family:'Outfit',sans-serif;
+  font-size:36px;font-weight:700;color:var(--green);
+  line-height:1;
+}
+.score-label{font-size:11px;color:var(--muted);margin-top:3px;}
+.score-dims{display:flex;flex-direction:column;gap:7px;flex:1;}
+.dim-row{display:flex;align-items:center;gap:6px;font-size:11px;}
+.dim-label{color:var(--muted);flex:1;}
+.dim-track{flex:2;height:3px;background:var(--surface3);border-radius:2px;overflow:hidden;}
+.dim-fill{height:100%;border-radius:2px;}
+.dim-val{font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;min-width:24px;text-align:right;}
+
+/* appointments */
+.appt-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:16px;
+  flex:1;
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+.appt-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:12px;
+}
+.appt-title{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;}
+.appt-link{
+  width:24px;height:24px;border-radius:7px;
+  background:var(--surface2);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;cursor:pointer;color:var(--muted);
+}
+.appt-list{display:flex;flex-direction:column;gap:8px;overflow:hidden;}
+.appt-item{
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:11px 13px;
+  position:relative;
+  overflow:hidden;
+}
+.appt-item::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--blue),var(--teal));
+  border-radius:3px 0 0 3px;
+}
+.appt-spec{font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.appt-time{
+  display:flex;align-items:center;gap:5px;
+  font-size:10px;color:var(--muted);margin-bottom:5px;
+}
+.appt-time-dot{width:4px;height:4px;border-radius:50%;background:var(--blue);}
+.appt-doctor{font-size:11px;color:var(--muted);margin-bottom:7px;}
+.appt-actions{display:flex;gap:6px;}
+.appt-btn{
+  flex:1;font-size:10px;font-weight:600;
+  padding:5px 0;border-radius:7px;
+  cursor:pointer;font-family:'Outfit',sans-serif;
+  text-align:center;transition:opacity 0.15s;
+}
+.appt-btn:hover{opacity:0.8;}
+.appt-btn-cancel{background:rgba(255,107,138,0.1);color:var(--rose);border:1px solid rgba(255,107,138,0.2);}
+.appt-btn-remark{background:rgba(77,159,255,0.1);color:var(--blue);border:1px solid rgba(77,159,255,0.2);}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="profile">
+    <div class="avatar-wrap">
+      <div class="avatar">🧑</div>
+      <div class="avatar-lvl">LV 15</div>
+    </div>
+    <div class="profile-name">Gustavo Castilho</div>
+    <div class="profile-email">gustavo.castilho@gmail.com</div>
+    <div class="xp-bar-wrap">
+      <div class="xp-label">
+        <span>XP 1.340</span>
+        <span>2.000</span>
+      </div>
+      <div class="xp-track"><div class="xp-fill"></div></div>
+    </div>
+  </div>
+
+  <div class="nav-section-label">Menu</div>
+
+  <div class="nav-item active">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+      <path d="M2 6L8 1.5L14 6V14H10V10H6V14H2V6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </svg>
+    Início
+  </div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+      <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M8 5V8L10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    Missões
+  </div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+      <rect x="2" y="4" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M5 4V2.5M11 4V2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M5 8H11M5 11H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    Recompensas
+  </div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+      <path d="M8 2L9.8 5.8L14 6.3L11 9.2L11.7 13.5L8 11.5L4.3 13.5L5 9.2L2 6.3L6.2 5.8L8 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </svg>
+    Conquistas
+  </div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+      <path d="M3 12L6 9M6 9L8 11L11 6M11 6L13 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Ranking
+  </div>
+
+  <div class="nav-spacer"></div>
+
+  <div class="nav-section-label">Geral</div>
+  <div class="nav-bottom">
+    <div class="nav-item">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M8 1.5V3M8 13V14.5M1.5 8H3M13 8H14.5M3.2 3.2L4.3 4.3M11.7 11.7L12.8 12.8M3.2 12.8L4.3 11.7M11.7 4.3L12.8 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      Configurações
+    </div>
+    <div class="nav-item">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M8 11V10M8 7.5C8 6 10 6 10 7.5C10 8.5 8 9 8 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Ajuda
+    </div>
+    <div class="nav-item">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+        <path d="M6 3H3C2.4 3 2 3.4 2 4V12C2 12.6 2.4 13 3 13H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M10 5L13 8L10 11M6 8H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Sair
+    </div>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<div class="main">
+
+  <!-- top bar -->
+  <div class="topbar">
+    <div class="greeting-block">
+      <div class="greeting-hi">
+        Olá, Gustavo
+        <span class="greeting-wave">👋</span>
+      </div>
+      <div class="greeting-sub">Continue sua jornada de bem-estar</div>
+    </div>
+
+    <div class="stat-pill pill-pts">
+      <div class="stat-icon">🏆</div>
+      <div class="stat-info">
+        <div class="stat-val">1.500 pts</div>
+        <div class="stat-label">Seus pontos</div>
+      </div>
+    </div>
+
+    <div class="stat-pill pill-seq">
+      <div class="stat-icon">🔥</div>
+      <div class="stat-info">
+        <div class="stat-val">7 dias</div>
+        <div class="stat-label">Sequência</div>
+      </div>
+    </div>
+
+    <div class="notif-btn">
+      🔔
+      <div class="notif-dot"></div>
+    </div>
+  </div>
+
+  <!-- content -->
+  <div class="content-row">
+
+    <!-- missions -->
+    <div class="col-missions">
+
+      <div>
+        <div class="section-header">
+          <div class="section-title">Missões Diárias</div>
+          <div class="section-link">Ver todas →</div>
+        </div>
+
+        <!-- Caminhada -->
+        <div class="mission-card done" style="margin-bottom:10px;">
+          <div class="ring-wrap">
+            <svg width="58" height="58" viewBox="0 0 58 58">
+              <circle class="ring-bg" cx="29" cy="29" r="23"/>
+              <circle class="ring-fill" cx="29" cy="29" r="23"
+                stroke="var(--green)"
+                style="stroke-dasharray:144.51;stroke-dashoffset:36.1;filter:drop-shadow(0 0 5px var(--green))"/>
+            </svg>
+            <div class="ring-icon">🚶</div>
+          </div>
+          <div class="mission-body">
+            <div class="mission-top">
+              <div class="mission-name" style="color:var(--green)">Caminhada Matinal</div>
+              <div class="mission-badge">🏆 50 pts</div>
+            </div>
+            <div class="mission-desc">Caminhe 5.000 passos hoje · 3.750 / 5.000 passos</div>
+            <div class="mission-progress-wrap">
+              <div class="progress-track">
+                <div class="progress-fill" style="width:75%;background:linear-gradient(90deg,var(--green2),var(--green));box-shadow:0 0 8px var(--green-glow);"></div>
+              </div>
+              <div class="pct-label" style="color:var(--green)">75%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hidratação -->
+        <div class="mission-card" style="margin-bottom:10px;">
+          <div class="ring-wrap">
+            <svg width="58" height="58" viewBox="0 0 58 58">
+              <circle class="ring-bg" cx="29" cy="29" r="23"/>
+              <circle class="ring-fill" cx="29" cy="29" r="23"
+                stroke="var(--blue)"
+                style="stroke-dasharray:144.51;stroke-dashoffset:90.8;filter:drop-shadow(0 0 4px rgba(77,159,255,0.5))"/>
+            </svg>
+            <div class="ring-icon">💧</div>
+          </div>
+          <div class="mission-body">
+            <div class="mission-top">
+              <div class="mission-name" style="color:var(--blue)">Hidratação</div>
+              <div class="mission-badge">🏆 30 pts</div>
+            </div>
+            <div class="mission-desc">Beba 2 litros de água · 740ml / 2.000ml</div>
+            <div class="mission-progress-wrap">
+              <div class="progress-track">
+                <div class="progress-fill" style="width:37%;background:linear-gradient(90deg,#2e6fff,var(--blue));box-shadow:0 0 8px rgba(77,159,255,0.2);"></div>
+              </div>
+              <div class="pct-label" style="color:var(--blue)">37%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alongamento -->
+        <div class="mission-card">
+          <div class="ring-wrap">
+            <svg width="58" height="58" viewBox="0 0 58 58">
+              <circle class="ring-bg" cx="29" cy="29" r="23"/>
+              <circle class="ring-fill" cx="29" cy="29" r="23"
+                stroke="var(--muted2)"
+                style="stroke-dasharray:144.51;stroke-dashoffset:144.51"/>
+            </svg>
+            <div class="ring-icon" style="opacity:0.5">🧘</div>
+          </div>
+          <div class="mission-body">
+            <div class="mission-top">
+              <div class="mission-name" style="color:var(--muted)">Alongamento</div>
+              <div class="mission-badge">🏆 40 pts</div>
+            </div>
+            <div class="mission-desc">Faça 10 minutos de alongamento · Não iniciado</div>
+            <div class="mission-progress-wrap">
+              <div class="progress-track">
+                <div class="progress-fill" style="width:0%;background:var(--muted2);"></div>
+              </div>
+              <div class="pct-label" style="color:var(--muted2)">0%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Impulsione -->
+      <div class="boost-section">
+        <div class="section-header">
+          <div class="section-title">Impulsione sua saúde</div>
+        </div>
+        <div class="boost-empty">
+          <div class="boost-empty-icon">✦</div>
+          <div class="boost-empty-text">Nenhuma meta ainda</div>
+          <div class="boost-empty-sub">Adicione uma meta personalizada</div>
+        </div>
+        <div class="boost-add-btn">
+          + Adicionar Meta
+        </div>
+      </div>
+
+    </div>
+
+    <!-- right column -->
+    <div class="col-right">
+
+      <!-- wellness score -->
+      <div class="score-card">
+        <div class="score-header">
+          <div class="score-title">Score de Bem-estar</div>
+          <div class="score-link">Detalhes →</div>
+        </div>
+        <div class="score-ring-row">
+          <div>
+            <svg width="72" height="72" viewBox="0 0 72 72">
+              <circle cx="36" cy="36" r="29" fill="none" stroke="var(--surface3)" stroke-width="7"/>
+              <circle cx="36" cy="36" r="29" fill="none" stroke="var(--green)" stroke-width="7"
+                stroke-linecap="round"
+                stroke-dasharray="182.2" stroke-dashoffset="54.7"
+                transform="rotate(-90 36 36)"
+                style="filter:drop-shadow(0 0 8px var(--green))"/>
+              <text x="36" y="41" text-anchor="middle"
+                font-family="Outfit,sans-serif" font-size="17" font-weight="700" fill="#00e57a">70</text>
+            </svg>
+          </div>
+          <div class="score-dims">
+            <div class="dim-row">
+              <span class="dim-label">Atividade</span>
+              <div class="dim-track"><div class="dim-fill" style="width:75%;background:var(--green);"></div></div>
+              <span class="dim-val" style="color:var(--green)">75</span>
+            </div>
+            <div class="dim-row">
+              <span class="dim-label">Hidratação</span>
+              <div class="dim-track"><div class="dim-fill" style="width:37%;background:var(--blue);"></div></div>
+              <span class="dim-val" style="color:var(--blue)">37</span>
+            </div>
+            <div class="dim-row">
+              <span class="dim-label">Sono</span>
+              <div class="dim-track"><div class="dim-fill" style="width:80%;background:var(--teal);"></div></div>
+              <span class="dim-val" style="color:var(--teal)">80</span>
+            </div>
+            <div class="dim-row">
+              <span class="dim-label">Nutrição</span>
+              <div class="dim-track"><div class="dim-fill" style="width:60%;background:var(--amber);"></div></div>
+              <span class="dim-val" style="color:var(--amber)">60</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- appointments -->
+      <div class="appt-card">
+        <div class="appt-header">
+          <div class="appt-title">Consultas e Exames</div>
+          <div class="appt-link">↗</div>
+        </div>
+        <div class="appt-list">
+
+          <div class="appt-item">
+            <div class="appt-spec">Cardiologista</div>
+            <div class="appt-time">
+              <div class="appt-time-dot"></div>
+              12/12/2025 · 13:00 – 14:00
+            </div>
+            <div class="appt-doctor">Dr. Renan Andrey Cruz</div>
+            <div class="appt-actions">
+              <div class="appt-btn appt-btn-remark">Remarcar</div>
+              <div class="appt-btn appt-btn-cancel">Cancelar</div>
+            </div>
+          </div>
+
+          <div class="appt-item">
+            <div class="appt-spec">Cardiologista</div>
+            <div class="appt-time">
+              <div class="appt-time-dot"></div>
+              12/12/2025 · 13:00 – 14:00
+            </div>
+            <div class="appt-doctor">Dr. Renan Andrey Cruz</div>
+            <div class="appt-actions">
+              <div class="appt-btn appt-btn-remark">Remarcar</div>
+              <div class="appt-btn appt-btn-cancel">Cancelar</div>
+            </div>
+          </div>
+
+          <div class="appt-item">
+            <div class="appt-spec">Cardiologista</div>
+            <div class="appt-time">
+              <div class="appt-time-dot"></div>
+              12/12/2025 · 13:00 – 14:00
+            </div>
+            <div class="appt-doctor">Dr. Renan Andrey Cruz</div>
+            <div class="appt-actions">
+              <div class="appt-btn appt-btn-remark">Remarcar</div>
+              <div class="appt-btn appt-btn-cancel">Cancelar</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>
