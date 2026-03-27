@@ -5,93 +5,112 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>VidaPlus — Missões</title>
 
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <!-- Shared CSS -->
   <link rel="stylesheet" href="../styles/style.css"/>
 </head>
 <body>
 
+<!-- Overlay mobile -->
+<div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true" role="presentation"></div>
+
+<!-- Toast container -->
+<div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
 <!-- ══════════════ SIDEBAR ══════════════ -->
-<aside class="sidebar">
+<aside class="sidebar" id="sidebar" role="navigation" aria-label="Menu principal">
 
   <!-- Profile -->
   <div class="sidebar-profile">
     <div class="avatar-wrap">
-      <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Gustavo&backgroundColor=ffdfbf" alt="Avatar"/>
-      <span class="avatar-level">15</span>
+      <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Gustavo&backgroundColor=ffdfbf" alt="Avatar de Gustavo Castilho"/>
+      <span class="avatar-level" aria-label="Nível 15">15</span>
     </div>
     <div class="profile-info">
       <div class="name">Gustavo Castilho</div>
-      <div class="email">gustavo.castilho@gmail.com</div>
-      <div class="xp-bar-wrap">
+      <div class="email">gustavo@email.com</div>
+      <div class="xp-bar-wrap" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" aria-label="XP: 67%">
         <div class="xp-bar"></div>
       </div>
-      <div class="xp-label">67%</div>
+      <div class="xp-label">67% para o nível 16</div>
     </div>
   </div>
 
   <!-- Menu -->
   <div class="sidebar-section-label">Menu</div>
   <a class="nav-link-item" href="../index.html">
-    <i class="bi bi-house-door-fill"></i> Início
+    <i class="bi bi-house-door-fill" aria-hidden="true"></i> Início
   </a>
-  <a class="nav-link-item active" href="missoes.html">
-    <i class="bi bi-crosshair2"></i> Missões
-  </a>
-  <a class="nav-link-item" href="#">
-    <i class="bi bi-gift"></i> Recompensas
+  <a class="nav-link-item active" href="missoes.html" aria-current="page">
+    <i class="bi bi-crosshair2" aria-hidden="true"></i> Missões
   </a>
   <a class="nav-link-item" href="#">
-    <i class="bi bi-trophy"></i> Conquistas
+    <i class="bi bi-gift" aria-hidden="true"></i> Recompensas
   </a>
   <a class="nav-link-item" href="#">
-    <i class="bi bi-bar-chart-steps"></i> Ranking
+    <i class="bi bi-trophy" aria-hidden="true"></i> Conquistas
+  </a>
+  <a class="nav-link-item" href="#">
+    <i class="bi bi-bar-chart-steps" aria-hidden="true"></i> Ranking
   </a>
 
   <!-- Geral -->
   <div class="sidebar-bottom">
     <div class="sidebar-section-label">Geral</div>
     <a class="nav-link-item" href="#">
-      <i class="bi bi-gear"></i> Configurações
+      <i class="bi bi-gear" aria-hidden="true"></i> Configurações
     </a>
     <a class="nav-link-item" href="#">
-      <i class="bi bi-question-circle"></i> Ajuda
+      <i class="bi bi-question-circle" aria-hidden="true"></i> Ajuda
     </a>
-    <a class="nav-link-item" href="#">
-      <i class="bi bi-box-arrow-right"></i> Sair
+    <a class="nav-link-item" href="#" style="color: var(--red);">
+      <i class="bi bi-box-arrow-right" aria-hidden="true"></i> Sair
     </a>
   </div>
 
 </aside>
 
 <!-- ══════════════ MAIN ══════════════ -->
-<main class="main">
+<main class="main" id="main-content">
 
-  <!-- Top row: page title (left) + chips/bell (right) -->
-  <div class="d-flex align-items-start justify-content-between">
+  <!-- Top Bar -->
+  <div class="topbar">
 
-    <div class="page-header">
-      <h1>Missões</h1>
-      <p>Veja todas sua missões</p>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="sidebar">
+        <i class="bi bi-list" aria-hidden="true"></i>
+      </button>
+      <div class="topbar-greeting">
+        <h2>Missões <span aria-hidden="true">🎯</span></h2>
+        <p>Veja todas as suas missões</p>
+      </div>
     </div>
 
-    <div class="topbar-right">
-      <div class="chip">
-        <span class="chip-icon">🏆</span>
-        <div>
-          <div class="chip-label">Seus pontos</div>
-          <div>1500 pts</div>
+    <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+      <span class="date-badge" id="currentDate" aria-label="Data atual"></span>
+
+      <div class="topbar-chips">
+        <div class="chip" role="status" aria-label="1500 pontos acumulados">
+          <span class="chip-icon" aria-hidden="true">🏆</span>
+          <div>
+            <div class="chip-label">Seus pontos</div>
+            <div>1.500 pts</div>
+          </div>
+        </div>
+        <div class="chip" role="status" aria-label="Sequência de 7 dias">
+          <span class="chip-icon" aria-hidden="true">🔥</span>
+          <div>
+            <div class="chip-label">Sequência</div>
+            <div>7 dias</div>
+          </div>
         </div>
       </div>
-      <div class="topbar-bell">
-        <i class="bi bi-bell"></i>
-        <span class="badge">5</span>
-      </div>
+
+      <button class="topbar-bell" aria-label="Notificações — 5 não lidas">
+        <i class="bi bi-bell" aria-hidden="true"></i>
+        <span class="badge" aria-hidden="true">5</span>
+      </button>
     </div>
 
   </div>
@@ -103,32 +122,29 @@
     <div class="missions-group">
       <div class="missions-section-header">
         <h2>Missões Diárias</h2>
-        <span class="section-arrow" title="Ver todas">
-          <i class="bi bi-arrow-up-right"></i>
+        <span class="section-arrow" title="Ver todas" role="button" aria-label="Ver todas as missões diárias">
+          <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
         </span>
       </div>
-      <div id="daily-missions"></div>
+      <div id="daily-missions" aria-live="polite"></div>
     </div>
 
     <!-- ── Missões Semanais ── -->
     <div class="missions-group">
       <div class="missions-section-header">
         <h2>Missões Semanais</h2>
-        <span class="section-arrow" title="Ver todas">
-          <i class="bi bi-arrow-up-right"></i>
+        <span class="section-arrow" title="Ver todas" role="button" aria-label="Ver todas as missões semanais">
+          <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
         </span>
       </div>
-      <div id="weekly-missions"></div>
+      <div id="weekly-missions" aria-live="polite"></div>
     </div>
 
   </div><!-- /missions-content -->
 
 </main>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Shared JS -->
 <script src="../scripts/main.js"></script>
-
 </body>
 </html>

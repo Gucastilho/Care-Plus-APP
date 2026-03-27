@@ -66,7 +66,14 @@ function cancelConsult(card, idx) {
   card.style.transition = 'opacity .4s, transform .4s';
   card.style.opacity    = '0';
   card.style.transform  = 'translateX(30px)';
-  setTimeout(() => card.remove(), 400);
+  setTimeout(() => {
+    card.remove();
+    if (typeof showToast === 'function') showToast('Consulta cancelada com sucesso.');
+    const container = document.getElementById('consultations');
+    if (container && container.children.length === 0) {
+      container.innerHTML = '<div class="empty-state"><i class="bi bi-calendar-x"></i>Nenhuma consulta agendada</div>';
+    }
+  }, 400);
 }
 
 // ── Sidebar active nav state ──────────────────────────────────
@@ -159,9 +166,72 @@ function renderMissions() {
   });
 }
 
+// ── Dashboard init (index.html) ──────────────────────────────
+function initDashboard() {
+  // Date badge
+  const dateEl = document.getElementById('currentDate');
+  if (dateEl) {
+    dateEl.textContent = new Date().toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: 'short' });
+  }
+
+  // Hamburger / sidebar toggle
+  const hamburger = document.getElementById('hamburgerBtn');
+  const sidebar   = document.getElementById('sidebar');
+  const overlay   = document.getElementById('sidebarOverlay');
+
+  if (hamburger && sidebar && overlay) {
+    const openSidebar = () => {
+      sidebar.classList.add('open');
+      overlay.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      hamburger.querySelector('i').className = 'bi bi-x-lg';
+    };
+    const closeSidebar = () => {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      hamburger.querySelector('i').className = 'bi bi-list';
+    };
+    hamburger.addEventListener('click', () =>
+      sidebar.classList.contains('open') ? closeSidebar() : openSidebar()
+    );
+    overlay.addEventListener('click', closeSidebar);
+    document.addEventListener('keydown', e => e.key === 'Escape' && closeSidebar());
+  }
+
+  // Progress bar animation
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      document.querySelectorAll('.progress-fill').forEach(el => el.classList.add('animated'));
+    }, 200);
+  });
+
+  // Toast helper
+  window.showToast = function(msg, type = 'success') {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+    const toast = document.createElement('div');
+    toast.className = `toast-msg ${type}`;
+    toast.setAttribute('role', 'alert');
+    toast.innerHTML = `<i class="bi bi-${type === 'success' ? 'check-circle' : 'x-circle'}" aria-hidden="true"></i> ${msg}`;
+    container.appendChild(toast);
+    setTimeout(() => {
+      toast.style.transition = 'opacity .3s, transform .3s';
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(8px)';
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  };
+
+  // Hide skeleton after consultations render
+  const skeleton = document.getElementById('consultations-skeleton');
+  if (skeleton) skeleton.remove();
+}
+
 // ── Init ──────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   renderConsultations();
   renderMissions();
   initNav();
+  initDashboard();
 });
