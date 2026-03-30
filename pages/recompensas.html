@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Care Plus — Missões</title>
+  <title>Care Plus — Recompensas</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../styles/index.css"/>
   <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('cp-theme') || 'light');</script>
@@ -13,7 +13,26 @@
 <!-- Toast container -->
 <div class="toast-container" id="toastContainer"></div>
 
-<div class="shell missions-page">
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <div class="modal-emoji" id="modal-emoji">🎁</div>
+    <div class="modal-title">Confirmar Resgate</div>
+    <div class="modal-subtitle">Você está prestes a resgatar:</div>
+    <div style="font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;" id="modal-name">—</div>
+    <div class="modal-pts-row">🛒 <span id="modal-pts">0 pts</span></div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:20px;line-height:1.6;">
+      Saldo atual: <strong id="modal-balance" style="color:var(--text);">0 pts</strong> →
+      Após resgate: <strong id="modal-after" style="color:var(--green);">0 pts</strong>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn-confirm" onclick="confirmRedeem()">✓ Confirmar Resgate</button>
+      <button class="modal-btn-cancel" onclick="closeModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="shell recompensas-page">
 
   <!-- ── SIDEBAR ── -->
   <aside class="sidebar">
@@ -41,14 +60,14 @@
       </svg>
       Início
     </a>
-    <a class="nav-item active" href="missoes.html" data-href="missoes.html">
+    <a class="nav-item" href="missoes.html" data-href="missoes.html">
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
         <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
         <path d="M8 5V8L10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
       Missões
     </a>
-    <a class="nav-item" href="recompensas.html" data-href="recompensas.html">
+    <a class="nav-item active" href="recompensas.html" data-href="recompensas.html">
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
         <path d="M8 2L8 6M4 6H12V8C12 10.2 10.2 12 8 12C5.8 12 4 10.2 4 8V6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
         <path d="M2 6H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -104,16 +123,16 @@
     <div class="topbar">
       <div class="greeting-block">
         <div class="greeting-hi">
-          Missões
-          <span class="greeting-wave">🎯</span>
+          Recompensas
+          <span class="greeting-wave">🎁</span>
         </div>
-        <div class="greeting-sub">Acompanhe seu progresso diário e semanal</div>
+        <div class="greeting-sub">Troque seus pontos por benefícios exclusivos</div>
       </div>
 
       <div class="stat-pill pill-pts">
         <div class="stat-icon">🏆</div>
         <div class="stat-info">
-          <div class="stat-val">1.500 pts</div>
+          <div class="stat-val" id="user-points">1.500 pts</div>
           <div class="stat-label">Seus pontos</div>
         </div>
       </div>
@@ -137,32 +156,28 @@
     <!-- content -->
     <div class="content-row">
 
-      <!-- ── Missões Diárias ── -->
-      <div class="col-missions">
-        <div class="section-header">
-          <div class="section-title">Missões Diárias</div>
-          <div class="section-link">2 / 3 concluídas</div>
-        </div>
-        <div id="daily-list" style="display:flex;flex-direction:column;gap:10px;overflow-y:auto;padding-right:4px;">
-          <!-- rendered by missoes.js -->
+      <!-- info banner -->
+      <div class="info-banner">
+        <div class="info-banner-icon">💡</div>
+        <div>
+          <div class="info-banner-title">Como funcionam os resgates</div>
+          <div class="info-banner-text">Escolha uma recompensa e troque por seus pontos. Você receberá um voucher por email em até 24h. Pontos insuficientes? Continue completando missões para acumular mais!</div>
         </div>
       </div>
 
-      <!-- ── Missões Semanais ── -->
-      <div class="col-missions">
-        <div class="section-header">
-          <div class="section-title">Missões Semanais</div>
-          <div class="section-link">0 / 3 concluídas</div>
-        </div>
-        <div id="weekly-list" style="display:flex;flex-direction:column;gap:10px;overflow-y:auto;padding-right:4px;">
-          <!-- rendered by missoes.js -->
-        </div>
+      <!-- section header -->
+      <div class="section-header" style="margin-bottom:0;">
+        <div class="section-title">Recompensas Disponíveis</div>
+        <div class="section-link" id="redeemed-count">0 resgatadas</div>
       </div>
+
+      <!-- rewards grid -->
+      <div class="rewards-grid" id="rewards-grid"></div>
 
     </div>
   </div>
 </div>
 
-<script src="../scripts/missoes.js"></script>
+<script src="../scripts/recompensas.js"></script>
 </body>
 </html>
