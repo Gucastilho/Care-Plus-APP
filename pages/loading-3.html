@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Care Plus — Seus Dados, Sua Privacidade</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles/onboarding.css"/>
+</head>
+<body>
+
+<div class="screen">
+
+  <!-- Hero -->
+  <div class="hero hero-slide-3">
+    <div class="icon-circle">
+      <!-- Shield SVG -->
+      <svg viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M29 5L9 13v16c0 12.15 8.55 23.52 20 26 11.45-2.48 20-13.85 20-26V13L29 5z"
+              stroke="#2aaa80" stroke-width="3.2"
+              stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <h1>Seus Dados, Sua Privacidade</h1>
+    <p>
+      Seus dados de saúde são tratados com máxima segurança. Você controla o que
+      compartilhar e pode ajustar suas preferências a qualquer momento.
+    </p>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-bar">
+    <div class="nav-row">
+      <div class="dots">
+        <div class="dot" id="dot-0"></div>
+        <div class="dot" id="dot-1"></div>
+        <div class="dot active" id="dot-2"></div>
+        <div class="dot" id="dot-3"></div>
+      </div>
+      <span class="step-label">3 de 4</span>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-voltar" onclick="prevStep()">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+          <path d="M7 1.5L3 5L7 8.5" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Voltar
+      </button>
+
+      <button class="btn-continuar" onclick="nextStep()">
+        <span class="chevron">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+            <path d="M3 1.5L7 5L3 8.5" stroke="#fff" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        Continuar
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<script src="../scripts/loading-3.js"></script>
+</body>
+</html>
