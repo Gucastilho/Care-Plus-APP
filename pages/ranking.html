@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Care Plus — Conquistas</title>
+  <title>Care Plus — Ranking</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../styles/index.css"/>
   <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('cp-theme') || 'light');</script>
@@ -13,7 +13,7 @@
 <!-- Toast container -->
 <div class="toast-container" id="toastContainer"></div>
 
-<div class="shell conquistas-page">
+<div class="shell ranking-page">
 
   <!-- ── SIDEBAR ── -->
   <aside class="sidebar">
@@ -56,13 +56,13 @@
       </svg>
       Recompensas
     </a>
-    <a class="nav-item active" href="conquistas.html" data-href="conquistas.html">
+    <a class="nav-item" href="conquistas.html" data-href="conquistas.html">
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
         <path d="M8 2L9.8 5.8L14 6.3L11 9.2L11.7 13.5L8 11.5L4.3 13.5L5 9.2L2 6.3L6.2 5.8L8 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
       </svg>
       Conquistas
     </a>
-    <a class="nav-item" href="ranking.html" data-href="ranking.html">
+    <a class="nav-item active" href="ranking.html" data-href="ranking.html">
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
         <path d="M3 12L6 9M6 9L8 11L11 6M11 6L13 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -104,10 +104,10 @@
     <div class="topbar">
       <div class="greeting-block">
         <div class="greeting-hi">
-          Conquistas
-          <span class="greeting-wave">🏆</span>
+          Ranking
+          <span class="greeting-wave">📊</span>
         </div>
-        <div class="greeting-sub">Celebre suas vitórias e acompanhe seu progresso</div>
+        <div class="greeting-sub">Acompanhe seu progresso e inspire-se com a comunidade</div>
       </div>
 
       <div class="stat-pill pill-pts">
@@ -137,53 +137,85 @@
     <!-- content -->
     <div class="content-row">
 
-      <!-- stats row -->
-      <div class="stats-row">
-        <div class="stat-card">
-          <div class="stat-card-icon">🔥</div>
-          <div>
-            <div class="stat-card-label">Sequência Atual</div>
-            <div class="stat-card-value amber">7 dias consecutivos</div>
-          </div>
+      <!-- ── LEFT: ranking list ── -->
+      <div class="ranking-left">
+
+        <!-- tabs -->
+        <div class="tabs">
+          <button class="tab-btn" id="tab-diario" onclick="switchTab('diario')">Ranking Diário</button>
+          <button class="tab-btn active" id="tab-semanal" onclick="switchTab('semanal')">Ranking Semanal</button>
         </div>
-        <div class="stat-card">
-          <div class="stat-card-icon">⚡</div>
-          <div>
-            <div class="stat-card-label">Melhor Sequência</div>
-            <div class="stat-card-value blue">14 dias consecutivos</div>
+
+        <!-- ranking card -->
+        <div class="ranking-card">
+          <div class="ranking-card-header">
+            <div>
+              <div class="ranking-card-title" id="ranking-title">Top 10 — Esta Semana</div>
+              <div class="ranking-card-sub" id="ranking-sub">Usuários com melhor desempenho na semana</div>
+            </div>
           </div>
+          <div class="ranking-rows" id="ranking-rows"></div>
         </div>
-        <div class="stat-card">
-          <div class="stat-card-icon">🎖️</div>
-          <div>
-            <div class="stat-card-label">Badges Conquistados</div>
-            <div class="stat-card-value green">6 / 12 badges</div>
-          </div>
-        </div>
+
       </div>
 
-      <!-- earned badges -->
-      <div>
-        <div class="section-header" style="margin-bottom:12px;">
-          <div class="section-title">Badges Conquistados</div>
-          <div class="section-link">6 conquistados</div>
-        </div>
-        <div class="badges-scroll" id="earned-list"></div>
-      </div>
+      <!-- ── RIGHT: stats panel ── -->
+      <div class="ranking-right">
 
-      <!-- locked badges -->
-      <div>
-        <div class="section-header" style="margin-bottom:12px;">
-          <div class="section-title">Badges Bloqueados</div>
-          <div class="section-link">6 restantes</div>
+        <!-- your position card -->
+        <div class="your-pos-card">
+          <div class="your-pos-header">
+            <div class="your-pos-label">Sua Posição</div>
+            <div class="your-pos-user">
+              <div class="your-av">🧑</div>
+              <div>
+                <div class="your-pos-num" id="your-pos-num">#8</div>
+                <div class="your-pos-name">Gustavo Castilho</div>
+              </div>
+            </div>
+            <div class="your-pts-row">
+              Seus pontos &nbsp;
+              <span class="your-pts-val" id="your-pts-val">1.500 pts</span>
+            </div>
+          </div>
+
+          <div class="your-pos-body">
+            <div class="section-title">Estatísticas</div>
+
+            <div class="stat-progress-row">
+              <div class="stat-progress-label">
+                <span>Distância para #1</span>
+                <span id="gap-top1">—</span>
+              </div>
+              <div class="stat-progress-track">
+                <div class="stat-progress-fill" id="fill-top1" style="width:0%"></div>
+              </div>
+            </div>
+
+            <div class="stat-progress-row">
+              <div class="stat-progress-label">
+                <span>Próxima posição</span>
+                <span id="gap-prev">—</span>
+              </div>
+              <div class="stat-progress-track">
+                <div class="stat-progress-fill blue" id="fill-prev" style="width:0%"></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="badges-scroll" id="locked-list"></div>
+
+        <!-- reminder card -->
+        <div class="reminder-card">
+          <div class="reminder-title">💡 Lembre-se</div>
+          <div class="reminder-text">O ranking é apenas para motivação. Seu objetivo principal é sua saúde e bem-estar pessoal. Continue completando missões!</div>
+        </div>
+
       </div>
 
     </div>
   </div>
 </div>
 
-<script src="../scripts/conquistas.js"></script>
+<script src="../scripts/ranking.js"></script>
 </body>
 </html>
