@@ -1287,3 +1287,181 @@ body::after {
 }
 
 .reminder-text { font-size: 11px; color: var(--muted); line-height: 1.6; }
+
+/* ══════════════════════════════════════
+   ANIMATIONS — index.html & missoes.html
+   ══════════════════════════════════════ */
+
+/* ── Keyframes ── */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-18px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.88); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes floatEmoji {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-4px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,184,97,0.4); }
+  50%       { box-shadow: 0 0 0 7px rgba(0,184,97,0); }
+}
+
+@keyframes pulseGlowDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.5); opacity: 0.6; }
+}
+
+@keyframes ripple {
+  from { transform: scale(0); opacity: 0.35; }
+  to   { transform: scale(3.5); opacity: 0; }
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ringDraw {
+  from { stroke-dashoffset: 144.51; }
+}
+
+@keyframes barGrow {
+  from { width: 0 !important; }
+}
+
+@keyframes shimmerSlide {
+  from { background-position: -200% 0; }
+  to   { background-position: 200% 0; }
+}
+
+@keyframes donePop {
+  0%   { transform: scale(0.5); opacity: 0; }
+  70%  { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes sidebarItemIn {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Page enter: topbar ── */
+.anim-topbar {
+  animation: slideDown 0.55s cubic-bezier(.22,1,.36,1) both;
+}
+
+/* ── Stat pills stagger ── */
+.anim-pill-1 { animation: scaleIn 0.45s cubic-bezier(.34,1.56,.64,1) 0.15s both; }
+.anim-pill-2 { animation: scaleIn 0.45s cubic-bezier(.34,1.56,.64,1) 0.25s both; }
+.anim-pill-3 { animation: scaleIn 0.45s cubic-bezier(.34,1.56,.64,1) 0.35s both; }
+.anim-pill-4 { animation: scaleIn 0.45s cubic-bezier(.34,1.56,.64,1) 0.42s both; }
+
+/* ── Notif dot pulse ── */
+.notif-dot { animation: pulseGlowDot 2s ease-in-out infinite; }
+
+/* ── Sidebar items stagger ── */
+.sidebar .nav-item:nth-child(1)  { animation: sidebarItemIn .4s ease both .05s; }
+.sidebar .nav-item:nth-child(2)  { animation: sidebarItemIn .4s ease both .10s; }
+.sidebar .nav-item:nth-child(3)  { animation: sidebarItemIn .4s ease both .15s; }
+.sidebar .nav-item:nth-child(4)  { animation: sidebarItemIn .4s ease both .20s; }
+.sidebar .nav-item:nth-child(5)  { animation: sidebarItemIn .4s ease both .25s; }
+.sidebar .nav-item:nth-child(6)  { animation: sidebarItemIn .4s ease both .30s; }
+.sidebar .nav-item:nth-child(7)  { animation: sidebarItemIn .4s ease both .35s; }
+.sidebar .nav-item:nth-child(8)  { animation: sidebarItemIn .4s ease both .40s; }
+
+/* ── Mission cards stagger (index) ── */
+.mission-card.anim-card-1 { animation: slideUp 0.5s cubic-bezier(.22,1,.36,1) 0.20s both; }
+.mission-card.anim-card-2 { animation: slideUp 0.5s cubic-bezier(.22,1,.36,1) 0.32s both; }
+.mission-card.anim-card-3 { animation: slideUp 0.5s cubic-bezier(.22,1,.36,1) 0.44s both; }
+
+/* ── Boost card ── */
+.boost-section { animation: slideUp 0.5s cubic-bezier(.22,1,.36,1) 0.55s both; }
+
+/* ── Score card & appt card ── */
+.score-card { animation: slideRight 0.5s cubic-bezier(.22,1,.36,1) 0.25s both; }
+.appt-card  { animation: slideUp   0.5s cubic-bezier(.22,1,.36,1) 0.38s both; }
+
+/* ── Appt items stagger ── */
+.appt-item.anim-appt { animation: slideUp 0.4s cubic-bezier(.22,1,.36,1) both; }
+
+/* ── Ring emoji float ── */
+.ring-icon { animation: floatEmoji 3s ease-in-out infinite; }
+
+/* ── Ring SVG draw-on ── */
+.ring-fill.anim-draw {
+  animation: ringDraw 1s cubic-bezier(.22,1,.36,1) both;
+}
+
+/* ── Progress bar grow ── */
+.progress-fill.anim-bar {
+  animation: barGrow 0.9s cubic-bezier(.22,1,.36,1) both;
+}
+
+/* ── Done badge pop ── */
+.done-badge { animation: donePop 0.5s cubic-bezier(.34,1.56,.64,1) both; }
+
+/* ── Mission card ripple on hover ── */
+.mission-card { overflow: hidden; }
+
+.mission-card .ripple-el {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(0,184,97,0.12);
+  pointer-events: none;
+  animation: ripple 0.55s ease-out forwards;
+}
+
+[data-theme="dark"] .mission-card .ripple-el {
+  background: rgba(0,229,122,0.1);
+}
+
+/* ── Active nav item glow ── */
+.nav-item.active { animation: sidebarItemIn .4s ease both; }
+.nav-item.active::before { animation: scaleIn 0.3s cubic-bezier(.34,1.56,.64,1) both; }
+
+/* ── Missoes page: columns slide in ── */
+.missions-page .col-missions:first-child {
+  animation: slideRight 0.55s cubic-bezier(.22,1,.36,1) 0.1s both;
+}
+.missions-page .col-missions:last-child {
+  animation: slideRight 0.55s cubic-bezier(.22,1,.36,1) 0.22s both;
+}
+
+/* ── Section header fade ── */
+.section-header { animation: fadeIn 0.4s ease 0.15s both; }
+
+/* ── Stat pill counter animation ── */
+.stat-val.anim-count { animation: countUp 0.5s cubic-bezier(.22,1,.36,1) both; }
+
+/* ── XP bar fill animation ── */
+.xp-fill {
+  animation: barGrow 1.2s cubic-bezier(.22,1,.36,1) 0.3s both;
+}
+
+/* ── Profile section slide ── */
+.profile { animation: slideDown 0.5s cubic-bezier(.22,1,.36,1) 0.05s both; }
+
+/* ── Greeting block ── */
+.greeting-block { animation: slideRight 0.5s cubic-bezier(.22,1,.36,1) 0.08s both; }
