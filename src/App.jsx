@@ -11,6 +11,7 @@ import Conquistas  from './pages/Conquistas.jsx'
 import Ranking     from './pages/Ranking.jsx'
 import Consultas   from './pages/Consultas.jsx'
 import SaudeFisica from './pages/SaudeFisica.jsx'
+import SaudeMental from './pages/SaudeMental.jsx'
 
 export default function App() {
   return (
@@ -26,7 +27,8 @@ export default function App() {
       <Route path="/conquistas"    element={<Conquistas />} />
       <Route path="/ranking"       element={<Ranking />} />
       <Route path="/consultas"     element={<Consultas />} />
-      <Route path="/consultas/saude-fisica" element={<SaudeFisica />} />
+      <Route path="/consultas/saude-fisica"  element={<SaudeFisica />} />
+      <Route path="/consultas/saude-mental"  element={<SaudeMental />} />
       <Route path="*"              element={<Navigate to="/dashboard" replace />} />
     </Routes>
   )

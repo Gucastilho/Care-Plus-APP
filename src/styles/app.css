@@ -1913,20 +1913,308 @@ body::after {
 }
 
 .sf-btn {
-  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  background: linear-gradient(135deg, var(--green2), var(--green));
   color: #fff;
   border: none; border-radius: 10px;
   padding: 7px 16px;
   font-size: 12px; font-weight: 700;
   font-family: 'Outfit', sans-serif;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(37,99,235,0.25);
+  box-shadow: 0 4px 14px rgba(0,184,97,0.25);
   transition: opacity 0.15s, transform 0.1s, background 0.2s;
 }
 
 .sf-btn:hover { opacity: 0.9; transform: scale(0.98); }
 
 .sf-card-scheduled .sf-btn {
+  background: linear-gradient(135deg, var(--green2), var(--green));
+  box-shadow: 0 4px 14px rgba(0,184,97,0.25);
+}
+
+/* ══════════════════════════════════════
+   SAÚDE MENTAL PAGE
+   ══════════════════════════════════════ */
+
+/* banner overrides */
+.sm-banner {
+  background: linear-gradient(135deg, #f0fdfa, #ccfbf1);
+  border-color: rgba(13,148,136,0.15);
+  box-shadow: 0 2px 12px rgba(13,148,136,0.07);
+}
+
+[data-theme="dark"] .sm-banner {
+  background: linear-gradient(135deg, #042f2e, #134e4a);
+  border-color: rgba(94,234,212,0.15);
+}
+
+.sm-banner-title { color: #0f766e; }
+[data-theme="dark"] .sm-banner-title { color: #5eead4; }
+
+.sm-banner-sub { color: #0d9488; opacity: 0.85; }
+[data-theme="dark"] .sm-banner-sub { color: #5eead4; opacity: 0.7; }
+
+.sm-banner-badge {
+  background: rgba(13,148,136,0.1);
+  border: 1px solid rgba(13,148,136,0.2);
+  color: #0d9488;
+}
+
+[data-theme="dark"] .sm-banner-badge {
+  background: rgba(94,234,212,0.1);
+  border-color: rgba(94,234,212,0.2);
+  color: #5eead4;
+}
+
+/* horizontal scrollable row */
+.sm-row {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--surface3) transparent;
+}
+
+.sm-row::-webkit-scrollbar { height: 4px; }
+.sm-row::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 99px; }
+
+/* card */
+.sm-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 22px 20px 18px;
+  display: flex; flex-direction: column; gap: 10px;
+  position: relative; overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  animation: fadeUpCard .45s cubic-bezier(.22,1,.36,1) both;
+  min-width: 230px; max-width: 230px;
+  flex-shrink: 0;
+}
+
+.sm-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #0d9488, #a78bfa);
+  border-radius: 22px 22px 0 0;
+}
+
+.sm-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(13,148,136,0.13);
+  border-color: rgba(13,148,136,0.22);
+}
+
+[data-theme="dark"] .sm-card:hover {
+  box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+  border-color: rgba(94,234,212,0.2);
+}
+
+.sm-card-scheduled {
+  border-color: var(--green) !important;
+  box-shadow: 0 0 0 3px rgba(0,184,97,0.12) !important;
+}
+
+/* card top */
+.sm-card-top {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.sm-icon-wrap {
+  width: 56px; height: 56px; border-radius: 16px;
+  background: linear-gradient(135deg, #f0fdfa, #e0f2fe);
+  display: flex; align-items: center; justify-content: center;
+  color: #0d9488;
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .sm-icon-wrap {
+  background: linear-gradient(135deg, rgba(13,148,136,0.18), rgba(124,58,237,0.15));
+  color: #5eead4;
+}
+
+.sm-tag {
+  background: rgba(13,148,136,0.08);
+  border: 1px solid rgba(13,148,136,0.18);
+  border-radius: 99px;
+  padding: 3px 10px;
+  font-size: 10px; font-weight: 700; color: #0d9488;
+  font-family: 'Outfit', sans-serif;
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .sm-tag {
+  background: rgba(94,234,212,0.1);
+  border-color: rgba(94,234,212,0.2);
+  color: #5eead4;
+}
+
+/* body */
+.sm-card-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px; font-weight: 700; color: var(--text);
+  line-height: 1.3;
+}
+
+.sm-card-desc {
+  font-size: 12px; color: var(--muted);
+  line-height: 1.6; flex: 1;
+}
+
+/* footer */
+.sm-card-footer {
+  border-top: 1px solid var(--border);
+}
+
+.sm-avail {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: #0d9488; font-weight: 600;
+}
+
+[data-theme="dark"] .sm-avail { color: #5eead4; }
+
+.sm-avail-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #0d9488;
+  animation: pulseGlowDot 2s ease-in-out infinite;
+}
+
+[data-theme="dark"] .sm-avail-dot { background: #5eead4; }
+
+.sm-btn {
+  background: linear-gradient(135deg, var(--green2), var(--green));
+  color: #fff;
+  border: none; border-radius: 10px;
+  padding: 7px 16px;
+  font-size: 12px; font-weight: 700;
+  font-family: 'Outfit', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,184,97,0.25);
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.sm-btn:hover { opacity: 0.9; transform: scale(0.98); }
+
+.sm-card-scheduled .sm-btn {
+  background: linear-gradient(135deg, var(--green2), var(--green));
+  box-shadow: 0 4px 14px rgba(0,184,97,0.25);
+}
+
+/* ══════════════════════════════════════
+   SAÚDE MENTAL — color overrides sobre sf-*
+   ══════════════════════════════════════ */
+
+.sm-banner {
+  background: linear-gradient(135deg, #f0fdfa, #ccfbf1);
+  border-color: rgba(13,148,136,0.15);
+  box-shadow: 0 2px 12px rgba(13,148,136,0.07);
+}
+[data-theme="dark"] .sm-banner {
+  background: linear-gradient(135deg, #042f2e, #134e4a);
+  border-color: rgba(94,234,212,0.15);
+}
+.sm-banner-title { color: #0f766e; }
+[data-theme="dark"] .sm-banner-title { color: #5eead4; }
+.sm-banner-sub { color: #0d9488; }
+[data-theme="dark"] .sm-banner-sub { color: #5eead4; opacity: 0.7; }
+.sm-banner-badge { background: rgba(13,148,136,0.1); border: 1px solid rgba(13,148,136,0.2); color: #0d9488; }
+[data-theme="dark"] .sm-banner-badge { background: rgba(94,234,212,0.1); border-color: rgba(94,234,212,0.2); color: #5eead4; }
+
+.sm-card::before { background: linear-gradient(90deg, #0d9488, #a78bfa); }
+.sm-card:hover { box-shadow: 0 16px 40px rgba(13,148,136,0.13); border-color: rgba(13,148,136,0.22); }
+[data-theme="dark"] .sm-card:hover { border-color: rgba(94,234,212,0.2); }
+
+.sm-icon-wrap { background: linear-gradient(135deg, #f0fdfa, #ede9fe); color: #0d9488; }
+[data-theme="dark"] .sm-icon-wrap { background: linear-gradient(135deg, rgba(13,148,136,0.18), rgba(124,58,237,0.15)); color: #5eead4; }
+
+.sm-tag { background: rgba(13,148,136,0.08); border: 1px solid rgba(13,148,136,0.18); color: #0d9488; }
+[data-theme="dark"] .sm-tag { background: rgba(94,234,212,0.1); border-color: rgba(94,234,212,0.2); color: #5eead4; }
+
+.sm-avail { color: #0d9488; }
+[data-theme="dark"] .sm-avail { color: #5eead4; }
+.sm-avail-dot { background: #0d9488; }
+[data-theme="dark"] .sm-avail-dot { background: #5eead4; }
+
+.sm-btn { background: linear-gradient(135deg, var(--green2), var(--green)); box-shadow: 0 4px 14px rgba(0,184,97,0.25); }
+.sf-card-scheduled .sm-btn { background: linear-gradient(135deg, var(--green2), var(--green)); box-shadow: 0 4px 14px rgba(0,184,97,0.25); }
+
+/* ══════════════════════════════════════
+   SAÚDE MENTAL — overrides via page scope
+   ══════════════════════════════════════ */
+
+.saude-mental-page .sf-banner {
+  background: linear-gradient(135deg, #f0fdfa, #ccfbf1);
+  border-color: rgba(13,148,136,0.15);
+  box-shadow: 0 2px 12px rgba(13,148,136,0.07);
+}
+[data-theme="dark"] .saude-mental-page .sf-banner {
+  background: linear-gradient(135deg, #042f2e, #134e4a);
+  border-color: rgba(94,234,212,0.15);
+}
+
+.saude-mental-page .sf-banner-title { color: #0f766e; }
+[data-theme="dark"] .saude-mental-page .sf-banner-title { color: #5eead4; }
+
+.saude-mental-page .sf-banner-sub { color: #0d9488; }
+[data-theme="dark"] .saude-mental-page .sf-banner-sub { color: #5eead4; opacity: 0.7; }
+
+.saude-mental-page .sf-banner-badge {
+  background: rgba(13,148,136,0.1);
+  border-color: rgba(13,148,136,0.2);
+  color: #0d9488;
+}
+[data-theme="dark"] .saude-mental-page .sf-banner-badge {
+  background: rgba(94,234,212,0.1);
+  border-color: rgba(94,234,212,0.2);
+  color: #5eead4;
+}
+
+.saude-mental-page .sf-card::before {
+  background: linear-gradient(90deg, #0d9488, #a78bfa);
+}
+
+.saude-mental-page .sf-card:hover {
+  box-shadow: 0 16px 40px rgba(13,148,136,0.13);
+  border-color: rgba(13,148,136,0.22);
+}
+[data-theme="dark"] .saude-mental-page .sf-card:hover {
+  border-color: rgba(94,234,212,0.2);
+}
+
+.saude-mental-page .sf-icon-wrap {
+  background: linear-gradient(135deg, #f0fdfa, #ede9fe);
+  color: #0d9488;
+}
+[data-theme="dark"] .saude-mental-page .sf-icon-wrap {
+  background: linear-gradient(135deg, rgba(13,148,136,0.18), rgba(124,58,237,0.15));
+  color: #5eead4;
+}
+
+.saude-mental-page .sf-tag {
+  background: rgba(13,148,136,0.08);
+  border-color: rgba(13,148,136,0.18);
+  color: #0d9488;
+}
+[data-theme="dark"] .saude-mental-page .sf-tag {
+  background: rgba(94,234,212,0.1);
+  border-color: rgba(94,234,212,0.2);
+  color: #5eead4;
+}
+
+.saude-mental-page .sf-avail { color: #0d9488; }
+[data-theme="dark"] .saude-mental-page .sf-avail { color: #5eead4; }
+
+.saude-mental-page .sf-avail-dot { background: #0d9488; }
+[data-theme="dark"] .saude-mental-page .sf-avail-dot { background: #5eead4; }
+
+.saude-mental-page .sf-btn {
+  background: linear-gradient(135deg, var(--green2), var(--green));
+  box-shadow: 0 4px 14px rgba(0,184,97,0.25);
+}
+
+.saude-mental-page .sf-card-scheduled .sf-btn {
   background: linear-gradient(135deg, var(--green2), var(--green));
   box-shadow: 0 4px 14px rgba(0,184,97,0.25);
 }

@@ -155,7 +155,10 @@ export default function Consultas() {
             <div className="branches-grid">
               {BRANCHES.map((b, i) => (
                 <div key={b.id} className={`branch-card ${b.color}`} style={{ animationDelay: `${i * 0.07}s` }}
-                  onClick={() => b.id === 'fisica' && navigate('/consultas/saude-fisica')}
+                  onClick={() => {
+                    if (b.id === 'fisica') navigate('/consultas/saude-fisica')
+                    if (b.id === 'mental') navigate('/consultas/saude-mental')
+                  }}
                 >
                   <div className="branch-icon-wrap">{b.icon}</div>
                   <div className="branch-title">{b.title}</div>
