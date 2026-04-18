@@ -8,6 +8,7 @@ const NAV = [
   { to: '/recompensas', label: 'Recompensas', icon: <><path d="M8 2L8 6M4 6H12V8C12 10.2 10.2 12 8 12C5.8 12 4 10.2 4 8V6Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/><path d="M2 6H14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><path d="M6 12V14M10 12V14M4 14H12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></> },
   { to: '/conquistas',  label: 'Conquistas',  icon: <path d="M8 2L9.8 5.8L14 6.3L11 9.2L11.7 13.5L8 11.5L4.3 13.5L5 9.2L2 6.3L6.2 5.8L8 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/> },
   { to: '/ranking',     label: 'Ranking',     icon: <path d="M3 12L6 9M6 9L8 11L11 6M11 6L13 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/> },
+  { to: '/consultas',   label: 'Consultas',   icon: <><rect x="3" y="3" width="10" height="13" rx="2" stroke="currentColor" strokeWidth="1.5"/><path d="M6 7H10M6 10H10M13 6H15C15.6 6 16 6.4 16 7V14C16 14.6 15.6 15 15 15H8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></> },
 ]
 
 export default function Sidebar() {
