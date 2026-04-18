@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import ConfigModal from './ConfigModal'
 
 const NAV = [
   { to: '/dashboard',   label: 'Início',      icon: <path d="M2 6L8 1.5L14 6V14H10V10H6V14H2V6Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/> },
@@ -9,14 +11,36 @@ const NAV = [
 ]
 
 export default function Sidebar() {
+  const [configOpen, setConfigOpen] = useState(false)
+  const [profile, setProfile] = useState(() => {
+    const saved = localStorage.getItem('careplus_profile')
+    return saved ? JSON.parse(saved) : { name: 'Gustavo Castilho', age: '', photo: null }
+  })
+
+  function handleSaveProfile(data) {
+    localStorage.setItem('careplus_profile', JSON.stringify(data))
+    setProfile(data)
+  }
+
   return (
     <aside className="sidebar">
+      <ConfigModal
+        open={configOpen}
+        onClose={() => setConfigOpen(false)}
+        profile={profile}
+        onSave={handleSaveProfile}
+      />
       <div className="profile">
         <div className="avatar-wrap">
-          <div className="avatar">🧑</div>
+          <div className="avatar">
+            {profile.photo
+              ? <img src={profile.photo} alt="avatar" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
+              : '🧑'
+            }
+          </div>
           <div className="avatar-lvl">LV 15</div>
         </div>
-        <div className="profile-name">Gustavo Castilho</div>
+        <div className="profile-name">{profile.name}</div>
         <div className="profile-email">gustavo@email.com</div>
         <div className="xp-bar-wrap">
           <div className="xp-label"><span>XP 1.340</span><span>2.000</span></div>
@@ -41,13 +65,13 @@ export default function Sidebar() {
 
       <div className="nav-section-label">Geral</div>
       <div className="nav-bottom">
-        <a className="nav-item" href="#">
+        <button className="nav-item" onClick={() => setConfigOpen(true)} style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer' }}>
           <svg className="nav-icon" viewBox="0 0 16 16" fill="none">
             <circle cx="8" cy="8" r="2.5" stroke="currentColor" strokeWidth="1.4"/>
             <path d="M8 1.5V3M8 13V14.5M1.5 8H3M13 8H14.5M3.2 3.2L4.3 4.3M11.7 11.7L12.8 12.8M3.2 12.8L4.3 11.7M11.7 4.3L12.8 3.2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
           </svg>
           Configurações
-        </a>
+        </button>
         <a className="nav-item" href="#">
           <svg className="nav-icon" viewBox="0 0 16 16" fill="none">
             <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5"/>

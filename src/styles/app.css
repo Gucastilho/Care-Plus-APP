@@ -1465,3 +1465,89 @@ body::after {
 
 /* ── Greeting block ── */
 .greeting-block { animation: slideRight 0.5s cubic-bezier(.22,1,.36,1) 0.08s both; }
+
+/* ══════════════════════════════════════
+   CONFIG MODAL
+   ══════════════════════════════════════ */
+
+.config-modal-box {
+  max-width: 360px;
+}
+
+.config-modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.config-modal-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px; font-weight: 700; color: var(--text);
+}
+
+.config-modal-close {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: var(--surface2); border: 1px solid var(--border2);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--muted);
+  transition: background 0.15s, color 0.15s;
+}
+
+.config-modal-close:hover { background: var(--surface3); color: var(--text); }
+
+.config-avatar-row {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  margin-bottom: 20px;
+}
+
+.config-avatar {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: linear-gradient(135deg, #d4edda, #a8d5b5);
+  border: 2px solid var(--green2);
+  box-shadow: 0 0 12px rgba(0,184,97,0.15);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; position: relative; overflow: hidden;
+}
+
+.config-avatar-overlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.2s;
+  color: #fff;
+}
+
+.config-avatar:hover .config-avatar-overlay { opacity: 1; }
+
+.config-photo-btn {
+  background: none; border: 1px solid var(--border2);
+  border-radius: 8px; padding: 5px 14px;
+  font-size: 12px; font-weight: 600; color: var(--muted);
+  cursor: pointer; transition: background 0.15s, color 0.15s;
+}
+
+.config-photo-btn:hover { background: var(--surface2); color: var(--text); }
+
+.config-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+
+.config-label {
+  font-size: 11px; font-weight: 600; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+.config-input {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px; font-weight: 500; color: var(--text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.config-input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(0,184,97,0.12);
+}
+
+.config-input::placeholder { color: var(--muted2); }

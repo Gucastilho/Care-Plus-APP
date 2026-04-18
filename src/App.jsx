@@ -13,7 +13,7 @@ import Ranking     from './pages/Ranking.jsx'
 export default function App() {
   return (
     <Routes>
-      <Route path="/"              element={<Loading />} />
+      <Route path="/"              element={<Navigate to="/dashboard" replace />} />
       <Route path="/onboarding/1"  element={<Loading1 />} />
       <Route path="/onboarding/2"  element={<Loading2 />} />
       <Route path="/onboarding/3"  element={<Loading3 />} />
@@ -23,7 +23,7 @@ export default function App() {
       <Route path="/recompensas"   element={<Recompensas />} />
       <Route path="/conquistas"    element={<Conquistas />} />
       <Route path="/ranking"       element={<Ranking />} />
-      <Route path="*"              element={<Navigate to="/" replace />} />
+      <Route path="*"              element={<Navigate to="/dashboard" replace />} />
     </Routes>
   )
 }
