@@ -158,6 +158,7 @@ export default function Consultas() {
                   onClick={() => {
                     if (b.id === 'fisica') navigate('/consultas/saude-fisica')
                     if (b.id === 'mental') navigate('/consultas/saude-mental')
+                    if (b.id === 'nutricao') navigate('/consultas/nutricao')
                   }}
                 >
                   <div className="branch-icon-wrap">{b.icon}</div>

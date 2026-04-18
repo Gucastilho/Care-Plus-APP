@@ -12,6 +12,7 @@ import Ranking     from './pages/Ranking.jsx'
 import Consultas   from './pages/Consultas.jsx'
 import SaudeFisica from './pages/SaudeFisica.jsx'
 import SaudeMental from './pages/SaudeMental.jsx'
+import Nutricao    from './pages/Nutricao.jsx'
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
       <Route path="/consultas"     element={<Consultas />} />
       <Route path="/consultas/saude-fisica"  element={<SaudeFisica />} />
       <Route path="/consultas/saude-mental"  element={<SaudeMental />} />
+      <Route path="/consultas/nutricao"      element={<Nutricao />} />
       <Route path="*"              element={<Navigate to="/dashboard" replace />} />
     </Routes>
   )

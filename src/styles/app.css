@@ -1732,8 +1732,6 @@ body::after {
    SAÚDE FÍSICA PAGE
    ══════════════════════════════════════ */
 
---sf-bg: #eff6ff;
-
 /* breadcrumb */
 .sf-breadcrumb {
   display: flex; align-items: center; gap: 8px;
@@ -2217,4 +2215,67 @@ body::after {
 .saude-mental-page .sf-card-scheduled .sf-btn {
   background: linear-gradient(135deg, var(--green2), var(--green));
   box-shadow: 0 4px 14px rgba(0,184,97,0.25);
+}
+
+/* ══════════════════════════════════════
+   NUTRIÇÃO PAGE — overrides via page scope
+   ══════════════════════════════════════ */
+
+.nutricao-page .sf-banner {
+  background: linear-gradient(135deg, #fff7ed, #ffedd5);
+  border-color: rgba(234,88,12,0.15);
+  box-shadow: 0 2px 12px rgba(234,88,12,0.07);
+}
+[data-theme="dark"] .nutricao-page .sf-banner {
+  background: linear-gradient(135deg, #431407, #7c2d12);
+  border-color: rgba(253,186,116,0.15);
+}
+
+.nutricao-page .sf-banner-title { color: #c2410c; }
+[data-theme="dark"] .nutricao-page .sf-banner-title { color: #fdba74; }
+
+.nutricao-page .sf-banner-sub { color: #ea580c; }
+[data-theme="dark"] .nutricao-page .sf-banner-sub { color: #fdba74; opacity: 0.7; }
+
+.nutricao-page .sf-banner-badge {
+  background: rgba(234,88,12,0.1);
+  border-color: rgba(234,88,12,0.2);
+  color: #ea580c;
+}
+[data-theme="dark"] .nutricao-page .sf-banner-badge {
+  background: rgba(253,186,116,0.1);
+  border-color: rgba(253,186,116,0.2);
+  color: #fdba74;
+}
+
+.nutricao-page .sf-card::before {
+  background: linear-gradient(90deg, #f97316, #fb923c);
+}
+
+.nutricao-page .sf-card:hover {
+  box-shadow: 0 16px 40px rgba(234,88,12,0.13);
+  border-color: rgba(234,88,12,0.22);
+}
+[data-theme="dark"] .nutricao-page .sf-card:hover {
+  border-color: rgba(253,186,116,0.2);
+}
+
+.nutricao-page .sf-icon-wrap {
+  background: #fff7ed;
+  color: #ea580c;
+}
+[data-theme="dark"] .nutricao-page .sf-icon-wrap {
+  background: rgba(249,115,22,0.15);
+  color: #fdba74;
+}
+
+.nutricao-page .sf-tag {
+  background: rgba(234,88,12,0.08);
+  border-color: rgba(234,88,12,0.18);
+  color: #ea580c;
+}
+[data-theme="dark"] .nutricao-page .sf-tag {
+  background: rgba(253,186,116,0.1);
+  border-color: rgba(253,186,116,0.2);
+  color: #fdba74;
 }
