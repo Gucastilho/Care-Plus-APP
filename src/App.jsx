@@ -13,6 +13,7 @@ import Consultas   from './pages/Consultas.jsx'
 import SaudeFisica from './pages/SaudeFisica.jsx'
 import SaudeMental from './pages/SaudeMental.jsx'
 import Nutricao    from './pages/Nutricao.jsx'
+import PlanejamentoSaude from './pages/PlanejamentoSaude.jsx'
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
       <Route path="/onboarding/3"  element={<Loading3 />} />
       <Route path="/onboarding/4"  element={<Loading4 />} />
       <Route path="/dashboard"     element={<Dashboard />} />
+      <Route path="/planejamento-saude" element={<PlanejamentoSaude />} />
       <Route path="/missoes"       element={<Missoes />} />
       <Route path="/recompensas"   element={<Recompensas />} />
       <Route path="/conquistas"    element={<Conquistas />} />

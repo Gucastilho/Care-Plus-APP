@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Sidebar from '../components/Sidebar'
 import Topbar  from '../components/Topbar'
+import ToastContainer, { useToast } from '../components/Toast'
 
 const JOURNEYS = [
   {
@@ -10,6 +11,43 @@ const JOURNEYS = [
     desc: 'Protocolos de saúde para uma vida longa e com qualidade.',
     emoji: '🧬',
     color: 'journey-blue',
+    consultas: [
+      { nome: 'Check-up Médico Anual', especialidade: 'Clínica Geral' },
+      { nome: 'Avaliação Cardiovascular', especialidade: 'Cardiologia' },
+      { nome: 'Dermatologia Preventiva', especialidade: 'Dermatologia' }
+    ],
+    medicos: [
+      { 
+        nome: 'Dr. Carlos Mendes', 
+        foto: '👨‍⚕️', 
+        especialidade: 'Cardiologista',
+        rm: 'CRM 45.892-SP',
+        regiao: 'Zona Sul - São Paulo',
+        descricao: 'Especialista em cardiologia preventiva com mais de 15 anos de experiência. Foco em longevidade cardiovascular e prevenção de doenças crônicas.',
+        avaliacoes: [
+          { paciente: 'Maria S.', nota: 5, comentario: 'Excelente profissional! Muito atencioso e explica tudo detalhadamente.' },
+          { paciente: 'João P.', nota: 5, comentario: 'Salvou minha vida com o diagnóstico precoce. Recomendo muito!' }
+        ],
+        indicacoes: ['Hipertensão', 'Prevenção cardiovascular', 'Check-up executivo']
+      },
+      { 
+        nome: 'Dra. Ana Silva', 
+        foto: '👩‍⚕️', 
+        especialidade: 'Geriatra',
+        rm: 'CRM 38.124-SP',
+        regiao: 'Zona Oeste - São Paulo',
+        descricao: 'Médica geriatra especializada em envelhecimento saudável e qualidade de vida. Atendimento humanizado focado em longevidade ativa.',
+        avaliacoes: [
+          { paciente: 'Roberto M.', nota: 5, comentario: 'Profissional excepcional! Cuida da minha mãe com muito carinho.' },
+          { paciente: 'Carla F.', nota: 5, comentario: 'Muito competente e atualizada. Melhor geriatra que já consultei.' }
+        ],
+        indicacoes: ['Envelhecimento saudável', 'Prevenção de quedas', 'Memória e cognição']
+      }
+    ],
+    habitos: [
+      { emoji: '🚶', titulo: 'Caminhada Diária', desc: '5.000 passos por dia' },
+      { emoji: '💧', titulo: 'Hidratação', desc: '2 litros de água' }
+    ]
   },
   {
     id: 'mental',
@@ -17,6 +55,43 @@ const JOURNEYS = [
     desc: 'Cuide da sua mente com práticas preventivas e terapêuticas.',
     emoji: '🧘',
     color: 'journey-green',
+    consultas: [
+      { nome: 'Gestão do Estresse', especialidade: 'Psicologia' },
+      { nome: 'Higiene do Sono', especialidade: 'Sono' },
+      { nome: 'Terapia de Manutenção', especialidade: 'Psicoterapia' }
+    ],
+    medicos: [
+      { 
+        nome: 'Dra. Beatriz Costa', 
+        foto: '👩‍⚕️', 
+        especialidade: 'Psicóloga',
+        rm: 'CRP 06/89.234',
+        regiao: 'Centro - São Paulo',
+        descricao: 'Psicóloga clínica com abordagem cognitivo-comportamental. Especialista em ansiedade, estresse e desenvolvimento pessoal.',
+        avaliacoes: [
+          { paciente: 'Lucas T.', nota: 5, comentario: 'Transformou minha vida! Aprendi a lidar com a ansiedade de forma saudável.' },
+          { paciente: 'Fernanda L.', nota: 5, comentario: 'Profissional incrível, muito empática e eficiente.' }
+        ],
+        indicacoes: ['Ansiedade', 'Estresse', 'Desenvolvimento pessoal']
+      },
+      { 
+        nome: 'Dr. Rafael Santos', 
+        foto: '👨‍⚕️', 
+        especialidade: 'Psiquiatra',
+        rm: 'CRM 52.678-SP',
+        regiao: 'Zona Norte - São Paulo',
+        descricao: 'Psiquiatra com foco em saúde mental preventiva e tratamento integrado. Especialista em transtornos de humor e sono.',
+        avaliacoes: [
+          { paciente: 'Paula R.', nota: 5, comentario: 'Médico excepcional! Finalmente consegui controlar minha depressão.' },
+          { paciente: 'André C.', nota: 5, comentario: 'Muito profissional e atencioso. Recomendo fortemente!' }
+        ],
+        indicacoes: ['Depressão', 'Transtornos de ansiedade', 'Insônia']
+      }
+    ],
+    habitos: [
+      { emoji: '🧘', titulo: 'Meditação', desc: '10 minutos diários' },
+      { emoji: '😴', titulo: 'Sono de Qualidade', desc: '7-8 horas por noite' }
+    ]
   },
   {
     id: 'performance',
@@ -24,6 +99,43 @@ const JOURNEYS = [
     desc: 'Maximize seu potencial com avaliações e treinos orientados.',
     emoji: '⚡',
     color: 'journey-purple',
+    consultas: [
+      { nome: 'Nutrição Esportiva', especialidade: 'Nutrição' },
+      { nome: 'Fisioterapia Preventiva', especialidade: 'Fisioterapia' },
+      { nome: 'Avaliação Física', especialidade: 'Educação Física' }
+    ],
+    medicos: [
+      { 
+        nome: 'Dr. Pedro Alves', 
+        foto: '👨‍⚕️', 
+        especialidade: 'Fisiologista do Exercício',
+        rm: 'CREF 012345-G/SP',
+        regiao: 'Zona Sul - São Paulo',
+        descricao: 'Fisiologista especializado em performance esportiva e condicionamento físico. Trabalha com atletas e pessoas que buscam alta performance.',
+        avaliacoes: [
+          { paciente: 'Marcos V.', nota: 5, comentario: 'Melhorei meu desempenho em 40%! Profissional top!' },
+          { paciente: 'Juliana M.', nota: 5, comentario: 'Treinos personalizados e resultados incríveis. Super recomendo!' }
+        ],
+        indicacoes: ['Performance esportiva', 'Condicionamento físico', 'Reabilitação atlética']
+      },
+      { 
+        nome: 'Dra. Juliana Rocha', 
+        foto: '👩‍⚕️', 
+        especialidade: 'Nutricionista Esportiva',
+        rm: 'CRN-3 45.789',
+        regiao: 'Zona Oeste - São Paulo',
+        descricao: 'Nutricionista especializada em nutrição esportiva e emagrecimento saudável. Planos alimentares personalizados para alta performance.',
+        avaliacoes: [
+          { paciente: 'Ricardo B.', nota: 5, comentario: 'Perdi 15kg de forma saudável! Excelente profissional.' },
+          { paciente: 'Camila S.', nota: 5, comentario: 'Melhor nutricionista! Aprendi a comer bem e ter energia.' }
+        ],
+        indicacoes: ['Nutrição esportiva', 'Emagrecimento', 'Ganho de massa muscular']
+      }
+    ],
+    habitos: [
+      { emoji: '🏃', titulo: 'Treino Semanal', desc: '150 min de atividade' },
+      { emoji: '🍎', titulo: 'Nutrição Balanceada', desc: '5 refeições saudáveis' }
+    ]
   },
 ]
 
@@ -113,8 +225,40 @@ const BRANCHES = [
 ]
 
 export default function Consultas() {
-  const [activeJourney, setActiveJourney] = useState('longevidade')
+  const [activeJourney, setActiveJourney] = useState(null)
   const navigate = useNavigate()
+  const { toasts, show } = useToast()
+
+  const journeyAtiva = JOURNEYS.find(j => j.id === activeJourney)
+
+  function agendarConsulta(medico) {
+    const novaConsulta = {
+      id: `consulta_${Date.now()}`,
+      tipo: `Consulta de ${medico.especialidade}`,
+      data: '15 Jan 2025',
+      horario: '14:30',
+      medico: medico.nome,
+      especialidade: medico.especialidade,
+      local: 'Clínica Care Plus',
+      endereco: `${medico.regiao}`,
+      plano: 'Care Plus Premium',
+      motivo: 'Consulta preventiva',
+      observacoes: 'Primeira consulta'
+    }
+
+    console.log('Nova consulta criada:', novaConsulta)
+
+    const consultasExistentes = JSON.parse(localStorage.getItem('consultas_agendadas') || '[]')
+    console.log('Consultas existentes:', consultasExistentes)
+    
+    consultasExistentes.push(novaConsulta)
+    localStorage.setItem('consultas_agendadas', JSON.stringify(consultasExistentes))
+    
+    console.log('Consultas salvas no localStorage:', localStorage.getItem('consultas_agendadas'))
+    
+    show(`Consulta agendada com ${medico.nome}!`)
+    setTimeout(() => navigate('/dashboard'), 1500)
+  }
 
   return (
     <div className="shell">
@@ -135,16 +279,111 @@ export default function Consultas() {
                 <div
                   key={j.id}
                   className={`journey-card ${j.color}${activeJourney === j.id ? ' journey-active' : ''}`}
-                  onClick={() => setActiveJourney(j.id)}
+                  onClick={() => setActiveJourney(activeJourney === j.id ? null : j.id)}
                 >
                   <div className="journey-emoji">{j.emoji}</div>
                   <div className="journey-title">{j.title}</div>
                   <div className="journey-desc">{j.desc}</div>
-                  <button className="journey-btn">Explorar →</button>
+                  <button className="journey-btn">{activeJourney === j.id ? 'Fechar' : 'Explorar'} →</button>
                 </div>
               ))}
             </div>
           </div>
+
+          {/* Detalhes da Jornada Ativa */}
+          {journeyAtiva && (
+            <div className="journey-details">
+              <div className="journey-details-header">
+                <div className="journey-details-icon">{journeyAtiva.emoji}</div>
+                <div>
+                  <div className="journey-details-title">{journeyAtiva.title}</div>
+                  <div className="journey-details-subtitle">Plano completo para sua jornada</div>
+                </div>
+              </div>
+
+              {/* Consultas Recomendadas */}
+              <div className="journey-subsection">
+                <div className="journey-subsection-title">📋 Consultas Recomendadas</div>
+                <div className="journey-items-grid">
+                  {journeyAtiva.consultas.map((c, i) => (
+                    <div key={i} className="journey-item" style={{ animationDelay: `${i * 0.06}s` }}>
+                      <div className="journey-item-icon">🩺</div>
+                      <div className="journey-item-body">
+                        <div className="journey-item-nome">{c.nome}</div>
+                        <div className="journey-item-tag">{c.especialidade}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Médicos Especialistas */}
+              <div className="journey-subsection">
+                <div className="journey-subsection-title">👨‍⚕️ Médicos Especialistas</div>
+                <div className="journey-medicos">
+                  {journeyAtiva.medicos.map((m, i) => (
+                    <div key={i} className="journey-medico-expandable" style={{ animationDelay: `${i * 0.08}s` }}>
+                      <div className="journey-medico-header">
+                        <div className="journey-medico-foto">{m.foto}</div>
+                        <div className="journey-medico-body">
+                          <div className="journey-medico-nome">{m.nome}</div>
+                          <div className="journey-medico-esp">{m.especialidade}</div>
+                          <div className="journey-medico-rm">{m.rm}</div>
+                          <div className="journey-medico-regiao">📍 {m.regiao}</div>
+                        </div>
+                        <button className="journey-medico-btn" onClick={(e) => {
+                          e.stopPropagation()
+                          agendarConsulta(m)
+                        }}>Agendar</button>
+                      </div>
+                      
+                      <div className="journey-medico-details">
+                        <div className="medico-desc">{m.descricao}</div>
+                        
+                        <div className="medico-indicacoes">
+                          <div className="medico-label">Indicações:</div>
+                          <div className="medico-tags">
+                            {m.indicacoes.map((ind, idx) => (
+                              <span key={idx} className="medico-tag">{ind}</span>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="medico-avaliacoes">
+                          <div className="medico-label">Avaliações de Pacientes:</div>
+                          {m.avaliacoes.map((av, idx) => (
+                            <div key={idx} className="medico-avaliacao">
+                              <div className="avaliacao-header">
+                                <span className="avaliacao-paciente">{av.paciente}</span>
+                                <span className="avaliacao-nota">{'⭐'.repeat(av.nota)}</span>
+                              </div>
+                              <div className="avaliacao-comentario">"{av.comentario}"</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Hábitos e Desafios */}
+              <div className="journey-subsection">
+                <div className="journey-subsection-title">🎯 Hábitos e Desafios</div>
+                <div className="journey-items-grid">
+                  {journeyAtiva.habitos.map((h, i) => (
+                    <div key={i} className="journey-item" style={{ animationDelay: `${i * 0.06}s` }}>
+                      <div className="journey-item-icon">{h.emoji}</div>
+                      <div className="journey-item-body">
+                        <div className="journey-item-nome">{h.titulo}</div>
+                        <div className="journey-item-desc">{h.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Ramos Preventivos */}
           <div className="consultas-section">
@@ -172,6 +411,7 @@ export default function Consultas() {
 
         </div>
       </div>
+      <ToastContainer toasts={toasts} />
     </div>
   )
 }
