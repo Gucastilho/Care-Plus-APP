@@ -1,13 +1,5 @@
 # Care Plus - Plataforma de Saúde Preventiva
 
-<div align="center">
-
-**Uma plataforma moderna e gamificada para gestão de saúde preventiva**
-
-[Sobre](#-sobre) • [Funcionalidades](#-funcionalidades) • [Instalação](#-instalação) • [Estrutura](#-estrutura-do-projeto) • [Páginas](#-páginas-da-aplicação)
-
-</div>
-
 ---
 
 ## Visão Geral
