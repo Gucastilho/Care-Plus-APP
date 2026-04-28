@@ -100,14 +100,12 @@ export default function SaudeFisica() {
 
         <div className="consultas-scroll">
 
-          {/* Breadcrumb */}
           <div className="sf-breadcrumb">
             <span className="sf-breadcrumb-link" onClick={() => navigate('/consultas')}>Consultas Preventivas</span>
             <span className="sf-breadcrumb-sep">›</span>
             <span className="sf-breadcrumb-current">Saúde Física</span>
           </div>
 
-          {/* Header banner */}
           <div className="sf-banner">
             <div className="sf-banner-icon">🫀</div>
             <div>
@@ -117,7 +115,6 @@ export default function SaudeFisica() {
             <div className="sf-banner-badge">5 especialidades disponíveis</div>
           </div>
 
-          {/* Cards grid */}
           <div className="sf-grid">
             {CARDS.map((c, i) => (
               <div
@@ -125,7 +122,6 @@ export default function SaudeFisica() {
                 className={`sf-card${scheduled === c.id ? ' sf-card-scheduled' : ''}`}
                 style={{ animationDelay: `${i * 0.08}s` }}
               >
-                {/* Top accent + icon */}
                 <div className="sf-card-top">
                   <div className="sf-icon-wrap">{c.icon}</div>
                   <div className="sf-tags">

@@ -48,10 +48,8 @@ function gerarPlano(respostas) {
     metas: []
   }
 
-  // Lógica de geração baseada nas respostas
   const resp = respostas
 
-  // Consultas baseadas nas respostas
   if (resp[1] === 'Perder peso' || resp[2] === 'Precisa melhorar') {
     plano.consultas.push({ id: 'nutri1', tipo: 'Nutrição Funcional & Longevidade', especialidade: 'Nutrição' })
   }
@@ -69,12 +67,10 @@ function gerarPlano(respostas) {
     plano.consultas.push({ id: 'fisica2', tipo: 'Check-up Médico Anual', especialidade: 'Clínica Geral' })
   }
 
-  // Sempre incluir check-up geral
   if (!plano.consultas.find(c => c.id === 'fisica2')) {
     plano.consultas.push({ id: 'fisica2', tipo: 'Check-up Médico Anual', especialidade: 'Clínica Geral' })
   }
 
-  // Missões baseadas nas respostas
   if (resp[5] === 'Raramente' || resp[5] === 'Não pratico') {
     plano.missoes.push({ id: 'm1', emoji: '🚶', titulo: 'Caminhada Diária', desc: 'Caminhe 5.000 passos por dia', pts: 50 })
     plano.missoes.push({ id: 'm2', emoji: '🏃', titulo: 'Atividade Semanal', desc: 'Pratique 150 minutos de atividade física por semana', pts: 150 })
@@ -94,7 +90,6 @@ function gerarPlano(respostas) {
     plano.missoes.push({ id: 'm6', emoji: '🧘', titulo: 'Meditação Diária', desc: 'Pratique 10 minutos de meditação por dia', pts: 40 })
   }
 
-  // Metas baseadas nas respostas
   if (resp[1] === 'Perder peso') {
     plano.metas.push({ id: 'meta1', emoji: '🏋️', titulo: 'Perda de Peso Saudável', desc: 'Perder 5kg em 3 meses', prazo: '3 meses' })
   }
@@ -120,7 +115,7 @@ function gerarPlano(respostas) {
 
 export default function PlanejamentoSaude() {
   const navigate = useNavigate()
-  const [etapa, setEtapa] = useState('formulario') // 'formulario' | 'resultado'
+  const [etapa, setEtapa] = useState('formulario')
   const [perguntaAtual, setPerguntaAtual] = useState(0)
   const [respostas, setRespostas] = useState({})
   const [planoGerado, setPlanoGerado] = useState(null)
@@ -132,7 +127,6 @@ export default function PlanejamentoSaude() {
     if (perguntaAtual < PERGUNTAS.length - 1) {
       setPerguntaAtual(perguntaAtual + 1)
     } else {
-      // Gerar plano
       const plano = gerarPlano(novasRespostas)
       setPlanoGerado(plano)
       setEtapa('resultado')
@@ -155,7 +149,6 @@ export default function PlanejamentoSaude() {
   }
 
   function handleConfirmar() {
-    // Salvar metas no localStorage
     if (planoGerado.metas.length > 0) {
       const metasExistentes = JSON.parse(localStorage.getItem('metas_usuario') || '[]')
       const novasMetas = planoGerado.metas.map(meta => ({
@@ -168,7 +161,6 @@ export default function PlanejamentoSaude() {
       localStorage.setItem('metas_usuario', JSON.stringify(metasAtualizadas))
     }
 
-    // Salvar plano completo
     localStorage.setItem('plano_saude', JSON.stringify(planoGerado))
     navigate('/dashboard')
   }
@@ -191,7 +183,6 @@ export default function PlanejamentoSaude() {
               </div>
             </div>
 
-            {/* Consultas */}
             {planoGerado.consultas.length > 0 && (
               <div className="plano-section">
                 <div className="section-header">
@@ -218,7 +209,6 @@ export default function PlanejamentoSaude() {
               </div>
             )}
 
-            {/* Missões */}
             {planoGerado.missoes.length > 0 && (
               <div className="plano-section">
                 <div className="section-header">
@@ -246,7 +236,6 @@ export default function PlanejamentoSaude() {
               </div>
             )}
 
-            {/* Metas */}
             {planoGerado.metas.length > 0 && (
               <div className="plano-section">
                 <div className="section-header">

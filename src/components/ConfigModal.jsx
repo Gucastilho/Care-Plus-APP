@@ -33,7 +33,6 @@ export default function ConfigModal({ open, onClose, profile, onSave }) {
           </button>
         </div>
 
-        {/* Avatar */}
         <div className="config-avatar-row">
           <div className="config-avatar" onClick={() => fileRef.current.click()}>
             {photo
@@ -53,7 +52,6 @@ export default function ConfigModal({ open, onClose, profile, onSave }) {
           </button>
         </div>
 
-        {/* Fields */}
         <div className="config-field">
           <label className="config-label">Nome</label>
           <input

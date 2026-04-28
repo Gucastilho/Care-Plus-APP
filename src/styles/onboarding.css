@@ -1,8 +1,3 @@
-/* ══════════════════════════════════════
-   Care Plus — onboarding.css
-   Shared styles for loading-1 & loading-2
-   ══════════════════════════════════════ */
-
 :root {
   --ob-green      : #2aaa80;
   --ob-green-light: #3db87a;
@@ -19,19 +14,16 @@ html, body {
   background: #fff;
 }
 
-/* Onboarding pages lock scroll */
 .screen, .screen-lgpd {
   overflow: hidden;
 }
 
-/* ── Layout ── */
 .screen {
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* ── Hero ── */
 .hero {
   flex: 0 0 42vh;
   display: flex;
@@ -59,7 +51,6 @@ html, body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Icon circle ── */
 .icon-circle {
   width: 120px;
   height: 120px;
@@ -84,7 +75,6 @@ html, body {
 
 .icon-circle svg { width: 58px; height: 58px; }
 
-/* ── Content ── */
 .content {
   flex: 1;
   padding: 80px 28px 0;
@@ -112,7 +102,6 @@ html, body {
   line-height: 1.65;
 }
 
-/* ── Footer ── */
 .footer-bar {
   flex: 0 0 auto;
   padding: 14px 20px 28px;
@@ -120,7 +109,6 @@ html, body {
   animation: ob-fadeUp .7s cubic-bezier(.22,1,.36,1) .5s both;
 }
 
-/* Dots + counter */
 .nav-row {
   display: flex;
   align-items: center;
@@ -150,14 +138,12 @@ html, body {
   font-weight: 600;
 }
 
-/* ── Button row ── */
 .btn-row {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-/* Back button */
 .btn-voltar {
   display: flex;
   align-items: center;
@@ -178,7 +164,6 @@ html, body {
 
 .btn-voltar:hover { background: rgba(42,170,128,.08); }
 
-/* Continue button */
 .btn-continuar {
   flex: 1;
   padding: 18px;
@@ -208,7 +193,6 @@ html, body {
   display: flex; align-items: center; justify-content: center;
 }
 
-/* ── Slide transition ── */
 .screen.slide-exit {
   animation: ob-slideExit .35s cubic-bezier(.4,0,1,1) both;
 }
@@ -217,10 +201,6 @@ html, body {
   from { opacity: 1; transform: translateX(0); }
   to   { opacity: 0; transform: translateX(-40px); }
 }
-
-/* ══════════════════════════════════════
-   SLIDE 4 — Consentimento LGPD
-   ══════════════════════════════════════ */
 
 .screen-lgpd { overflow: hidden; }
 
@@ -250,7 +230,6 @@ html, body {
   margin-bottom: 28px;
 }
 
-/* ── Consent items ── */
 .consent-item {
   display: flex;
   align-items: flex-start;
@@ -263,7 +242,6 @@ html, body {
 .consent-item:nth-child(4) { animation-delay: .16s; }
 .consent-item:nth-child(5) { animation-delay: .24s; }
 
-/* Toggle */
 .toggle-wrap { flex-shrink: 0; padding-top: 2px; }
 
 .toggle {
@@ -329,7 +307,6 @@ html, body {
   line-height: 1.6;
 }
 
-/* ── Protection banner ── */
 .protection-banner {
   display: flex;
   align-items: flex-start;
@@ -359,7 +336,6 @@ html, body {
   opacity: .85;
 }
 
-/* ── Footer LGPD ── */
 .footer-lgpd {
   flex: 0 0 auto;
   padding: 14px 20px 28px;
@@ -368,7 +344,6 @@ html, body {
   animation: ob-fadeUp .6s cubic-bezier(.22,1,.36,1) .15s both;
 }
 
-/* ── Start button ── */
 .btn-comecar {
   flex: 1;
   padding: 18px;
@@ -399,7 +374,6 @@ html, body {
   flex-shrink: 0;
 }
 
-/* ── Welcome toast ── */
 .welcome-toast {
   position: fixed;
   bottom: 100px; left: 50%;
@@ -423,7 +397,6 @@ html, body {
   transform: translateX(-50%) translateY(0);
 }
 
-/* ── Loading splash (loading-page-wrapper) ── */
 .loading-page-wrapper {
   min-height: 100vh;
   width: 100vw;

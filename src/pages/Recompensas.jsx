@@ -74,7 +74,6 @@ export default function Recompensas() {
         </div>
       </div>
 
-      {/* Modal */}
       <div className={`modal-overlay${modal ? ' open' : ''}`} onClick={e => e.target === e.currentTarget && closeModal()}>
         <div className="modal-box">
           <div className="modal-emoji">{modal?.emoji}</div>

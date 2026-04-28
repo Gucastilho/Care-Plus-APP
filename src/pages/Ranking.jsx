@@ -38,7 +38,6 @@ export default function Ranking() {
         <Topbar title="Ranking" subtitle="Acompanhe seu progresso e inspire-se com a comunidade" emoji="📊" />
 
         <div className="content-row">
-          {/* LEFT */}
           <div className="ranking-left">
             <div className="tabs">
               <button className={`tab-btn${tab === 'diario' ? ' active' : ''}`}  onClick={() => setTab('diario')}>Ranking Diário</button>
@@ -78,7 +77,6 @@ export default function Ranking() {
             </div>
           </div>
 
-          {/* RIGHT */}
           <div className="ranking-right">
             <div className="your-pos-card">
               <div className="your-pos-header">

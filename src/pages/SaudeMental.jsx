@@ -109,14 +109,12 @@ export default function SaudeMental() {
 
         <div className="consultas-scroll">
 
-          {/* Breadcrumb */}
           <div className="sf-breadcrumb">
             <span className="sf-breadcrumb-link" onClick={() => navigate('/consultas')}>Consultas Preventivas</span>
             <span className="sf-breadcrumb-sep">›</span>
             <span className="sf-breadcrumb-current">Saúde Mental</span>
           </div>
 
-          {/* Header banner */}
           <div className="sf-banner">
             <div className="sf-banner-icon">🧘</div>
             <div>
@@ -126,7 +124,6 @@ export default function SaudeMental() {
             <div className="sf-banner-badge">5 especialidades disponíveis</div>
           </div>
 
-          {/* Cards grid */}
           <div className="sf-grid">
             {CARDS.map((c, i) => (
               <div
