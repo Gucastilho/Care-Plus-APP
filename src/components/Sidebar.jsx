@@ -11,6 +11,9 @@ const NAV = [
   { to: '/consultas',   label: 'Consultas',   icon: <><rect x="3" y="3" width="10" height="13" rx="2" stroke="currentColor" strokeWidth="1.5"/><path d="M6 7H10M6 10H10M13 6H15C15.6 6 16 6.4 16 7V14C16 14.6 15.6 15 15 15H8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></> },
 ]
 
+const NAV_BASE = "relative flex items-center gap-2.5 px-5 py-[9px] text-[13px] font-medium no-underline cursor-pointer transition-colors hover:bg-black/[0.03] hover:text-text dark:hover:bg-white/[0.03]"
+const NAV_ICON = "h-4 w-4 flex-shrink-0 opacity-60"
+
 export default function Sidebar() {
   const [configOpen, setConfigOpen] = useState(false)
   const [profile, setProfile] = useState(() => {
@@ -24,64 +27,68 @@ export default function Sidebar() {
   }
 
   return (
-    <aside className="sidebar">
+    <aside className="relative z-[1] flex w-[230px] flex-shrink-0 flex-col border-r border-border bg-bg2 py-6 after:pointer-events-none after:absolute after:inset-y-0 after:right-0 after:w-px after:bg-[linear-gradient(180deg,transparent,rgba(0,184,97,0.2)_40%,rgba(0,184,97,0.08)_70%,transparent)] after:content-[''] dark:after:bg-[linear-gradient(180deg,transparent,rgba(0,229,122,0.3)_40%,rgba(0,229,122,0.1)_70%,transparent)]">
       <ConfigModal
         open={configOpen}
         onClose={() => setConfigOpen(false)}
         profile={profile}
         onSave={handleSaveProfile}
       />
-      <div className="profile">
-        <div className="avatar-wrap">
-          <div className="avatar">
+      <div className="border-b border-border px-5 pb-6">
+        <div className="relative mb-3 inline-block">
+          <div className="flex h-[52px] w-[52px] items-center justify-center rounded-full border-2 border-green2 bg-[linear-gradient(135deg,#d4edda,#a8d5b5)] text-[22px] shadow-[0_0_12px_rgba(0,184,97,0.15)] dark:bg-[linear-gradient(135deg,#2d6a4f,#1b4332)] dark:shadow-[0_0_16px_rgba(0,229,122,0.25)]">
             {profile.photo
               ? <img src={profile.photo} alt="avatar" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
               : '🧑'
             }
           </div>
-          <div className="avatar-lvl">LV 15</div>
+          <div className="absolute -bottom-1 -right-1.5 rounded-lg bg-green px-[5px] py-0.5 font-display text-[9px] font-bold tracking-[0.02em] text-white">LV 15</div>
         </div>
-        <div className="profile-name">{profile.name}</div>
-        <div className="profile-email">gustavo@email.com</div>
-        <div className="xp-bar-wrap">
-          <div className="xp-label"><span>XP 1.340</span><span>2.000</span></div>
-          <div className="xp-track"><div className="xp-fill" /></div>
+        <div className="text-[14px] font-semibold leading-[1.2] text-text">{profile.name}</div>
+        <div className="mt-0.5 text-[11px] text-muted">gustavo@email.com</div>
+        <div className="mt-2.5">
+          <div className="mb-[5px] flex justify-between text-[10px] text-muted"><span>XP 1.340</span><span>2.000</span></div>
+          <div className="h-[5px] overflow-hidden rounded-[3px] bg-surface3"><div className="h-full w-[67%] rounded-[3px] bg-[linear-gradient(90deg,var(--color-green2),var(--color-green))]" /></div>
         </div>
       </div>
 
-      <div className="nav-section-label">Menu</div>
+      <div className="px-5 pb-1.5 pt-5 text-[10px] font-semibold uppercase tracking-[0.1em] text-muted2">Menu</div>
 
       {NAV.map(({ to, label, icon }) => (
         <NavLink
           key={to}
           to={to}
-          className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}
+          className={({ isActive }) => `${NAV_BASE} ${isActive ? "text-green before:absolute before:inset-y-1 before:left-0 before:w-[3px] before:rounded-r-[2px] before:bg-green before:content-['']" : "text-muted"}`}
         >
-          <svg className="nav-icon" viewBox="0 0 16 16" fill="none">{icon}</svg>
-          {label}
+          {({ isActive }) => (
+            <>
+              <svg className={`h-4 w-4 flex-shrink-0 ${isActive ? 'opacity-100' : 'opacity-60'}`} viewBox="0 0 16 16" fill="none">{icon}</svg>
+              {label}
+            </>
+          )}
         </NavLink>
       ))}
 
-      <div className="nav-spacer" />
+      <div className="flex-1" />
 
-      <div className="nav-section-label">Geral</div>
-      <div className="nav-bottom">
-        <button className="nav-item" onClick={() => setConfigOpen(true)} style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer' }}>
-          <svg className="nav-icon" viewBox="0 0 16 16" fill="none">
+      <div className="px-5 pb-1.5 pt-5 text-[10px] font-semibold uppercase tracking-[0.1em] text-muted2">Geral</div>
+      <div className="border-t border-border pt-2">
+        <button className={`${NAV_BASE} w-full border-none bg-transparent text-left text-muted`} onClick={() => setConfigOpen(true)}>
+          <svg className={NAV_ICON} viewBox="0 0 16 16" fill="none">
             <circle cx="8" cy="8" r="2.5" stroke="currentColor" strokeWidth="1.4"/>
             <path d="M8 1.5V3M8 13V14.5M1.5 8H3M13 8H14.5M3.2 3.2L4.3 4.3M11.7 11.7L12.8 12.8M3.2 12.8L4.3 11.7M11.7 4.3L12.8 3.2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
           </svg>
           Configurações
         </button>
-        <a className="nav-item" href="#">
-          <svg className="nav-icon" viewBox="0 0 16 16" fill="none">
+        <a className={`${NAV_BASE} text-muted`} href="#">
+          <svg className={NAV_ICON} viewBox="0 0 16 16" fill="none">
             <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5"/>
             <path d="M8 11V10M8 7.5C8 6 10 6 10 7.5C10 8.5 8 9 8 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
           </svg>
           Ajuda
         </a>
-        <a className="nav-item logout" href="#" style={{ color: 'var(--rose)' }}>
-          <svg className="nav-icon" viewBox="0 0 16 16" fill="none">
+        <a className={`${NAV_BASE} text-rose hover:bg-[rgba(232,54,93,0.05)] hover:text-rose`} href="#">
+          <svg className={NAV_ICON} viewBox="0 0 16 16" fill="none">
             <path d="M6 3H3C2.4 3 2 3.4 2 4V12C2 12.6 2.4 13 3 13H6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             <path d="M10 5L13 8L10 11M6 8H13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>

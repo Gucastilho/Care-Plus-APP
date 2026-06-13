@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-display: 'Outfit', sans-serif;
+
+  --color-bg: #f0f4f8;
+  --color-bg2: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface2: #f5f7fa;
+  --color-surface3: #e8ecf2;
+  --color-border: rgba(0, 0, 0, 0.07);
+  --color-border2: rgba(0, 0, 0, 0.12);
+  --color-text: #0f1623;
+  --color-muted: #6b7a99;
+  --color-muted2: #a0aec0;
+  --color-green: #00b861;
+  --color-green2: #009e52;
+  --color-amber: #e09000;
+  --color-blue: #2b7fff;
+  --color-rose: #e8365d;
+  --color-teal: #00a8a2;
+
+  --color-ob-green: #2aaa80;
+  --color-ob-green-light: #3db87a;
+  --color-ob-text: #1a1a1a;
+  --color-ob-muted: #6b7280;
+
+  --animate-fade-up: fadeUpCard 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-up-sm: fadeUpCard 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fadeIn 0.4s ease both;
+  --animate-slide-up: slideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-slide-right: slideRight 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-toast: slideInToast 0.3s ease;
+  --animate-expand: expandDetails 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-float: floatEmoji 3s ease-in-out infinite;
+  --animate-pulse-dot: pulseGlowDot 2s ease-in-out infinite;
+  --animate-done-pop: donePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-scale-in: scaleIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --animate-ob-hero: ob-heroSlide 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-ob-pop: ob-popIn 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s both;
+  --animate-ob-fade-up: ob-fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-ob-slide-exit: ob-slideExit 0.35s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+[data-theme="dark"] {
+  --color-bg: #080b12;
+  --color-bg2: #0d1220;
+  --color-surface: #111827;
+  --color-surface2: #1a2235;
+  --color-surface3: #202d42;
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-border2: rgba(255, 255, 255, 0.11);
+  --color-text: #f0f4ff;
+  --color-muted: #6b7a99;
+  --color-muted2: #3d4d6a;
+  --color-green: #00e57a;
+  --color-green2: #00b861;
+  --color-amber: #ffb830;
+  --color-blue: #4d9fff;
+  --color-rose: #ff6b8a;
+  --color-teal: #00cfc8;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: 220px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(ellipse, rgba(0, 184, 97, 0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+body::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  right: 100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(43, 127, 255, 0.05) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+[data-theme="dark"] body::before {
+  background: radial-gradient(ellipse, rgba(0, 229, 122, 0.07) 0%, transparent 65%);
+}
+
+[data-theme="dark"] body::after {
+  background: radial-gradient(ellipse, rgba(77, 159, 255, 0.06) 0%, transparent 65%);
+}
+
+@keyframes fadeUpCard {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-18px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInToast {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.88); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes floatEmoji {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-4px); }
+}
+@keyframes pulseGlowDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.5); opacity: 0.6; }
+}
+@keyframes ripple {
+  from { transform: scale(0); opacity: 0.35; }
+  to   { transform: scale(3.5); opacity: 0; }
+}
+@keyframes donePop {
+  0%   { transform: scale(0.5); opacity: 0; }
+  70%  { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes expandDetails {
+  from { opacity: 0; max-height: 0; padding-top: 0; padding-bottom: 0; }
+  to   { opacity: 1; max-height: 300px; padding-top: 16px; padding-bottom: 16px; }
+}
+@keyframes ob-heroSlide {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes ob-popIn {
+  from { opacity: 0; transform: translateX(-50%) scale(0.5); }
+  to   { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+@keyframes ob-fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes ob-slideExit {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(-40px); }
+}

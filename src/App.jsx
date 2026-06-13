@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import Loading     from './pages/Loading.jsx'
 import Loading1    from './pages/Loading1.jsx'
 import Loading2    from './pages/Loading2.jsx'
 import Loading3    from './pages/Loading3.jsx'

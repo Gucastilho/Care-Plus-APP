@@ -3,6 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import Sidebar from '../components/Sidebar'
 import Topbar  from '../components/Topbar'
 
+const SCROLL = "flex flex-1 flex-col gap-7 overflow-y-auto px-7 pb-8 pt-5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-surface3 [&::-webkit-scrollbar]:w-1"
+const CARD = "relative flex flex-col gap-2.5 overflow-hidden rounded-[22px] border border-border bg-surface px-5 pb-[18px] pt-[22px] shadow-[0_2px_10px_rgba(0,0,0,0.04)] transition-[transform,box-shadow,border-color] animate-fade-up hover:-translate-y-[3px] hover:border-[rgba(37,99,235,0.2)] hover:shadow-[0_16px_40px_rgba(37,99,235,0.12)] dark:hover:border-[rgba(147,197,253,0.2)] dark:hover:shadow-[0_16px_40px_rgba(0,0,0,0.35)] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:rounded-t-[22px] before:bg-[linear-gradient(90deg,#3b82f6,#60a5fa)] before:content-['']"
+const ICON = "flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-[#eff6ff] text-[#2563eb] dark:bg-[rgba(59,130,246,0.15)] dark:text-[#93c5fd]"
+const TAG = "whitespace-nowrap rounded-full border border-[rgba(37,99,235,0.15)] bg-[rgba(37,99,235,0.08)] px-2.5 py-[3px] font-display text-[10px] font-bold text-[#2563eb] dark:border-[rgba(147,197,253,0.2)] dark:bg-[rgba(147,197,253,0.1)] dark:text-[#93c5fd]"
+const TAG_MUTED = "whitespace-nowrap rounded-full border border-border2 bg-surface2 px-2.5 py-[3px] font-display text-[10px] font-bold text-muted"
+
 const CARDS = [
   {
     id: 'checkup',
@@ -93,53 +99,53 @@ export default function SaudeFisica() {
   }
 
   return (
-    <div className="shell">
+    <div className="flex h-screen">
       <Sidebar />
-      <div className="main">
+      <div className="flex flex-1 flex-col overflow-hidden">
         <Topbar title="Saúde Física & Check-up" subtitle="Avaliações gerais e exames de rotina" emoji="🩺" />
 
-        <div className="consultas-scroll">
+        <div className={SCROLL}>
 
-          <div className="sf-breadcrumb">
-            <span className="sf-breadcrumb-link" onClick={() => navigate('/consultas')}>Consultas Preventivas</span>
-            <span className="sf-breadcrumb-sep">›</span>
-            <span className="sf-breadcrumb-current">Saúde Física</span>
+          <div className="flex items-center gap-2 text-xs text-muted">
+            <span className="cursor-pointer font-medium text-blue transition-opacity hover:opacity-75" onClick={() => navigate('/consultas')}>Consultas Preventivas</span>
+            <span className="text-muted2">›</span>
+            <span className="font-semibold text-text">Saúde Física</span>
           </div>
 
-          <div className="sf-banner">
-            <div className="sf-banner-icon">🫀</div>
+          <div className="flex items-center gap-4 rounded-[20px] border border-[rgba(37,99,235,0.15)] bg-[linear-gradient(135deg,#eff6ff,#dbeafe)] px-6 py-5 shadow-[0_2px_12px_rgba(37,99,235,0.07)] dark:border-[rgba(147,197,253,0.15)] dark:bg-[linear-gradient(135deg,#1e3a5f,#1e3a8a)]">
+            <div className="flex-shrink-0 text-[32px]">🫀</div>
             <div>
-              <div className="sf-banner-title">Agendar Nova Consulta Preventiva</div>
-              <div className="sf-banner-sub">Escolha uma especialidade abaixo e reserve seu horário com um clique.</div>
+              <div className="mb-[3px] font-display text-[15px] font-bold text-[#1d4ed8] dark:text-[#93c5fd]">Agendar Nova Consulta Preventiva</div>
+              <div className="text-xs text-[#3b82f6] opacity-85 dark:text-[#93c5fd] dark:opacity-70">Escolha uma especialidade abaixo e reserve seu horário com um clique.</div>
             </div>
-            <div className="sf-banner-badge">5 especialidades disponíveis</div>
+            <div className="ml-auto flex-shrink-0 rounded-full border border-[rgba(37,99,235,0.2)] bg-[rgba(37,99,235,0.1)] px-3.5 py-[5px] font-display text-[11px] font-bold text-[#2563eb] dark:border-[rgba(147,197,253,0.2)] dark:bg-[rgba(147,197,253,0.1)] dark:text-[#93c5fd]">5 especialidades disponíveis</div>
           </div>
 
-          <div className="sf-grid">
+          <div className="grid grid-cols-3 gap-4">
             {CARDS.map((c, i) => (
               <div
                 key={c.id}
-                className={`sf-card${scheduled === c.id ? ' sf-card-scheduled' : ''}`}
+                className={`${CARD} ${scheduled === c.id ? '!border-green !shadow-[0_0_0_3px_rgba(0,184,97,0.12)]' : ''}`}
                 style={{ animationDelay: `${i * 0.08}s` }}
               >
-                <div className="sf-card-top">
-                  <div className="sf-icon-wrap">{c.icon}</div>
-                  <div className="sf-tags">
-                    <span className="sf-tag">{c.tag}</span>
-                    <span className="sf-tag sf-tag-muted">⏱ {c.duration}</span>
+                <div className="mb-1 flex items-start justify-between">
+                  <div className={ICON}>{c.icon}</div>
+                  <div className="flex flex-col items-end gap-[5px]">
+                    <span className={TAG}>{c.tag}</span>
+                    <span className={TAG_MUTED}>⏱ {c.duration}</span>
                   </div>
                 </div>
 
-                <div className="sf-card-title">{c.title}</div>
-                <div className="sf-card-desc">{c.desc}</div>
+                <div className="font-display text-[15px] font-bold leading-[1.3] text-text">{c.title}</div>
+                <div className="flex-1 text-xs leading-[1.6] text-muted">{c.desc}</div>
 
-                <div className="sf-card-footer">
-                  <div className="sf-avail">
-                    <span className="sf-avail-dot" />
+                <div className="mt-1.5 flex items-center justify-between border-t border-border pt-3">
+                  <div className="flex items-center gap-1.5 text-[11px] font-semibold text-green">
+                    <span className="h-[7px] w-[7px] rounded-full bg-green animate-pulse-dot" />
                     Horários disponíveis
                   </div>
                   <button
-                    className="sf-btn"
+                    className="cursor-pointer rounded-[10px] border-none bg-[linear-gradient(135deg,var(--color-green2),var(--color-green))] px-4 py-[7px] font-display text-xs font-bold text-white shadow-[0_4px_14px_rgba(0,184,97,0.25)] transition hover:scale-[0.98] hover:opacity-90"
                     onClick={() => handleAgendar(c.id)}
                   >
                     {scheduled === c.id ? '✓ Agendado' : 'Agendar →'}

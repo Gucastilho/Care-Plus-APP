@@ -5,15 +5,15 @@ export const consultations = [
 ]
 
 export const dailyMissions = [
-  { id: 1, emoji: '🚶', title: 'Caminhada Matinal',  desc: 'Caminhe 5.000 passos hoje · 3.750 / 5.000 passos', pts: 50,  progress: 75,  done: false, color: 'var(--green)', grad: 'linear-gradient(90deg,var(--green2),var(--green))',  offset: 36.1   },
-  { id: 2, emoji: '💧', title: 'Hidratação',          desc: 'Beba 2 litros de água · 2.000ml / 2.000ml',        pts: 30,  progress: 100, done: true,  color: 'var(--teal)',  grad: 'linear-gradient(90deg,#009e9a,var(--teal))',          offset: 0      },
-  { id: 3, emoji: '🧘', title: 'Alongamento',         desc: 'Faça 10 minutos de alongamento · Não iniciado',    pts: 40,  progress: 0,   done: false, color: 'var(--muted2)',grad: 'var(--muted2)',                                       offset: 144.51 },
+  { id: 1, emoji: '🚶', title: 'Caminhada Matinal',  desc: 'Caminhe 5.000 passos hoje · 3.750 / 5.000 passos', pts: 50,  progress: 75,  done: false, color: 'var(--color-green)', grad: 'linear-gradient(90deg,var(--color-green2),var(--color-green))',  offset: 36.1   },
+  { id: 2, emoji: '💧', title: 'Hidratação',          desc: 'Beba 2 litros de água · 2.000ml / 2.000ml',        pts: 30,  progress: 100, done: true,  color: 'var(--color-teal)',  grad: 'linear-gradient(90deg,#009e9a,var(--color-teal))',          offset: 0      },
+  { id: 3, emoji: '🧘', title: 'Alongamento',         desc: 'Faça 10 minutos de alongamento · Não iniciado',    pts: 40,  progress: 0,   done: false, color: 'var(--color-muted2)',grad: 'var(--color-muted2)',                                       offset: 144.51 },
 ]
 
 export const weeklyMissions = [
-  { id: 4, emoji: '🏃', title: 'Caminhada Semanal',  desc: 'Caminhe 25.000 passos essa semana · 3.500 / 25.000',    pts: 150, progress: 14, done: false, color: 'var(--green)', grad: 'linear-gradient(90deg,var(--green2),var(--green))',  offset: 124.3  },
-  { id: 5, emoji: '💧', title: 'Hidratação Semanal', desc: 'Beba 10 litros de água essa semana · 400ml / 10.000ml', pts: 80,  progress: 4,  done: false, color: 'var(--blue)',  grad: 'linear-gradient(90deg,#2e6fff,var(--blue))',          offset: 138.7  },
-  { id: 6, emoji: '🍎', title: 'Nutrição Saudável',  desc: 'Registre 5 refeições saudáveis · 1 / 5 refeições',     pts: 100, progress: 20, done: false, color: 'var(--amber)', grad: 'linear-gradient(90deg,#c07800,var(--amber))',         offset: 115.6  },
+  { id: 4, emoji: '🏃', title: 'Caminhada Semanal',  desc: 'Caminhe 25.000 passos essa semana · 3.500 / 25.000',    pts: 150, progress: 14, done: false, color: 'var(--color-green)', grad: 'linear-gradient(90deg,var(--color-green2),var(--color-green))',  offset: 124.3  },
+  { id: 5, emoji: '💧', title: 'Hidratação Semanal', desc: 'Beba 10 litros de água essa semana · 400ml / 10.000ml', pts: 80,  progress: 4,  done: false, color: 'var(--color-blue)',  grad: 'linear-gradient(90deg,#2e6fff,var(--color-blue))',          offset: 138.7  },
+  { id: 6, emoji: '🍎', title: 'Nutrição Saudável',  desc: 'Registre 5 refeições saudáveis · 1 / 5 refeições',     pts: 100, progress: 20, done: false, color: 'var(--color-amber)', grad: 'linear-gradient(90deg,#c07800,var(--color-amber))',         offset: 115.6  },
 ]
 
 export const rewardsData = [

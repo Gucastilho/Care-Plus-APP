@@ -4,6 +4,37 @@ import Sidebar from '../components/Sidebar'
 import Topbar  from '../components/Topbar'
 import ToastContainer, { useToast } from '../components/Toast'
 
+const JOURNEY_COLOR = {
+  'journey-blue':   'bg-[linear-gradient(135deg,#eff6ff,#dbeafe)] text-[#2563eb] dark:bg-[linear-gradient(135deg,#1e3a5f_0%,#1e3a8a_100%)] dark:text-[#93c5fd]',
+  'journey-green':  'bg-[linear-gradient(135deg,#f0fdf4,#dcfce7)] text-[#16a34a] dark:bg-[linear-gradient(135deg,#052e16_0%,#14532d_100%)] dark:text-[#86efac]',
+  'journey-purple': 'bg-[linear-gradient(135deg,#faf5ff,#ede9fe)] text-[#7c3aed] dark:bg-[linear-gradient(135deg,#2e1065_0%,#4c1d95_100%)] dark:text-[#c4b5fd]',
+}
+
+const BRANCH_BEFORE = {
+  'branch-blue':    "before:bg-[linear-gradient(90deg,#3b82f6,#60a5fa)]",
+  'branch-teal':    "before:bg-[linear-gradient(90deg,#14b8a6,#2dd4bf)]",
+  'branch-orange':  "before:bg-[linear-gradient(90deg,#f97316,#fb923c)]",
+  'branch-purple':  "before:bg-[linear-gradient(90deg,#8b5cf6,#a78bfa)]",
+  'branch-indigo':  "before:bg-[linear-gradient(90deg,#6366f1,#818cf8)]",
+  'branch-emerald': "before:bg-[linear-gradient(90deg,#10b981,#34d399)]",
+}
+const BRANCH_ICON = {
+  'branch-blue':    "bg-[#eff6ff] text-[#2563eb] dark:bg-[rgba(59,130,246,0.15)]",
+  'branch-teal':    "bg-[#f0fdfa] text-[#0d9488] dark:bg-[rgba(20,184,166,0.15)]",
+  'branch-orange':  "bg-[#fff7ed] text-[#ea580c] dark:bg-[rgba(249,115,22,0.15)]",
+  'branch-purple':  "bg-[#faf5ff] text-[#7c3aed] dark:bg-[rgba(139,92,246,0.15)]",
+  'branch-indigo':  "bg-[#eef2ff] text-[#4338ca] dark:bg-[rgba(99,102,241,0.15)]",
+  'branch-emerald': "bg-[#f0fdf4] text-[#059669] dark:bg-[rgba(16,185,129,0.15)]",
+}
+const BRANCH_BTN = {
+  'branch-blue':    "text-[#2563eb] border-[rgba(37,99,235,0.25)] hover:bg-[rgba(37,99,235,0.07)] hover:border-[#2563eb]",
+  'branch-teal':    "text-[#0d9488] border-[rgba(13,148,136,0.25)] hover:bg-[rgba(13,148,136,0.07)] hover:border-[#0d9488]",
+  'branch-orange':  "text-[#ea580c] border-[rgba(234,88,12,0.25)] hover:bg-[rgba(234,88,12,0.07)] hover:border-[#ea580c]",
+  'branch-purple':  "text-[#7c3aed] border-[rgba(124,58,237,0.25)] hover:bg-[rgba(124,58,237,0.07)] hover:border-[#7c3aed]",
+  'branch-indigo':  "text-[#4338ca] border-[rgba(67,56,202,0.25)] hover:bg-[rgba(67,56,202,0.07)] hover:border-[#4338ca]",
+  'branch-emerald': "text-[#059669] border-[rgba(5,150,105,0.25)] hover:bg-[rgba(5,150,105,0.07)] hover:border-[#059669]",
+}
+
 const JOURNEYS = [
   {
     id: 'longevidade',
@@ -17,9 +48,9 @@ const JOURNEYS = [
       { nome: 'Dermatologia Preventiva', especialidade: 'Dermatologia' }
     ],
     medicos: [
-      { 
-        nome: 'Dr. Carlos Mendes', 
-        foto: '👨‍⚕️', 
+      {
+        nome: 'Dr. Carlos Mendes',
+        foto: '👨‍⚕️',
         especialidade: 'Cardiologista',
         rm: 'CRM 45.892-SP',
         regiao: 'Zona Sul - São Paulo',
@@ -30,9 +61,9 @@ const JOURNEYS = [
         ],
         indicacoes: ['Hipertensão', 'Prevenção cardiovascular', 'Check-up executivo']
       },
-      { 
-        nome: 'Dra. Ana Silva', 
-        foto: '👩‍⚕️', 
+      {
+        nome: 'Dra. Ana Silva',
+        foto: '👩‍⚕️',
         especialidade: 'Geriatra',
         rm: 'CRM 38.124-SP',
         regiao: 'Zona Oeste - São Paulo',
@@ -61,9 +92,9 @@ const JOURNEYS = [
       { nome: 'Terapia de Manutenção', especialidade: 'Psicoterapia' }
     ],
     medicos: [
-      { 
-        nome: 'Dra. Beatriz Costa', 
-        foto: '👩‍⚕️', 
+      {
+        nome: 'Dra. Beatriz Costa',
+        foto: '👩‍⚕️',
         especialidade: 'Psicóloga',
         rm: 'CRP 06/89.234',
         regiao: 'Centro - São Paulo',
@@ -74,9 +105,9 @@ const JOURNEYS = [
         ],
         indicacoes: ['Ansiedade', 'Estresse', 'Desenvolvimento pessoal']
       },
-      { 
-        nome: 'Dr. Rafael Santos', 
-        foto: '👨‍⚕️', 
+      {
+        nome: 'Dr. Rafael Santos',
+        foto: '👨‍⚕️',
         especialidade: 'Psiquiatra',
         rm: 'CRM 52.678-SP',
         regiao: 'Zona Norte - São Paulo',
@@ -105,9 +136,9 @@ const JOURNEYS = [
       { nome: 'Avaliação Física', especialidade: 'Educação Física' }
     ],
     medicos: [
-      { 
-        nome: 'Dr. Pedro Alves', 
-        foto: '👨‍⚕️', 
+      {
+        nome: 'Dr. Pedro Alves',
+        foto: '👨‍⚕️',
         especialidade: 'Fisiologista do Exercício',
         rm: 'CREF 012345-G/SP',
         regiao: 'Zona Sul - São Paulo',
@@ -118,9 +149,9 @@ const JOURNEYS = [
         ],
         indicacoes: ['Performance esportiva', 'Condicionamento físico', 'Reabilitação atlética']
       },
-      { 
-        nome: 'Dra. Juliana Rocha', 
-        foto: '👩‍⚕️', 
+      {
+        nome: 'Dra. Juliana Rocha',
+        foto: '👩‍⚕️',
         especialidade: 'Nutricionista Esportiva',
         rm: 'CRN-3 45.789',
         regiao: 'Zona Oeste - São Paulo',
@@ -246,118 +277,108 @@ export default function Consultas() {
       observacoes: 'Primeira consulta'
     }
 
-    console.log('Nova consulta criada:', novaConsulta)
-
     const consultasExistentes = JSON.parse(localStorage.getItem('consultas_agendadas') || '[]')
-    console.log('Consultas existentes:', consultasExistentes)
-    
     consultasExistentes.push(novaConsulta)
     localStorage.setItem('consultas_agendadas', JSON.stringify(consultasExistentes))
-    
-    console.log('Consultas salvas no localStorage:', localStorage.getItem('consultas_agendadas'))
-    
+
     show(`Consulta agendada com ${medico.nome}!`)
     setTimeout(() => navigate('/dashboard'), 1500)
   }
 
   return (
-    <div className="shell">
+    <div className="flex h-screen">
       <Sidebar />
-      <div className="main">
+      <div className="flex flex-1 flex-col overflow-hidden">
         <Topbar title="Consultas Preventivas" subtitle="Agende sua próxima jornada de saúde" emoji="🩺" />
 
-        <div className="consultas-scroll">
+        <div className="flex flex-1 flex-col gap-7 overflow-y-auto px-7 pb-8 pt-5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-surface3 [&::-webkit-scrollbar]:w-1">
 
-          {/* Jornadas */}
-          <div className="consultas-section">
-            <div className="section-header">
-              <div className="section-title">Jornadas de Saúde</div>
-              <span className="section-link">Ver todas →</span>
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center justify-between">
+              <div className="font-display text-base font-semibold text-text">Jornadas de Saúde</div>
+              <span className="text-xs text-green">Ver todas →</span>
             </div>
-            <div className="journeys-row">
+            <div className="grid grid-cols-3 gap-3.5">
               {JOURNEYS.map(j => (
                 <div
                   key={j.id}
-                  className={`journey-card ${j.color}${activeJourney === j.id ? ' journey-active' : ''}`}
+                  className={`relative flex cursor-pointer flex-col gap-2 overflow-hidden rounded-[20px] border-2 px-5 pb-[18px] pt-[22px] transition-[transform,box-shadow,border-color] animate-fade-up hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,0,0,0.1)] ${JOURNEY_COLOR[j.color]} ${activeJourney === j.id ? 'border-current shadow-[0_8px_28px_rgba(0,0,0,0.1)]' : 'border-transparent'}`}
                   onClick={() => setActiveJourney(activeJourney === j.id ? null : j.id)}
                 >
-                  <div className="journey-emoji">{j.emoji}</div>
-                  <div className="journey-title">{j.title}</div>
-                  <div className="journey-desc">{j.desc}</div>
-                  <button className="journey-btn">{activeJourney === j.id ? 'Fechar' : 'Explorar'} →</button>
+                  <div className="text-[28px] leading-none">{j.emoji}</div>
+                  <div className="font-display text-[15px] font-bold">{j.title}</div>
+                  <div className="flex-1 text-xs leading-[1.5] opacity-75">{j.desc}</div>
+                  <button className="mt-1 cursor-pointer self-start rounded-lg border border-white/80 bg-white/55 px-3 py-[5px] text-[11px] font-bold text-inherit backdrop-blur-[4px] transition-colors hover:bg-white/80 dark:border-white/15 dark:bg-white/10 dark:hover:bg-white/[0.18]">{activeJourney === j.id ? 'Fechar' : 'Explorar'} →</button>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Detalhes da Jornada Ativa */}
           {journeyAtiva && (
-            <div className="journey-details">
-              <div className="journey-details-header">
-                <div className="journey-details-icon">{journeyAtiva.emoji}</div>
+            <div className="rounded-3xl border border-border bg-surface p-7 shadow-[0_4px_20px_rgba(0,0,0,0.06)] animate-fade-up">
+              <div className="mb-8 flex items-center gap-4 border-b border-border pb-6">
+                <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-[18px] bg-[linear-gradient(135deg,var(--color-green2),var(--color-green))] text-[32px] shadow-[0_6px_20px_rgba(0,184,97,0.25)]">{journeyAtiva.emoji}</div>
                 <div>
-                  <div className="journey-details-title">{journeyAtiva.title}</div>
-                  <div className="journey-details-subtitle">Plano completo para sua jornada</div>
+                  <div className="mb-1 font-display text-[22px] font-bold text-text">{journeyAtiva.title}</div>
+                  <div className="text-[13px] text-muted">Plano completo para sua jornada</div>
                 </div>
               </div>
 
-              {/* Consultas Recomendadas */}
-              <div className="journey-subsection">
-                <div className="journey-subsection-title">📋 Consultas Recomendadas</div>
-                <div className="journey-items-grid">
+              <div className="mb-7 last:mb-0">
+                <div className="mb-3.5 flex items-center gap-2 font-display text-[15px] font-bold text-text">📋 Consultas Recomendadas</div>
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-3">
                   {journeyAtiva.consultas.map((c, i) => (
-                    <div key={i} className="journey-item" style={{ animationDelay: `${i * 0.06}s` }}>
-                      <div className="journey-item-icon">🩺</div>
-                      <div className="journey-item-body">
-                        <div className="journey-item-nome">{c.nome}</div>
-                        <div className="journey-item-tag">{c.especialidade}</div>
+                    <div key={i} className="flex items-center gap-3 rounded-[14px] border border-border bg-surface2 px-4 py-3.5 transition-all animate-fade-up-sm hover:-translate-y-0.5 hover:border-border2 hover:bg-surface hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]" style={{ animationDelay: `${i * 0.06}s` }}>
+                      <div className="flex-shrink-0 text-2xl">🩺</div>
+                      <div className="min-w-0 flex-1">
+                        <div className="mb-0.5 font-display text-[13px] font-bold text-text">{c.nome}</div>
+                        <div className="text-[11px] text-muted">{c.especialidade}</div>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Médicos Especialistas */}
-              <div className="journey-subsection">
-                <div className="journey-subsection-title">👨‍⚕️ Médicos Especialistas</div>
-                <div className="journey-medicos">
+              <div className="mb-7 last:mb-0">
+                <div className="mb-3.5 flex items-center gap-2 font-display text-[15px] font-bold text-text">👨‍⚕️ Médicos Especialistas</div>
+                <div className="flex flex-col gap-3">
                   {journeyAtiva.medicos.map((m, i) => (
-                    <div key={i} className="journey-medico-expandable" style={{ animationDelay: `${i * 0.08}s` }}>
-                      <div className="journey-medico-header">
-                        <div className="journey-medico-foto">{m.foto}</div>
-                        <div className="journey-medico-body">
-                          <div className="journey-medico-nome">{m.nome}</div>
-                          <div className="journey-medico-esp">{m.especialidade}</div>
-                          <div className="journey-medico-rm">{m.rm}</div>
-                          <div className="journey-medico-regiao">📍 {m.regiao}</div>
+                    <div key={i} className="overflow-hidden rounded-[14px] border border-border bg-surface2 transition-all animate-fade-up-sm hover:-translate-y-0.5 hover:border-border2 hover:bg-surface hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]" style={{ animationDelay: `${i * 0.08}s` }}>
+                      <div className="flex items-center gap-3.5 px-[18px] py-4">
+                        <div className="flex h-[52px] w-[52px] flex-shrink-0 items-center justify-center rounded-full border-2 border-green2 bg-[linear-gradient(135deg,#d4edda,#a8d5b5)] text-[26px]">{m.foto}</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="mb-0.5 font-display text-[14px] font-bold text-text">{m.nome}</div>
+                          <div className="text-xs text-muted">{m.especialidade}</div>
+                          <div className="mt-0.5 text-[10px] font-semibold text-muted">{m.rm}</div>
+                          <div className="mt-1 text-[11px] text-muted">📍 {m.regiao}</div>
                         </div>
-                        <button className="journey-medico-btn" onClick={(e) => {
+                        <button className="flex-shrink-0 cursor-pointer rounded-lg border border-border2 bg-none px-3.5 py-1.5 text-[11px] font-semibold text-muted transition-all hover:border-green hover:bg-surface3 hover:text-text" onClick={(e) => {
                           e.stopPropagation()
                           agendarConsulta(m)
                         }}>Agendar</button>
                       </div>
-                      
-                      <div className="journey-medico-details">
-                        <div className="medico-desc">{m.descricao}</div>
-                        
-                        <div className="medico-indicacoes">
-                          <div className="medico-label">Indicações:</div>
-                          <div className="medico-tags">
+
+                      <div className="flex flex-col gap-4 border-t border-border px-[18px] py-4">
+                        <div className="text-xs leading-[1.6] text-text">{m.descricao}</div>
+
+                        <div className="flex flex-col">
+                          <div className="mb-2 text-[11px] font-bold uppercase tracking-[0.06em] text-muted">Indicações:</div>
+                          <div className="flex flex-wrap gap-1.5">
                             {m.indicacoes.map((ind, idx) => (
-                              <span key={idx} className="medico-tag">{ind}</span>
+                              <span key={idx} className="rounded-full border border-[rgba(0,184,97,0.18)] bg-[rgba(0,184,97,0.08)] px-2.5 py-1 text-[10px] font-semibold text-green">{ind}</span>
                             ))}
                           </div>
                         </div>
 
-                        <div className="medico-avaliacoes">
-                          <div className="medico-label">Avaliações de Pacientes:</div>
+                        <div className="flex flex-col">
+                          <div className="mb-2 text-[11px] font-bold uppercase tracking-[0.06em] text-muted">Avaliações de Pacientes:</div>
                           {m.avaliacoes.map((av, idx) => (
-                            <div key={idx} className="medico-avaliacao">
-                              <div className="avaliacao-header">
-                                <span className="avaliacao-paciente">{av.paciente}</span>
-                                <span className="avaliacao-nota">{'⭐'.repeat(av.nota)}</span>
+                            <div key={idx} className="mb-2 rounded-[10px] border border-border bg-surface p-3 last:mb-0">
+                              <div className="mb-1.5 flex items-center justify-between">
+                                <span className="text-[11px] font-bold text-text">{av.paciente}</span>
+                                <span className="text-xs">{'⭐'.repeat(av.nota)}</span>
                               </div>
-                              <div className="avaliacao-comentario">"{av.comentario}"</div>
+                              <div className="text-[11px] italic leading-[1.5] text-muted">"{av.comentario}"</div>
                             </div>
                           ))}
                         </div>
@@ -367,16 +388,15 @@ export default function Consultas() {
                 </div>
               </div>
 
-              {/* Hábitos e Desafios */}
-              <div className="journey-subsection">
-                <div className="journey-subsection-title">🎯 Hábitos e Desafios</div>
-                <div className="journey-items-grid">
+              <div className="mb-7 last:mb-0">
+                <div className="mb-3.5 flex items-center gap-2 font-display text-[15px] font-bold text-text">🎯 Hábitos e Desafios</div>
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-3">
                   {journeyAtiva.habitos.map((h, i) => (
-                    <div key={i} className="journey-item" style={{ animationDelay: `${i * 0.06}s` }}>
-                      <div className="journey-item-icon">{h.emoji}</div>
-                      <div className="journey-item-body">
-                        <div className="journey-item-nome">{h.titulo}</div>
-                        <div className="journey-item-desc">{h.desc}</div>
+                    <div key={i} className="flex items-center gap-3 rounded-[14px] border border-border bg-surface2 px-4 py-3.5 transition-all animate-fade-up-sm hover:-translate-y-0.5 hover:border-border2 hover:bg-surface hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]" style={{ animationDelay: `${i * 0.06}s` }}>
+                      <div className="flex-shrink-0 text-2xl">{h.emoji}</div>
+                      <div className="min-w-0 flex-1">
+                        <div className="mb-0.5 font-display text-[13px] font-bold text-text">{h.titulo}</div>
+                        <div className="text-[11px] text-muted">{h.desc}</div>
                       </div>
                     </div>
                   ))}
@@ -385,25 +405,24 @@ export default function Consultas() {
             </div>
           )}
 
-          {/* Ramos Preventivos */}
-          <div className="consultas-section">
-            <div className="section-header">
-              <div className="section-title">Explorar Todos os Ramos</div>
-              <span className="section-link">6 especialidades</span>
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center justify-between">
+              <div className="font-display text-base font-semibold text-text">Explorar Todos os Ramos</div>
+              <span className="text-xs text-green">6 especialidades</span>
             </div>
-            <div className="branches-grid">
+            <div className="grid grid-cols-3 gap-3.5">
               {BRANCHES.map((b, i) => (
-                <div key={b.id} className={`branch-card ${b.color}`} style={{ animationDelay: `${i * 0.07}s` }}
+                <div key={b.id} className={`relative flex cursor-pointer flex-col gap-2.5 overflow-hidden rounded-[20px] border border-border bg-surface px-5 pb-[18px] pt-[22px] shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-[transform,box-shadow,border-color] animate-fade-up hover:-translate-y-0.5 hover:border-border2 hover:shadow-[0_12px_32px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.35)] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:rounded-t-[20px] before:content-[''] ${BRANCH_BEFORE[b.color]}`} style={{ animationDelay: `${i * 0.07}s` }}
                   onClick={() => {
                     if (b.id === 'fisica') navigate('/consultas/saude-fisica')
                     if (b.id === 'mental') navigate('/consultas/saude-mental')
                     if (b.id === 'nutricao') navigate('/consultas/nutricao')
                   }}
                 >
-                  <div className="branch-icon-wrap">{b.icon}</div>
-                  <div className="branch-title">{b.title}</div>
-                  <div className="branch-desc">{b.desc}</div>
-                  <button className="branch-btn">Ver Horários</button>
+                  <div className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-[14px] ${BRANCH_ICON[b.color]}`}>{b.icon}</div>
+                  <div className="font-display text-[14px] font-bold leading-[1.3] text-text">{b.title}</div>
+                  <div className="flex-1 text-xs leading-[1.5] text-muted">{b.desc}</div>
+                  <button className={`mt-0.5 cursor-pointer self-start rounded-lg border bg-none px-3 py-[5px] text-[11px] font-bold transition-all ${BRANCH_BTN[b.color]}`}>Ver Horários</button>
                 </div>
               ))}
             </div>

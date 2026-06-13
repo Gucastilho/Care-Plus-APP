@@ -44,7 +44,7 @@ export default function MetasModal({ open, onClose, onAddMeta }) {
 
   function handleConfirmar() {
     metasSelecionadas.forEach(meta => onAddMeta(meta))
-    show(`${metasSelecionadas.length} meta${metasSelecionadas.length > 1 ? 's adicionadas' : ' adicionada'} com sucesso!`)
+    showToast(`${metasSelecionadas.length} meta${metasSelecionadas.length > 1 ? 's adicionadas' : ' adicionada'} com sucesso!`)
     setMetasSelecionadas([])
     onClose()
   }
@@ -52,26 +52,25 @@ export default function MetasModal({ open, onClose, onAddMeta }) {
   if (!open) return null
 
   return (
-    <div className="modal-overlay open" onClick={onClose}>
-      <div className="modal-box metas-modal-box" onClick={e => e.stopPropagation()}>
-        <div className="metas-modal-header">
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/45 backdrop-blur-[4px] animate-fade-in" onClick={onClose}>
+      <div className="flex max-h-[85vh] w-full max-w-[700px] flex-col rounded-[22px] border border-border2 bg-surface p-7 shadow-[0_24px_60px_rgba(0,0,0,0.2)]" onClick={e => e.stopPropagation()}>
+        <div className="mb-5 flex flex-shrink-0 items-start justify-between">
           <div>
-            <div className="metas-modal-title">Adicionar Metas</div>
-            <div className="metas-modal-subtitle">Selecione as metas que deseja adicionar ao seu plano</div>
+            <div className="mb-1 font-display text-[18px] font-bold text-text">Adicionar Metas</div>
+            <div className="text-xs leading-[1.5] text-muted">Selecione as metas que deseja adicionar ao seu plano</div>
           </div>
-          <button className="config-modal-close" onClick={onClose}>
+          <button className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-lg border border-border2 bg-surface2 text-muted transition-colors hover:bg-surface3 hover:text-text" onClick={onClose}>
             <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
               <path d="M3 3L13 13M13 3L3 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
             </svg>
           </button>
         </div>
 
-        {/* Filtros */}
-        <div className="metas-filtros">
+        <div className="mb-4 flex flex-shrink-0 flex-wrap gap-2">
           {categorias.map(cat => (
             <button
               key={cat}
-              className={`metas-filtro-btn${categoriaFiltro === cat ? ' active' : ''}`}
+              className={`cursor-pointer rounded-full border px-4 py-1.5 text-xs font-semibold transition ${categoriaFiltro === cat ? 'border-green bg-green text-white' : 'border-border bg-surface2 text-muted hover:bg-surface3 hover:text-text'}`}
               onClick={() => setCategoriaFiltro(cat)}
             >
               {cat}
@@ -79,29 +78,28 @@ export default function MetasModal({ open, onClose, onAddMeta }) {
           ))}
         </div>
 
-        {/* Lista de metas */}
-        <div className="metas-lista">
+        <div className="mb-5 flex flex-1 flex-col gap-2.5 overflow-y-auto pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-surface3 [&::-webkit-scrollbar]:w-[3px]">
           {metasFiltradas.map((meta, i) => {
             const selecionada = metasSelecionadas.find(m => m.id === meta.id)
             return (
               <div
                 key={meta.id}
-                className={`meta-item${selecionada ? ' selected' : ''}`}
+                className={`flex cursor-pointer items-center gap-3 rounded-[14px] border-2 bg-surface2 px-4 py-3.5 transition animate-fade-up-sm ${selecionada ? 'border-green bg-[rgba(0,184,97,0.08)]' : 'border-border hover:border-green hover:bg-[rgba(0,184,97,0.04)]'}`}
                 onClick={() => handleToggleMeta(meta)}
                 style={{ animationDelay: `${i * 0.04}s` }}
               >
-                <div className="meta-item-checkbox">
+                <div className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-md border-2 text-white transition ${selecionada ? 'border-green bg-green' : 'border-border2'}`}>
                   {selecionada && <svg viewBox="0 0 12 12" fill="none" width="12" height="12">
                     <path d="M2 6L5 9L10 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>}
                 </div>
-                <div className="meta-item-emoji">{meta.emoji}</div>
-                <div className="meta-item-body">
-                  <div className="meta-item-titulo">{meta.titulo}</div>
-                  <div className="meta-item-desc">{meta.desc}</div>
-                  <div className="meta-item-footer">
-                    <span className="meta-item-categoria">{meta.categoria}</span>
-                    <span className="meta-item-prazo">⏱ {meta.prazo}</span>
+                <div className="flex-shrink-0 text-2xl">{meta.emoji}</div>
+                <div className="min-w-0 flex-1">
+                  <div className="mb-[3px] font-display text-[13px] font-bold text-text">{meta.titulo}</div>
+                  <div className="mb-1.5 text-[11px] leading-[1.5] text-muted">{meta.desc}</div>
+                  <div className="flex items-center gap-2.5">
+                    <span className="rounded-full border border-[rgba(0,184,97,0.2)] bg-[rgba(0,184,97,0.1)] px-2 py-0.5 text-[10px] font-bold text-green">{meta.categoria}</span>
+                    <span className="text-[10px] font-semibold text-muted">⏱ {meta.prazo}</span>
                   </div>
                 </div>
               </div>
@@ -109,17 +107,16 @@ export default function MetasModal({ open, onClose, onAddMeta }) {
           })}
         </div>
 
-        {/* Ações */}
-        <div className="metas-modal-actions">
+        <div className="flex flex-shrink-0 flex-col gap-2">
           <button
-            className="modal-btn-confirm"
+            className="w-full cursor-pointer rounded-xl border-none bg-[linear-gradient(135deg,var(--color-green2),var(--color-green))] py-3 font-display text-[14px] font-bold text-white shadow-[0_4px_16px_rgba(0,184,97,0.25)] transition hover:scale-[0.99] hover:opacity-90"
             onClick={handleConfirmar}
             disabled={metasSelecionadas.length === 0}
             style={metasSelecionadas.length === 0 ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
           >
             ✓ Adicionar {metasSelecionadas.length > 0 ? `(${metasSelecionadas.length})` : ''}
           </button>
-          <button className="modal-btn-cancel" onClick={onClose}>Cancelar</button>
+          <button className="w-full cursor-pointer rounded-xl border border-border2 bg-transparent py-[11px] font-display text-[13px] font-semibold text-muted transition-colors hover:bg-surface2" onClick={onClose}>Cancelar</button>
         </div>
       </div>
     </div>
