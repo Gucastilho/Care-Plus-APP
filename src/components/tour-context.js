@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react'
 
 export const TOUR_STEPS = [
-  { to: '/dashboard',   emoji: '🏠', title: 'Início',      desc: 'Seu painel principal: score de bem-estar, missões do dia e próximas consultas.' },
+  { to: '/dashboard',   emoji: '🏠', title: 'Início',      desc: 'Seu painel principal reúne três destaques: as Missões Diárias (tarefas de saúde do dia que rendem pontos), o bloco Impulsione sua Saúde (onde você cria metas e um plano personalizado) e o Score de Bem-estar (índice que resume sua atividade, hidratação, sono e nutrição).' },
   { to: '/missoes',     emoji: '🎯', title: 'Missões',     desc: 'Complete missões diárias e semanais para acumular pontos e evoluir de nível.' },
   { to: '/recompensas', emoji: '🎁', title: 'Recompensas', desc: 'Troque os pontos conquistados por benefícios e descontos exclusivos.' },
   { to: '/conquistas',  emoji: '🏆', title: 'Conquistas',  desc: 'Acompanhe seus badges desbloqueados e celebre cada progresso.' },
