@@ -1,6 +1,8 @@
 import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import ConfigModal from './ConfigModal'
+import { useTour } from './tour-context'
+import { logout, getSession } from '../auth'
 
 const NAV = [
   { to: '/dashboard',   label: 'Início',      icon: <path d="M2 6L8 1.5L14 6V14H10V10H6V14H2V6Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/> },
@@ -13,17 +15,26 @@ const NAV = [
 
 const NAV_BASE = "relative flex items-center gap-2.5 px-5 py-[9px] text-[13px] font-medium no-underline cursor-pointer transition-colors hover:bg-black/[0.03] hover:text-text dark:hover:bg-white/[0.03]"
 const NAV_ICON = "h-4 w-4 flex-shrink-0 opacity-60"
+const NAV_HIGHLIGHT = "z-[50] rounded-lg bg-[rgba(0,184,97,0.1)] text-green ring-2 ring-green ring-offset-2 ring-offset-bg2"
 
 export default function Sidebar() {
+  const navigate = useNavigate()
+  const { active: tourActive, target: tourTarget } = useTour()
   const [configOpen, setConfigOpen] = useState(false)
   const [profile, setProfile] = useState(() => {
     const saved = localStorage.getItem('careplus_profile')
     return saved ? JSON.parse(saved) : { name: 'Gustavo Castilho', age: '', photo: null }
   })
+  const session = getSession()
 
   function handleSaveProfile(data) {
     localStorage.setItem('careplus_profile', JSON.stringify(data))
     setProfile(data)
+  }
+
+  function handleLogout() {
+    logout()
+    navigate('/login', { replace: true })
   }
 
   return (
@@ -45,7 +56,7 @@ export default function Sidebar() {
           <div className="absolute -bottom-1 -right-1.5 rounded-lg bg-green px-[5px] py-0.5 font-display text-[9px] font-bold tracking-[0.02em] text-white">LV 15</div>
         </div>
         <div className="text-[14px] font-semibold leading-[1.2] text-text">{profile.name}</div>
-        <div className="mt-0.5 text-[11px] text-muted">gustavo@email.com</div>
+        <div className="mt-0.5 truncate text-[11px] text-muted">{session?.login || 'gustavo@email.com'}</div>
         <div className="mt-2.5">
           <div className="mb-[5px] flex justify-between text-[10px] text-muted"><span>XP 1.340</span><span>2.000</span></div>
           <div className="h-[5px] overflow-hidden rounded-[3px] bg-surface3"><div className="h-full w-[67%] rounded-[3px] bg-[linear-gradient(90deg,var(--color-green2),var(--color-green))]" /></div>
@@ -54,20 +65,23 @@ export default function Sidebar() {
 
       <div className="px-5 pb-1.5 pt-5 text-[10px] font-semibold uppercase tracking-[0.1em] text-muted2">Menu</div>
 
-      {NAV.map(({ to, label, icon }) => (
-        <NavLink
-          key={to}
-          to={to}
-          className={({ isActive }) => `${NAV_BASE} ${isActive ? "text-green before:absolute before:inset-y-1 before:left-0 before:w-[3px] before:rounded-r-[2px] before:bg-green before:content-['']" : "text-muted"}`}
-        >
-          {({ isActive }) => (
-            <>
-              <svg className={`h-4 w-4 flex-shrink-0 ${isActive ? 'opacity-100' : 'opacity-60'}`} viewBox="0 0 16 16" fill="none">{icon}</svg>
-              {label}
-            </>
-          )}
-        </NavLink>
-      ))}
+      {NAV.map(({ to, label, icon }) => {
+        const highlighted = tourActive && tourTarget === to
+        return (
+          <NavLink
+            key={to}
+            to={to}
+            className={({ isActive }) => `${NAV_BASE} ${highlighted ? NAV_HIGHLIGHT : isActive ? "text-green before:absolute before:inset-y-1 before:left-0 before:w-[3px] before:rounded-r-[2px] before:bg-green before:content-['']" : "text-muted"}`}
+          >
+            {({ isActive }) => (
+              <>
+                <svg className={`h-4 w-4 flex-shrink-0 ${isActive || highlighted ? 'opacity-100' : 'opacity-60'}`} viewBox="0 0 16 16" fill="none">{icon}</svg>
+                {label}
+              </>
+            )}
+          </NavLink>
+        )
+      })}
 
       <div className="flex-1" />
 
@@ -87,13 +101,13 @@ export default function Sidebar() {
           </svg>
           Ajuda
         </a>
-        <a className={`${NAV_BASE} text-rose hover:bg-[rgba(232,54,93,0.05)] hover:text-rose`} href="#">
+        <button className={`${NAV_BASE} w-full border-none bg-transparent text-left text-rose hover:bg-[rgba(232,54,93,0.05)] hover:text-rose`} onClick={handleLogout}>
           <svg className={NAV_ICON} viewBox="0 0 16 16" fill="none">
             <path d="M6 3H3C2.4 3 2 3.4 2 4V12C2 12.6 2.4 13 3 13H6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             <path d="M10 5L13 8L10 11M6 8H13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
           Sair
-        </a>
+        </button>
       </div>
     </aside>
   )
