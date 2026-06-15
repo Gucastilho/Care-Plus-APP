@@ -7,6 +7,7 @@ import MissionCard from '../components/MissionCard'
 import MetasModal from '../components/MetasModal'
 import ConsultaModal from '../components/ConsultaModal'
 import { dailyMissions } from '../data'
+import { Icon } from '../components/icons'
 
 export default function Dashboard() {
   const navigate = useNavigate()
@@ -66,7 +67,7 @@ export default function Dashboard() {
     <div className="flex h-screen">
       <Sidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
-        <Topbar title="Olá, Gustavo" subtitle="Continue sua jornada de bem-estar" emoji="👋" />
+        <Topbar title="Olá, Gustavo" subtitle="Continue sua jornada de bem-estar" />
 
         <div className="flex flex-1 gap-5 overflow-hidden px-7 py-5">
           <div className="flex flex-1 flex-col gap-4 overflow-hidden">
@@ -87,7 +88,6 @@ export default function Dashboard() {
               {metas.length === 0 ? (
                 <>
                   <div className="flex flex-1 cursor-pointer flex-col items-center justify-center gap-2 rounded-[18px] border-[1.5px] border-dashed border-border2 bg-surface text-muted transition-[border-color,background] hover:border-green hover:bg-[rgba(0,184,97,0.03)]">
-                    <div className="text-[28px] opacity-35">✦</div>
                     <div className="text-[13px] font-medium">Nenhuma meta ainda</div>
                     <div className="text-[11px] text-muted2">Crie um plano personalizado ou adicione metas manualmente</div>
                   </div>
@@ -106,7 +106,7 @@ export default function Dashboard() {
                   <div className="mb-2.5 flex max-h-[300px] flex-col gap-2.5 overflow-y-auto pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-surface3 [&::-webkit-scrollbar]:w-[3px]">
                     {metas.map((meta, i) => (
                       <div key={meta.id} className="group relative flex items-center gap-3 rounded-[14px] border border-border bg-surface px-4 py-3.5 transition animate-fade-up hover:border-border2 hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]" style={{ animationDelay: `${i * 0.08}s` }}>
-                        <div className="flex-shrink-0 text-2xl">{meta.emoji}</div>
+                        <div className="flex-shrink-0 text-green"><Icon name={meta.icon} className="h-6 w-6" /></div>
                         <div className="min-w-0 flex-1">
                           <div className="mb-[3px] font-display text-[13px] font-bold text-text">{meta.titulo}</div>
                           <div className="mb-1 text-[11px] leading-[1.5] text-muted">{meta.desc}</div>

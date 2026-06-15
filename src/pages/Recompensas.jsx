@@ -3,6 +3,8 @@ import Sidebar from '../components/Sidebar'
 import Topbar  from '../components/Topbar'
 import ToastContainer, { useToast } from '../components/Toast'
 import { rewardsData } from '../data'
+import { Icon } from '../components/icons'
+import { useUserStats, addPoints } from '../userStats'
 
 const REWARD_BG = {
   'img-spa':      'bg-[linear-gradient(135deg,#fde68a,#fbbf24)] dark:bg-[linear-gradient(135deg,#78350f,#b45309)]',
@@ -15,8 +17,8 @@ const REWARD_BG = {
 
 export default function Recompensas() {
   const { toasts, show } = useToast()
+  const { points: userPts } = useUserStats()
   const [rewards, setRewards] = useState(rewardsData)
-  const [userPts, setUserPts] = useState(1500)
   const [modal, setModal]     = useState(null)
 
   function openModal(r) { setModal(r) }
@@ -25,7 +27,7 @@ export default function Recompensas() {
   function confirmRedeem() {
     if (!modal) return
     setRewards(rs => rs.map(r => r.id === modal.id ? { ...r, redeemed: true } : r))
-    setUserPts(p => p - modal.pts)
+    addPoints(-modal.pts)
     show(`"${modal.name}" resgatado com sucesso! Verifique seu email.`)
     closeModal()
   }
@@ -36,11 +38,10 @@ export default function Recompensas() {
     <div className="flex h-screen">
       <Sidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
-        <Topbar title="Recompensas" subtitle="Troque seus pontos por benefícios exclusivos" emoji="🎁" />
+        <Topbar title="Recompensas" subtitle="Troque seus pontos por benefícios exclusivos" />
 
         <div className="flex flex-1 flex-col gap-6 overflow-y-auto px-7 pb-7 pt-5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-surface3 [&::-webkit-scrollbar]:w-1">
           <div className="flex flex-shrink-0 items-start gap-3.5 rounded-[18px] border border-[rgba(0,184,97,0.18)] bg-[rgba(0,184,97,0.07)] px-5 py-4 dark:border-[rgba(0,229,122,0.15)] dark:bg-[rgba(0,229,122,0.06)]">
-            <div className="mt-0.5 flex-shrink-0 text-2xl">💡</div>
             <div>
               <div className="mb-1 font-display text-[13px] font-bold text-green">Como funcionam os resgates</div>
               <div className="text-xs leading-[1.6] text-muted">Escolha uma recompensa e troque por seus pontos. Você receberá um voucher por email em até 24h.</div>
@@ -57,15 +58,15 @@ export default function Recompensas() {
               const canAfford = userPts >= r.pts
               return (
                 <div key={r.id} className={`overflow-hidden rounded-[18px] border border-border bg-surface shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-[transform,box-shadow,border-color] animate-fade-up hover:-translate-y-0.5 hover:border-border2 hover:shadow-[0_10px_28px_rgba(0,0,0,0.09)] dark:hover:shadow-[0_10px_28px_rgba(0,0,0,0.35)] ${r.redeemed ? 'opacity-60 hover:translate-y-0 hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)]' : ''}`} style={{ animationDelay: `${0.04 + i * 0.06}s` }}>
-                  <div className={`flex h-[120px] w-full flex-shrink-0 items-center justify-center text-[2.8rem] ${REWARD_BG[r.imgClass] || ''}`}>{r.emoji}</div>
+                  <div className={`flex h-[120px] w-full flex-shrink-0 items-center justify-center ${REWARD_BG[r.imgClass] || ''}`}><Icon name={r.icon} className="h-12 w-12 text-black/40 dark:text-white/80" /></div>
                   <div className="px-4 pb-4 pt-3.5">
                     <div className="mb-1.5 flex items-start justify-between gap-2">
                       <div className={`font-display text-[14px] font-bold leading-[1.3] ${r.redeemed ? 'text-muted line-through' : 'text-text'}`}>{r.name}</div>
-                      <div className={`flex flex-shrink-0 items-center gap-1 whitespace-nowrap rounded-lg px-2 py-[3px] font-display text-[10px] font-bold ${r.redeemed ? 'border border-border bg-surface2 text-muted2' : 'border border-[rgba(224,144,0,0.18)] bg-[rgba(224,144,0,0.08)] text-amber'}`}>🛒 {r.pts} pts</div>
+                      <div className={`flex flex-shrink-0 items-center gap-1 whitespace-nowrap rounded-lg px-2 py-[3px] font-display text-[10px] font-bold ${r.redeemed ? 'border border-border bg-surface2 text-muted2' : 'border border-[rgba(224,144,0,0.18)] bg-[rgba(224,144,0,0.08)] text-amber'}`}>{r.pts} pts</div>
                     </div>
                     <div className="mb-3 text-[11px] leading-[1.5] text-muted">{r.desc}</div>
                     {r.redeemed
-                      ? <button className="w-full cursor-not-allowed rounded-[10px] border border-border bg-surface2 py-[9px] font-display text-xs font-bold text-muted2" disabled>✔ Resgatado</button>
+                      ? <button className="w-full cursor-not-allowed rounded-[10px] border border-border bg-surface2 py-[9px] font-display text-xs font-bold text-muted2" disabled>Resgatado</button>
                       : <button
                           className="w-full cursor-pointer rounded-[10px] border-none bg-[linear-gradient(135deg,var(--color-green2),var(--color-green))] py-[9px] font-display text-xs font-bold text-white shadow-[0_4px_14px_rgba(0,184,97,0.2)] transition hover:scale-[0.99] hover:opacity-90"
                           disabled={!canAfford}
@@ -85,11 +86,11 @@ export default function Recompensas() {
 
       <div className={`fixed inset-0 z-[1000] flex items-center justify-center bg-black/45 backdrop-blur-[4px] transition-opacity ${modal ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`} onClick={e => e.target === e.currentTarget && closeModal()}>
         <div className="w-full max-w-[380px] rounded-[22px] border border-border2 bg-surface p-7 shadow-[0_24px_60px_rgba(0,0,0,0.2)]">
-          <div className="mb-3 text-4xl">{modal?.emoji}</div>
+          <div className="mb-3 text-green">{modal && <Icon name={modal.icon} className="h-10 w-10" />}</div>
           <div className="mb-1.5 font-display text-[18px] font-bold text-text">Confirmar Resgate</div>
           <div className="mb-4 text-xs leading-[1.5] text-muted">Você está prestes a resgatar:</div>
           <div style={{ fontFamily: 'Outfit,sans-serif', fontSize: 15, fontWeight: 700, color: 'var(--color-text)', marginBottom: 12 }}>{modal?.name}</div>
-          <div className="mb-5 inline-flex items-center gap-1.5 rounded-[10px] border border-[rgba(224,144,0,0.18)] bg-[rgba(224,144,0,0.08)] px-3.5 py-1.5 font-display text-[14px] font-bold text-amber">🛒 {modal?.pts} pts</div>
+          <div className="mb-5 inline-flex items-center gap-1.5 rounded-[10px] border border-[rgba(224,144,0,0.18)] bg-[rgba(224,144,0,0.08)] px-3.5 py-1.5 font-display text-[14px] font-bold text-amber">{modal?.pts} pts</div>
           <div style={{ fontSize: 11, color: 'var(--color-muted)', marginBottom: 20, lineHeight: 1.6 }}>
             Saldo atual: <strong style={{ color: 'var(--color-text)' }}>{userPts.toLocaleString('pt-BR')} pts</strong> →{' '}
             Após resgate: <strong style={{ color: 'var(--color-green)' }}>{modal ? (userPts - modal.pts).toLocaleString('pt-BR') : 0} pts</strong>

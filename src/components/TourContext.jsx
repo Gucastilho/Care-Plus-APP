@@ -22,10 +22,12 @@ export function TourProvider({ children }) {
     else setStep(step + 1)
   }
 
+  const prev = () => setStep(s => (s > 0 ? s - 1 : s))
+
   const skip = () => finish()
 
   return (
-    <TourContext.Provider value={{ active, step, total, current, target, start, next, skip }}>
+    <TourContext.Provider value={{ active, step, total, current, target, start, next, prev, skip }}>
       {children}
     </TourContext.Provider>
   )

@@ -35,7 +35,6 @@
   --animate-slide-right: slideRight 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-toast: slideInToast 0.3s ease;
   --animate-expand: expandDetails 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  --animate-float: floatEmoji 3s ease-in-out infinite;
   --animate-pulse-dot: pulseGlowDot 2s ease-in-out infinite;
   --animate-done-pop: donePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   --animate-scale-in: scaleIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -127,10 +126,6 @@ body::after {
 @keyframes scaleIn {
   from { opacity: 0; transform: scale(0.88); }
   to   { opacity: 1; transform: scale(1); }
-}
-@keyframes floatEmoji {
-  0%, 100% { transform: translateY(0px); }
-  50%      { transform: translateY(-4px); }
 }
 @keyframes pulseGlowDot {
   0%, 100% { transform: scale(1); opacity: 1; }

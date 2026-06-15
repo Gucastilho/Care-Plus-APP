@@ -1,3 +1,5 @@
+import { Icon } from './icons'
+
 export default function ConsultaModal({ consulta, onClose, onCancel }) {
   if (!consulta) return null
 
@@ -5,7 +7,7 @@ export default function ConsultaModal({ consulta, onClose, onCancel }) {
     <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/45 backdrop-blur-[4px] animate-fade-in" onClick={onClose}>
       <div className="max-h-[90vh] w-full max-w-[600px] overflow-y-auto rounded-[22px] border border-border2 bg-surface p-7 shadow-[0_24px_60px_rgba(0,0,0,0.2)] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-surface3 [&::-webkit-scrollbar]:w-1" onClick={(e) => e.stopPropagation()}>
         <div className="mb-5 flex items-center justify-between">
-          <div className="flex h-[56px] w-[56px] items-center justify-center rounded-2xl bg-[linear-gradient(135deg,var(--color-blue),#60a5fa)] text-[28px] shadow-[0_6px_20px_rgba(43,127,255,0.25)]">🩺</div>
+          <div className="flex h-[56px] w-[56px] items-center justify-center rounded-2xl bg-[linear-gradient(135deg,var(--color-blue),#60a5fa)] text-white shadow-[0_6px_20px_rgba(43,127,255,0.25)]"><Icon name="stethoscope" className="h-7 w-7" /></div>
           <button className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg border border-border2 bg-surface2 text-base text-muted transition-colors hover:bg-surface3 hover:text-text" onClick={onClose}>✕</button>
         </div>
 
@@ -15,35 +17,35 @@ export default function ConsultaModal({ consulta, onClose, onCancel }) {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="rounded-xl border border-border bg-surface2 px-4 py-3.5">
-              <div className="mb-2 text-[11px] font-bold uppercase tracking-[0.06em] text-muted">📅 Data e Horário</div>
+              <div className="mb-2 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.06em] text-muted"><Icon name="calendar" className="h-3.5 w-3.5" />Data e Horário</div>
               <div className="text-[14px] font-semibold leading-[1.4] text-text">{consulta.data} às {consulta.horario}</div>
             </div>
 
             <div className="rounded-xl border border-border bg-surface2 px-4 py-3.5">
-              <div className="mb-2 text-[11px] font-bold uppercase tracking-[0.06em] text-muted">👨⚕️ Médico</div>
+              <div className="mb-2 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.06em] text-muted"><Icon name="doctor" className="h-3.5 w-3.5" />Médico</div>
               <div className="text-[14px] font-semibold leading-[1.4] text-text">{consulta.medico}</div>
               <div className="mt-1 text-xs text-muted">{consulta.especialidade}</div>
             </div>
 
             <div className="rounded-xl border border-border bg-surface2 px-4 py-3.5">
-              <div className="mb-2 text-[11px] font-bold uppercase tracking-[0.06em] text-muted">📍 Local</div>
+              <div className="mb-2 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.06em] text-muted"><Icon name="pin" className="h-3.5 w-3.5" />Local</div>
               <div className="text-[14px] font-semibold leading-[1.4] text-text">{consulta.local}</div>
               <div className="mt-1 text-xs text-muted">{consulta.endereco}</div>
             </div>
 
             <div className="rounded-xl border border-border bg-surface2 px-4 py-3.5">
-              <div className="mb-2 text-[11px] font-bold uppercase tracking-[0.06em] text-muted">💳 Plano Utilizado</div>
+              <div className="mb-2 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.06em] text-muted"><Icon name="card" className="h-3.5 w-3.5" />Plano Utilizado</div>
               <div className="text-[14px] font-semibold leading-[1.4] text-text">{consulta.plano}</div>
             </div>
 
             <div className="rounded-xl border border-border bg-surface2 px-4 py-3.5">
-              <div className="mb-2 text-[11px] font-bold uppercase tracking-[0.06em] text-muted">📋 Motivo da Consulta</div>
+              <div className="mb-2 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.06em] text-muted"><Icon name="clipboard" className="h-3.5 w-3.5" />Motivo da Consulta</div>
               <div className="text-[14px] font-semibold leading-[1.4] text-text">{consulta.motivo}</div>
             </div>
 
             {consulta.observacoes && (
               <div className="col-span-2 rounded-xl border border-border bg-surface2 px-4 py-3.5">
-                <div className="mb-2 text-[11px] font-bold uppercase tracking-[0.06em] text-muted">📝 Observações</div>
+                <div className="mb-2 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.06em] text-muted"><Icon name="note" className="h-3.5 w-3.5" />Observações</div>
                 <div className="text-[14px] font-semibold leading-[1.4] text-text">{consulta.observacoes}</div>
               </div>
             )}

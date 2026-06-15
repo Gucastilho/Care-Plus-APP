@@ -1,6 +1,8 @@
 const USERS_KEY = 'careplus_users'
 const SESSION_KEY = 'careplus_session'
 
+const STARTING_POINTS = 1500
+
 function read(key, fallback) {
   try {
     const raw = localStorage.getItem(key)
@@ -8,6 +10,14 @@ function read(key, fallback) {
   } catch {
     return fallback
   }
+}
+
+function saveUsers(users) {
+  localStorage.setItem(USERS_KEY, JSON.stringify(users))
+}
+
+function ymd(date) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
 }
 
 export function getUsers() {
@@ -26,13 +36,39 @@ export function logout() {
   localStorage.removeItem(SESSION_KEY)
 }
 
+export function getCurrentUser() {
+  const session = getSession()
+  if (!session) return null
+  return getUsers().find(u => u.login === session.login) || null
+}
+
+export function updateCurrentUser(patch) {
+  const session = getSession()
+  if (!session) return null
+  let updated = null
+  const users = getUsers().map(u => {
+    if (u.login !== session.login) return u
+    updated = { ...u, ...patch }
+    return updated
+  })
+  saveUsers(users)
+  return updated
+}
+
 export function register(login, senha) {
   const users = getUsers()
   if (users.some(u => u.login === login)) {
     return { ok: false, error: 'Já existe uma conta com esse CPF ou e-mail.' }
   }
-  users.push({ login, senha, seenTour: false })
-  localStorage.setItem(USERS_KEY, JSON.stringify(users))
+  users.push({
+    login,
+    senha,
+    seenTour: false,
+    points: STARTING_POINTS,
+    streak: 1,
+    lastAccess: ymd(new Date()),
+  })
+  saveUsers(users)
   localStorage.setItem(SESSION_KEY, JSON.stringify({ login }))
   return { ok: true, firstAccess: true }
 }
@@ -47,10 +83,19 @@ export function login(loginValue, senha) {
 }
 
 export function markTourSeen() {
-  const session = getSession()
-  if (!session) return
-  const users = getUsers().map(u =>
-    u.login === session.login ? { ...u, seenTour: true } : u
-  )
-  localStorage.setItem(USERS_KEY, JSON.stringify(users))
+  updateCurrentUser({ seenTour: true })
+}
+
+// Updates the consecutive-days streak based on the last access date.
+// Same day: no change. Previous day: +1. Any larger gap (or first time): reset to 1.
+export function registerDailyAccess() {
+  const user = getCurrentUser()
+  if (!user) return
+  const today = ymd(new Date())
+  if (user.lastAccess === today) return
+  const y = new Date()
+  y.setDate(y.getDate() - 1)
+  const yesterday = ymd(y)
+  const streak = user.lastAccess === yesterday ? (user.streak || 0) + 1 : 1
+  updateCurrentUser({ streak, lastAccess: today })
 }

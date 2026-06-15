@@ -24,7 +24,7 @@ export default function Loading4() {
 
   return (
     <>
-      <div className={`fixed bottom-[100px] left-1/2 z-[999] -translate-x-1/2 whitespace-nowrap rounded-full bg-text px-6 py-3 font-display text-[.9rem] font-bold text-white shadow-[0_4px_20px_rgba(0,0,0,.15)] pointer-events-none transition-[opacity,transform] ${toast ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>✅ Bem-vindo ao Care Plus!</div>
+      <div className={`fixed bottom-[100px] left-1/2 z-[999] -translate-x-1/2 whitespace-nowrap rounded-full bg-text px-6 py-3 font-display text-[.9rem] font-bold text-white shadow-[0_4px_20px_rgba(0,0,0,.15)] pointer-events-none transition-[opacity,transform] ${toast ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>Bem-vindo ao Care Plus!</div>
 
       <div ref={screenRef} className="flex h-screen flex-col overflow-hidden">
         <div className="flex-1 overflow-y-auto px-7 pb-3 pt-9 animate-ob-fade-up [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#d1d5db] [&::-webkit-scrollbar]:w-[3px]">

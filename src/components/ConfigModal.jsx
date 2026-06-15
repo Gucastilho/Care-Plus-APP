@@ -37,7 +37,7 @@ export default function ConfigModal({ open, onClose, profile, onSave }) {
           <div className="group relative flex h-[72px] w-[72px] cursor-pointer items-center justify-center overflow-hidden rounded-full border-2 border-green2 bg-[linear-gradient(135deg,#d4edda,#a8d5b5)] shadow-[0_0_12px_rgba(0,184,97,0.15)]" onClick={() => fileRef.current.click()}>
             {photo
               ? <img src={photo} alt="avatar" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
-              : <span style={{ fontSize: 28 }}>🧑</span>
+              : <svg viewBox="0 0 24 24" fill="none" className="h-9 w-9 text-green2"><circle cx="12" cy="9" r="3.4" stroke="currentColor" strokeWidth="1.7"/><path d="M5 19.5c0-3.6 3.1-6 7-6s7 2.4 7 6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>
             }
             <div className="absolute inset-0 flex items-center justify-center bg-black/35 text-white opacity-0 transition-opacity group-hover:opacity-100">
               <svg viewBox="0 0 16 16" fill="none" width="16" height="16">

@@ -1,27 +1,28 @@
 import { useState } from 'react'
 import { showToast } from './Toast'
+import { Icon } from './icons'
 
 const METAS_DISPONIVEIS = [
-  { id: 'meta1', emoji: '🏃', titulo: 'Perda de Peso Saudável', desc: 'Perder peso de forma gradual e sustentável', prazo: '3 meses', categoria: 'Físico' },
-  { id: 'meta2', emoji: '💪', titulo: 'Ganho de Massa Muscular', desc: 'Aumentar massa magra com treino e nutrição', prazo: '2 meses', categoria: 'Físico' },
-  { id: 'meta3', emoji: '❤️', titulo: 'Saúde Cardiovascular', desc: 'Melhorar condicionamento e saúde do coração', prazo: '6 semanas', categoria: 'Físico' },
-  { id: 'meta4', emoji: '🍎', titulo: 'Alimentação Equilibrada', desc: 'Adotar hábitos alimentares mais saudáveis', prazo: '4 semanas', categoria: 'Nutrição' },
-  { id: 'meta5', emoji: '😴', titulo: 'Melhora do Sono', desc: 'Estabelecer rotina de sono de qualidade', prazo: '4 semanas', categoria: 'Bem-estar' },
-  { id: 'meta6', emoji: '🧘', titulo: 'Redução de Estresse', desc: 'Gerenciar estresse com técnicas de relaxamento', prazo: '2 meses', categoria: 'Mental' },
-  { id: 'meta7', emoji: '💧', titulo: 'Hidratação Adequada', desc: 'Manter corpo hidratado diariamente', prazo: '2 semanas', categoria: 'Bem-estar' },
-  { id: 'meta8', emoji: '🚶', titulo: 'Vida Ativa', desc: 'Aumentar atividade física no dia a dia', prazo: '6 semanas', categoria: 'Físico' },
-  { id: 'meta9', emoji: '🧠', titulo: 'Saúde Mental', desc: 'Cuidar da saúde emocional e psicológica', prazo: '3 meses', categoria: 'Mental' },
-  { id: 'meta10', emoji: '🦴', titulo: 'Fortalecimento Ósseo', desc: 'Prevenir osteoporose e fortalecer ossos', prazo: '3 meses', categoria: 'Físico' },
-  { id: 'meta11', emoji: '🫀', titulo: 'Controle de Pressão', desc: 'Manter pressão arterial em níveis saudáveis', prazo: '2 meses', categoria: 'Saúde' },
-  { id: 'meta12', emoji: '🩸', titulo: 'Controle Glicêmico', desc: 'Manter glicose no sangue equilibrada', prazo: '3 meses', categoria: 'Saúde' },
-  { id: 'meta13', emoji: '🧘‍♀️', titulo: 'Flexibilidade', desc: 'Melhorar flexibilidade e mobilidade', prazo: '6 semanas', categoria: 'Físico' },
-  { id: 'meta14', emoji: '🌿', titulo: 'Desintoxicação', desc: 'Eliminar toxinas e melhorar metabolismo', prazo: '4 semanas', categoria: 'Nutrição' },
-  { id: 'meta15', emoji: '😊', titulo: 'Bem-estar Geral', desc: 'Aumentar qualidade de vida e felicidade', prazo: '3 meses', categoria: 'Bem-estar' },
-  { id: 'meta16', emoji: '🏋️', titulo: 'Força Muscular', desc: 'Aumentar força e resistência muscular', prazo: '8 semanas', categoria: 'Físico' },
-  { id: 'meta17', emoji: '🫁', titulo: 'Capacidade Respiratória', desc: 'Melhorar função pulmonar e respiração', prazo: '6 semanas', categoria: 'Físico' },
-  { id: 'meta18', emoji: '🧘‍♂️', titulo: 'Mindfulness', desc: 'Praticar atenção plena e meditação', prazo: '4 semanas', categoria: 'Mental' },
-  { id: 'meta19', emoji: '🥗', titulo: 'Dieta Balanceada', desc: 'Equilibrar macronutrientes e micronutrientes', prazo: '2 meses', categoria: 'Nutrição' },
-  { id: 'meta20', emoji: '⚡', titulo: 'Mais Energia', desc: 'Aumentar disposição e vitalidade', prazo: '4 semanas', categoria: 'Bem-estar' }
+  { id: 'meta1', icon: 'run', titulo: 'Perda de Peso Saudável', desc: 'Perder peso de forma gradual e sustentável', prazo: '3 meses', categoria: 'Físico' },
+  { id: 'meta2', icon: 'muscle', titulo: 'Ganho de Massa Muscular', desc: 'Aumentar massa magra com treino e nutrição', prazo: '2 meses', categoria: 'Físico' },
+  { id: 'meta3', icon: 'heart', titulo: 'Saúde Cardiovascular', desc: 'Melhorar condicionamento e saúde do coração', prazo: '6 semanas', categoria: 'Físico' },
+  { id: 'meta4', icon: 'apple', titulo: 'Alimentação Equilibrada', desc: 'Adotar hábitos alimentares mais saudáveis', prazo: '4 semanas', categoria: 'Nutrição' },
+  { id: 'meta5', icon: 'sleep', titulo: 'Melhora do Sono', desc: 'Estabelecer rotina de sono de qualidade', prazo: '4 semanas', categoria: 'Bem-estar' },
+  { id: 'meta6', icon: 'meditation', titulo: 'Redução de Estresse', desc: 'Gerenciar estresse com técnicas de relaxamento', prazo: '2 meses', categoria: 'Mental' },
+  { id: 'meta7', icon: 'water', titulo: 'Hidratação Adequada', desc: 'Manter corpo hidratado diariamente', prazo: '2 semanas', categoria: 'Bem-estar' },
+  { id: 'meta8', icon: 'walk', titulo: 'Vida Ativa', desc: 'Aumentar atividade física no dia a dia', prazo: '6 semanas', categoria: 'Físico' },
+  { id: 'meta9', icon: 'brain', titulo: 'Saúde Mental', desc: 'Cuidar da saúde emocional e psicológica', prazo: '3 meses', categoria: 'Mental' },
+  { id: 'meta10', icon: 'bone', titulo: 'Fortalecimento Ósseo', desc: 'Prevenir osteoporose e fortalecer ossos', prazo: '3 meses', categoria: 'Físico' },
+  { id: 'meta11', icon: 'heart', titulo: 'Controle de Pressão', desc: 'Manter pressão arterial em níveis saudáveis', prazo: '2 meses', categoria: 'Saúde' },
+  { id: 'meta12', icon: 'drop', titulo: 'Controle Glicêmico', desc: 'Manter glicose no sangue equilibrada', prazo: '3 meses', categoria: 'Saúde' },
+  { id: 'meta13', icon: 'meditation', titulo: 'Flexibilidade', desc: 'Melhorar flexibilidade e mobilidade', prazo: '6 semanas', categoria: 'Físico' },
+  { id: 'meta14', icon: 'leaf', titulo: 'Desintoxicação', desc: 'Eliminar toxinas e melhorar metabolismo', prazo: '4 semanas', categoria: 'Nutrição' },
+  { id: 'meta15', icon: 'smile', titulo: 'Bem-estar Geral', desc: 'Aumentar qualidade de vida e felicidade', prazo: '3 meses', categoria: 'Bem-estar' },
+  { id: 'meta16', icon: 'dumbbell', titulo: 'Força Muscular', desc: 'Aumentar força e resistência muscular', prazo: '8 semanas', categoria: 'Físico' },
+  { id: 'meta17', icon: 'lungs', titulo: 'Capacidade Respiratória', desc: 'Melhorar função pulmonar e respiração', prazo: '6 semanas', categoria: 'Físico' },
+  { id: 'meta18', icon: 'meditation', titulo: 'Mindfulness', desc: 'Praticar atenção plena e meditação', prazo: '4 semanas', categoria: 'Mental' },
+  { id: 'meta19', icon: 'salad', titulo: 'Dieta Balanceada', desc: 'Equilibrar macronutrientes e micronutrientes', prazo: '2 meses', categoria: 'Nutrição' },
+  { id: 'meta20', icon: 'bolt', titulo: 'Mais Energia', desc: 'Aumentar disposição e vitalidade', prazo: '4 semanas', categoria: 'Bem-estar' }
 ]
 
 export default function MetasModal({ open, onClose, onAddMeta }) {
@@ -93,7 +94,7 @@ export default function MetasModal({ open, onClose, onAddMeta }) {
                     <path d="M2 6L5 9L10 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>}
                 </div>
-                <div className="flex-shrink-0 text-2xl">{meta.emoji}</div>
+                <div className="flex-shrink-0 text-muted"><Icon name={meta.icon} className="h-6 w-6" /></div>
                 <div className="min-w-0 flex-1">
                   <div className="mb-[3px] font-display text-[13px] font-bold text-text">{meta.titulo}</div>
                   <div className="mb-1.5 text-[11px] leading-[1.5] text-muted">{meta.desc}</div>

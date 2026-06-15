@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Sidebar from '../components/Sidebar'
 import Topbar  from '../components/Topbar'
 import ToastContainer, { useToast } from '../components/Toast'
+import { Icon } from '../components/icons'
 
 const JOURNEY_COLOR = {
   'journey-blue':   'bg-[linear-gradient(135deg,#eff6ff,#dbeafe)] text-[#2563eb] dark:bg-[linear-gradient(135deg,#1e3a5f_0%,#1e3a8a_100%)] dark:text-[#93c5fd]',
@@ -40,7 +41,7 @@ const JOURNEYS = [
     id: 'longevidade',
     title: 'Longevidade',
     desc: 'Protocolos de saúde para uma vida longa e com qualidade.',
-    emoji: '🧬',
+    icon: 'dna',
     color: 'journey-blue',
     consultas: [
       { nome: 'Check-up Médico Anual', especialidade: 'Clínica Geral' },
@@ -50,7 +51,6 @@ const JOURNEYS = [
     medicos: [
       {
         nome: 'Dr. Carlos Mendes',
-        foto: '👨‍⚕️',
         especialidade: 'Cardiologista',
         rm: 'CRM 45.892-SP',
         regiao: 'Zona Sul - São Paulo',
@@ -63,7 +63,6 @@ const JOURNEYS = [
       },
       {
         nome: 'Dra. Ana Silva',
-        foto: '👩‍⚕️',
         especialidade: 'Geriatra',
         rm: 'CRM 38.124-SP',
         regiao: 'Zona Oeste - São Paulo',
@@ -76,15 +75,15 @@ const JOURNEYS = [
       }
     ],
     habitos: [
-      { emoji: '🚶', titulo: 'Caminhada Diária', desc: '5.000 passos por dia' },
-      { emoji: '💧', titulo: 'Hidratação', desc: '2 litros de água' }
+      { icon: 'walk', titulo: 'Caminhada Diária', desc: '5.000 passos por dia' },
+      { icon: 'water', titulo: 'Hidratação', desc: '2 litros de água' }
     ]
   },
   {
     id: 'mental',
     title: 'Equilíbrio Mental',
     desc: 'Cuide da sua mente com práticas preventivas e terapêuticas.',
-    emoji: '🧘',
+    icon: 'meditation',
     color: 'journey-green',
     consultas: [
       { nome: 'Gestão do Estresse', especialidade: 'Psicologia' },
@@ -94,7 +93,6 @@ const JOURNEYS = [
     medicos: [
       {
         nome: 'Dra. Beatriz Costa',
-        foto: '👩‍⚕️',
         especialidade: 'Psicóloga',
         rm: 'CRP 06/89.234',
         regiao: 'Centro - São Paulo',
@@ -107,7 +105,6 @@ const JOURNEYS = [
       },
       {
         nome: 'Dr. Rafael Santos',
-        foto: '👨‍⚕️',
         especialidade: 'Psiquiatra',
         rm: 'CRM 52.678-SP',
         regiao: 'Zona Norte - São Paulo',
@@ -120,15 +117,15 @@ const JOURNEYS = [
       }
     ],
     habitos: [
-      { emoji: '🧘', titulo: 'Meditação', desc: '10 minutos diários' },
-      { emoji: '😴', titulo: 'Sono de Qualidade', desc: '7-8 horas por noite' }
+      { icon: 'meditation', titulo: 'Meditação', desc: '10 minutos diários' },
+      { icon: 'sleep', titulo: 'Sono de Qualidade', desc: '7-8 horas por noite' }
     ]
   },
   {
     id: 'performance',
     title: 'Performance Física',
     desc: 'Maximize seu potencial com avaliações e treinos orientados.',
-    emoji: '⚡',
+    icon: 'bolt',
     color: 'journey-purple',
     consultas: [
       { nome: 'Nutrição Esportiva', especialidade: 'Nutrição' },
@@ -138,7 +135,6 @@ const JOURNEYS = [
     medicos: [
       {
         nome: 'Dr. Pedro Alves',
-        foto: '👨‍⚕️',
         especialidade: 'Fisiologista do Exercício',
         rm: 'CREF 012345-G/SP',
         regiao: 'Zona Sul - São Paulo',
@@ -151,7 +147,6 @@ const JOURNEYS = [
       },
       {
         nome: 'Dra. Juliana Rocha',
-        foto: '👩‍⚕️',
         especialidade: 'Nutricionista Esportiva',
         rm: 'CRN-3 45.789',
         regiao: 'Zona Oeste - São Paulo',
@@ -164,8 +159,8 @@ const JOURNEYS = [
       }
     ],
     habitos: [
-      { emoji: '🏃', titulo: 'Treino Semanal', desc: '150 min de atividade' },
-      { emoji: '🍎', titulo: 'Nutrição Balanceada', desc: '5 refeições saudáveis' }
+      { icon: 'run', titulo: 'Treino Semanal', desc: '150 min de atividade' },
+      { icon: 'apple', titulo: 'Nutrição Balanceada', desc: '5 refeições saudáveis' }
     ]
   },
 ]
@@ -289,7 +284,7 @@ export default function Consultas() {
     <div className="flex h-screen">
       <Sidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
-        <Topbar title="Consultas Preventivas" subtitle="Agende sua próxima jornada de saúde" emoji="🩺" />
+        <Topbar title="Consultas Preventivas" subtitle="Agende sua próxima jornada de saúde" />
 
         <div className="flex flex-1 flex-col gap-7 overflow-y-auto px-7 pb-8 pt-5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-surface3 [&::-webkit-scrollbar]:w-1">
 
@@ -305,7 +300,7 @@ export default function Consultas() {
                   className={`relative flex cursor-pointer flex-col gap-2 overflow-hidden rounded-[20px] border-2 px-5 pb-[18px] pt-[22px] transition-[transform,box-shadow,border-color] animate-fade-up hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,0,0,0.1)] ${JOURNEY_COLOR[j.color]} ${activeJourney === j.id ? 'border-current shadow-[0_8px_28px_rgba(0,0,0,0.1)]' : 'border-transparent'}`}
                   onClick={() => setActiveJourney(activeJourney === j.id ? null : j.id)}
                 >
-                  <div className="text-[28px] leading-none">{j.emoji}</div>
+                  <Icon name={j.icon} className="h-7 w-7" />
                   <div className="font-display text-[15px] font-bold">{j.title}</div>
                   <div className="flex-1 text-xs leading-[1.5] opacity-75">{j.desc}</div>
                   <button className="mt-1 cursor-pointer self-start rounded-lg border border-white/80 bg-white/55 px-3 py-[5px] text-[11px] font-bold text-inherit backdrop-blur-[4px] transition-colors hover:bg-white/80 dark:border-white/15 dark:bg-white/10 dark:hover:bg-white/[0.18]">{activeJourney === j.id ? 'Fechar' : 'Explorar'} →</button>
@@ -317,7 +312,7 @@ export default function Consultas() {
           {journeyAtiva && (
             <div className="rounded-3xl border border-border bg-surface p-7 shadow-[0_4px_20px_rgba(0,0,0,0.06)] animate-fade-up">
               <div className="mb-8 flex items-center gap-4 border-b border-border pb-6">
-                <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-[18px] bg-[linear-gradient(135deg,var(--color-green2),var(--color-green))] text-[32px] shadow-[0_6px_20px_rgba(0,184,97,0.25)]">{journeyAtiva.emoji}</div>
+                <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-[18px] bg-[linear-gradient(135deg,var(--color-green2),var(--color-green))] text-white shadow-[0_6px_20px_rgba(0,184,97,0.25)]"><Icon name={journeyAtiva.icon} className="h-8 w-8" /></div>
                 <div>
                   <div className="mb-1 font-display text-[22px] font-bold text-text">{journeyAtiva.title}</div>
                   <div className="text-[13px] text-muted">Plano completo para sua jornada</div>
@@ -325,11 +320,11 @@ export default function Consultas() {
               </div>
 
               <div className="mb-7 last:mb-0">
-                <div className="mb-3.5 flex items-center gap-2 font-display text-[15px] font-bold text-text">📋 Consultas Recomendadas</div>
+                <div className="mb-3.5 flex items-center gap-2 font-display text-[15px] font-bold text-text">Consultas Recomendadas</div>
                 <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-3">
                   {journeyAtiva.consultas.map((c, i) => (
                     <div key={i} className="flex items-center gap-3 rounded-[14px] border border-border bg-surface2 px-4 py-3.5 transition-all animate-fade-up-sm hover:-translate-y-0.5 hover:border-border2 hover:bg-surface hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]" style={{ animationDelay: `${i * 0.06}s` }}>
-                      <div className="flex-shrink-0 text-2xl">🩺</div>
+                      <div className="flex-shrink-0 text-green"><Icon name="stethoscope" className="h-6 w-6" /></div>
                       <div className="min-w-0 flex-1">
                         <div className="mb-0.5 font-display text-[13px] font-bold text-text">{c.nome}</div>
                         <div className="text-[11px] text-muted">{c.especialidade}</div>
@@ -340,17 +335,17 @@ export default function Consultas() {
               </div>
 
               <div className="mb-7 last:mb-0">
-                <div className="mb-3.5 flex items-center gap-2 font-display text-[15px] font-bold text-text">👨‍⚕️ Médicos Especialistas</div>
+                <div className="mb-3.5 flex items-center gap-2 font-display text-[15px] font-bold text-text">Médicos Especialistas</div>
                 <div className="flex flex-col gap-3">
                   {journeyAtiva.medicos.map((m, i) => (
                     <div key={i} className="overflow-hidden rounded-[14px] border border-border bg-surface2 transition-all animate-fade-up-sm hover:-translate-y-0.5 hover:border-border2 hover:bg-surface hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]" style={{ animationDelay: `${i * 0.08}s` }}>
                       <div className="flex items-center gap-3.5 px-[18px] py-4">
-                        <div className="flex h-[52px] w-[52px] flex-shrink-0 items-center justify-center rounded-full border-2 border-green2 bg-[linear-gradient(135deg,#d4edda,#a8d5b5)] text-[26px]">{m.foto}</div>
+                        <div className="flex h-[52px] w-[52px] flex-shrink-0 items-center justify-center rounded-full border-2 border-green2 bg-[linear-gradient(135deg,#d4edda,#a8d5b5)] text-green2"><Icon name="doctor" className="h-7 w-7" /></div>
                         <div className="min-w-0 flex-1">
                           <div className="mb-0.5 font-display text-[14px] font-bold text-text">{m.nome}</div>
                           <div className="text-xs text-muted">{m.especialidade}</div>
                           <div className="mt-0.5 text-[10px] font-semibold text-muted">{m.rm}</div>
-                          <div className="mt-1 text-[11px] text-muted">📍 {m.regiao}</div>
+                          <div className="mt-1 flex items-center gap-1 text-[11px] text-muted"><Icon name="pin" className="h-3 w-3" />{m.regiao}</div>
                         </div>
                         <button className="flex-shrink-0 cursor-pointer rounded-lg border border-border2 bg-none px-3.5 py-1.5 text-[11px] font-semibold text-muted transition-all hover:border-green hover:bg-surface3 hover:text-text" onClick={(e) => {
                           e.stopPropagation()
@@ -376,7 +371,7 @@ export default function Consultas() {
                             <div key={idx} className="mb-2 rounded-[10px] border border-border bg-surface p-3 last:mb-0">
                               <div className="mb-1.5 flex items-center justify-between">
                                 <span className="text-[11px] font-bold text-text">{av.paciente}</span>
-                                <span className="text-xs">{'⭐'.repeat(av.nota)}</span>
+                                <span className="flex gap-0.5 text-amber">{Array.from({ length: av.nota }).map((_, k) => <Icon key={k} name="star" className="h-3 w-3" />)}</span>
                               </div>
                               <div className="text-[11px] italic leading-[1.5] text-muted">"{av.comentario}"</div>
                             </div>
@@ -389,11 +384,11 @@ export default function Consultas() {
               </div>
 
               <div className="mb-7 last:mb-0">
-                <div className="mb-3.5 flex items-center gap-2 font-display text-[15px] font-bold text-text">🎯 Hábitos e Desafios</div>
+                <div className="mb-3.5 flex items-center gap-2 font-display text-[15px] font-bold text-text">Hábitos e Desafios</div>
                 <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-3">
                   {journeyAtiva.habitos.map((h, i) => (
                     <div key={i} className="flex items-center gap-3 rounded-[14px] border border-border bg-surface2 px-4 py-3.5 transition-all animate-fade-up-sm hover:-translate-y-0.5 hover:border-border2 hover:bg-surface hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]" style={{ animationDelay: `${i * 0.06}s` }}>
-                      <div className="flex-shrink-0 text-2xl">{h.emoji}</div>
+                      <div className="flex-shrink-0 text-green"><Icon name={h.icon} className="h-6 w-6" /></div>
                       <div className="min-w-0 flex-1">
                         <div className="mb-0.5 font-display text-[13px] font-bold text-text">{h.titulo}</div>
                         <div className="text-[11px] text-muted">{h.desc}</div>

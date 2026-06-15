@@ -50,7 +50,7 @@ export default function Sidebar() {
           <div className="flex h-[52px] w-[52px] items-center justify-center rounded-full border-2 border-green2 bg-[linear-gradient(135deg,#d4edda,#a8d5b5)] text-[22px] shadow-[0_0_12px_rgba(0,184,97,0.15)] dark:bg-[linear-gradient(135deg,#2d6a4f,#1b4332)] dark:shadow-[0_0_16px_rgba(0,229,122,0.25)]">
             {profile.photo
               ? <img src={profile.photo} alt="avatar" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
-              : '🧑'
+              : <svg viewBox="0 0 24 24" fill="none" className="h-7 w-7 text-green2"><circle cx="12" cy="9" r="3.4" stroke="currentColor" strokeWidth="1.7"/><path d="M5 19.5c0-3.6 3.1-6 7-6s7 2.4 7 6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>
             }
           </div>
           <div className="absolute -bottom-1 -right-1.5 rounded-lg bg-green px-[5px] py-0.5 font-display text-[9px] font-bold tracking-[0.02em] text-white">LV 15</div>

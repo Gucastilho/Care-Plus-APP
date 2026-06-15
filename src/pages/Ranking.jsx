@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import Sidebar from '../components/Sidebar'
 import Topbar  from '../components/Topbar'
 import { weeklyRanking, dailyRanking } from '../data'
+import { Icon } from '../components/icons'
 
 const POS_BADGE = {
   gold:   'border-none bg-[linear-gradient(135deg,#fbbf24,#f59e0b)] text-white shadow-[0_2px_8px_rgba(245,158,11,0.3)]',
@@ -18,9 +19,6 @@ function getPosClass(pos) {
 }
 
 function getPosContent(pos) {
-  if (pos === 1) return '🥇'
-  if (pos === 2) return '🥈'
-  if (pos === 3) return '🥉'
   return pos
 }
 
@@ -42,7 +40,7 @@ export default function Ranking() {
     <div className="flex h-screen">
       <Sidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
-        <Topbar title="Ranking" subtitle="Acompanhe seu progresso e inspire-se com a comunidade" emoji="📊" />
+        <Topbar title="Ranking" subtitle="Acompanhe seu progresso e inspire-se com a comunidade" />
 
         <div className="flex flex-1 flex-row gap-5 overflow-hidden px-7 pb-6 pt-5">
           <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
@@ -74,7 +72,7 @@ export default function Ranking() {
                         <div className="mt-px text-[11px] text-muted">Posição #{pos}</div>
                       </div>
                       <div className="flex flex-shrink-0 items-center gap-1.5 font-display text-[13px] font-bold text-text">
-                        <span className="text-[14px] text-amber">🏆</span>
+                        <Icon name="trophy" className="h-3.5 w-3.5 text-amber" />
                         {p.pts.toLocaleString('pt-BR')} pts
                       </div>
                     </div>
@@ -89,7 +87,7 @@ export default function Ranking() {
               <div className="bg-[linear-gradient(135deg,var(--color-green2),var(--color-green))] px-[18px] py-4 text-white">
                 <div className="mb-2.5 text-[10px] font-semibold uppercase tracking-[0.08em] opacity-85">Sua Posição</div>
                 <div className="flex items-center gap-3">
-                  <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-white/20 text-xl">🧑</div>
+                  <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-white/20 text-white"><Icon name="doctor" className="h-6 w-6" /></div>
                   <div>
                     <div className="font-display text-[22px] font-bold leading-none">#{userPos}</div>
                     <div className="mt-0.5 text-xs opacity-90">Gustavo Castilho</div>
@@ -124,7 +122,7 @@ export default function Ranking() {
             </div>
 
             <div className="flex-shrink-0 rounded-[18px] border border-[rgba(224,144,0,0.18)] bg-[rgba(224,144,0,0.06)] px-4 py-3.5 dark:border-[rgba(255,184,48,0.15)] dark:bg-[rgba(255,184,48,0.06)]">
-              <div className="mb-1.5 font-display text-xs font-bold text-amber">💡 Lembre-se</div>
+              <div className="mb-1.5 flex items-center gap-1.5 font-display text-xs font-bold text-amber"><Icon name="bulb" className="h-4 w-4" />Lembre-se</div>
               <div className="text-[11px] leading-[1.6] text-muted">O ranking é apenas para motivação. Seu objetivo principal é sua saúde e bem-estar pessoal. Continue completando missões!</div>
             </div>
           </div>

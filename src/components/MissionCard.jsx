@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react'
+import { Icon } from './icons'
 
 export default function MissionCard({ mission, index = 0 }) {
-  const { emoji, title, desc, pts, progress, done, color, grad, offset } = mission
+  const { icon, title, desc, pts, progress, done, color, grad, offset } = mission
   const ringRef = useRef(null)
   const barRef  = useRef(null)
   const cardRef = useRef(null)
@@ -50,16 +51,16 @@ export default function MissionCard({ mission, index = 0 }) {
             style={{ strokeDasharray: 144.51, strokeDashoffset: 144.51, transition: 'stroke-dashoffset 1s cubic-bezier(.22,1,.36,1)' }}
           />
         </svg>
-        <div className="absolute inset-0 flex items-center justify-center text-lg animate-float">{emoji}</div>
+        <div className="absolute inset-0 flex items-center justify-center" style={{ color: nameColor }}><Icon name={icon} className="h-[22px] w-[22px]" /></div>
       </div>
 
       <div className="min-w-0 flex-1">
-        <div className="mb-1 flex items-center justify-between">
-          <div className="font-display text-[15px] font-semibold" style={{ color: nameColor }}>{title}</div>
-          <div className="flex items-center gap-1 rounded-lg border border-[rgba(224,144,0,0.18)] bg-[rgba(224,144,0,0.08)] px-2 py-[3px] font-display text-[11px] font-semibold text-amber">🏆 {pts} pts</div>
+        <div className="mb-1 flex items-center gap-2">
+          <div className="min-w-0 truncate font-display text-[15px] font-semibold" style={{ color: nameColor }}>{title}</div>
+          <div className="flex flex-shrink-0 items-center gap-1 rounded-lg border border-[rgba(224,144,0,0.18)] bg-[rgba(224,144,0,0.08)] px-2 py-[3px] font-display text-[11px] font-semibold text-amber">{pts} pts</div>
         </div>
         <div className="mb-2.5 text-xs text-muted">{desc}</div>
-        {done && <div className="mt-1.5 inline-flex items-center gap-[5px] rounded-full border border-[rgba(0,184,97,0.2)] bg-[rgba(0,184,97,0.1)] px-2.5 py-[3px] font-display text-[10px] font-bold text-green animate-done-pop">✔ Concluído</div>}
+        {done && <div className="mt-1.5 inline-flex items-center gap-[5px] rounded-full border border-[rgba(0,184,97,0.2)] bg-[rgba(0,184,97,0.1)] px-2.5 py-[3px] font-display text-[10px] font-bold text-green animate-done-pop">Concluído</div>}
         <div className="flex items-center gap-2.5">
           <div className="h-[5px] flex-1 overflow-hidden rounded-[3px] bg-surface3">
             <div

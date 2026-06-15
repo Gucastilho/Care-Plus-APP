@@ -111,7 +111,7 @@ export default function SaudeMental() {
     <div className="flex h-screen">
       <Sidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
-        <Topbar title="Saúde Mental" subtitle="Terapias de manutenção e gestão do estresse" emoji="🧠" />
+        <Topbar title="Saúde Mental" subtitle="Terapias de manutenção e gestão do estresse" />
 
         <div className={SCROLL}>
 
@@ -122,7 +122,6 @@ export default function SaudeMental() {
           </div>
 
           <div className="flex items-center gap-4 rounded-[20px] border border-[rgba(13,148,136,0.15)] bg-[linear-gradient(135deg,#f0fdfa,#ccfbf1)] px-6 py-5 shadow-[0_2px_12px_rgba(13,148,136,0.07)] dark:border-[rgba(94,234,212,0.15)] dark:bg-[linear-gradient(135deg,#042f2e,#134e4a)]">
-            <div className="flex-shrink-0 text-[32px]">🧘</div>
             <div>
               <div className="mb-[3px] font-display text-[15px] font-bold text-[#0f766e] dark:text-[#5eead4]">Agendar Nova Consulta Preventiva</div>
               <div className="text-xs text-[#0d9488] opacity-85 dark:text-[#5eead4] dark:opacity-70">Cuide da sua mente com especialistas em bem-estar emocional e cognitivo.</div>

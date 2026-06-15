@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Sidebar from '../components/Sidebar'
 import Topbar from '../components/Topbar'
+import { Icon } from '../components/icons'
 
 const PERGUNTAS = [
   { id: 1, pergunta: 'Como você avalia sua saúde física atual?', opcoes: ['Excelente', 'Boa', 'Regular', 'Precisa melhorar'] },
@@ -34,33 +35,33 @@ function gerarPlano(respostas) {
     plano.consultas.push({ id: 'fisica2', tipo: 'Check-up Médico Anual', especialidade: 'Clínica Geral' })
   }
   if (resp[5] === 'Raramente' || resp[5] === 'Não pratico') {
-    plano.missoes.push({ id: 'm1', emoji: '🚶', titulo: 'Caminhada Diária', desc: 'Caminhe 5.000 passos por dia', pts: 50 })
-    plano.missoes.push({ id: 'm2', emoji: '🏃', titulo: 'Atividade Semanal', desc: 'Pratique 150 minutos de atividade física por semana', pts: 150 })
+    plano.missoes.push({ id: 'm1', icon: 'walk', titulo: 'Caminhada Diária', desc: 'Caminhe 5.000 passos por dia', pts: 50 })
+    plano.missoes.push({ id: 'm2', icon: 'run', titulo: 'Atividade Semanal', desc: 'Pratique 150 minutos de atividade física por semana', pts: 150 })
   }
   if (resp[2] === 'Precisa melhorar' || resp[2] === 'Irregular') {
-    plano.missoes.push({ id: 'm3', emoji: '🍎', titulo: 'Alimentação Saudável', desc: 'Registre 5 refeições saudáveis por semana', pts: 100 })
+    plano.missoes.push({ id: 'm3', icon: 'apple', titulo: 'Alimentação Saudável', desc: 'Registre 5 refeições saudáveis por semana', pts: 100 })
   }
   if (resp[3] === 'Menos de 5h' || resp[3] === '5-6h') {
-    plano.missoes.push({ id: 'm4', emoji: '😴', titulo: 'Sono de Qualidade', desc: 'Durma 7-8 horas por noite durante 5 dias', pts: 80 })
+    plano.missoes.push({ id: 'm4', icon: 'sleep', titulo: 'Sono de Qualidade', desc: 'Durma 7-8 horas por noite durante 5 dias', pts: 80 })
   }
-  plano.missoes.push({ id: 'm5', emoji: '💧', titulo: 'Hidratação', desc: 'Beba 2 litros de água por dia', pts: 30 })
+  plano.missoes.push({ id: 'm5', icon: 'water', titulo: 'Hidratação', desc: 'Beba 2 litros de água por dia', pts: 30 })
   if (resp[4] === 'Alto' || resp[4] === 'Muito alto') {
-    plano.missoes.push({ id: 'm6', emoji: '🧘', titulo: 'Meditação Diária', desc: 'Pratique 10 minutos de meditação por dia', pts: 40 })
+    plano.missoes.push({ id: 'm6', icon: 'meditation', titulo: 'Meditação Diária', desc: 'Pratique 10 minutos de meditação por dia', pts: 40 })
   }
   if (resp[1] === 'Perder peso') {
-    plano.metas.push({ id: 'meta1', emoji: '🏋️', titulo: 'Perda de Peso Saudável', desc: 'Perder 5kg em 3 meses', prazo: '3 meses' })
+    plano.metas.push({ id: 'meta1', titulo: 'Perda de Peso Saudável', desc: 'Perder 5kg em 3 meses', prazo: '3 meses' })
   }
   if (resp[1] === 'Ganhar massa muscular') {
-    plano.metas.push({ id: 'meta2', emoji: '💪', titulo: 'Ganho de Massa Muscular', desc: 'Ganhar 3kg de massa magra em 2 meses', prazo: '2 meses' })
+    plano.metas.push({ id: 'meta2', titulo: 'Ganho de Massa Muscular', desc: 'Ganhar 3kg de massa magra em 2 meses', prazo: '2 meses' })
   }
   if (resp[1] === 'Melhorar condicionamento') {
-    plano.metas.push({ id: 'meta3', emoji: '❤️', titulo: 'Condicionamento Físico', desc: 'Correr 5km sem parar em 6 semanas', prazo: '6 semanas' })
+    plano.metas.push({ id: 'meta3', titulo: 'Condicionamento Físico', desc: 'Correr 5km sem parar em 6 semanas', prazo: '6 semanas' })
   }
   if (resp[4] === 'Alto' || resp[4] === 'Muito alto') {
-    plano.metas.push({ id: 'meta4', emoji: '🧘', titulo: 'Redução de Estresse', desc: 'Reduzir nível de estresse em 50% em 2 meses', prazo: '2 meses' })
+    plano.metas.push({ id: 'meta4', titulo: 'Redução de Estresse', desc: 'Reduzir nível de estresse em 50% em 2 meses', prazo: '2 meses' })
   }
   if (resp[3] === 'Menos de 5h' || resp[3] === '5-6h') {
-    plano.metas.push({ id: 'meta5', emoji: '😴', titulo: 'Melhora do Sono', desc: 'Dormir 7-8h por noite consistentemente', prazo: '4 semanas' })
+    plano.metas.push({ id: 'meta5', titulo: 'Melhora do Sono', desc: 'Dormir 7-8h por noite consistentemente', prazo: '4 semanas' })
   }
   return plano
 }
@@ -101,7 +102,7 @@ export default function PlanejamentoSaude() {
       const metasExistentes = JSON.parse(localStorage.getItem('metas_usuario') || '[]')
       const novasMetas = planoGerado.metas.map(meta => ({
         ...meta,
-        emoji: '🎯',
+        icon: 'target',
         id: `${meta.id}_${Date.now()}_${Math.random()}`,
         adicionadaEm: new Date().toISOString()
       }))
@@ -117,11 +118,11 @@ export default function PlanejamentoSaude() {
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex flex-1 flex-col overflow-hidden">
-          <Topbar title="Seu Plano Personalizado" subtitle="Revise e ajuste seu planejamento de saúde" emoji="📋" />
+          <Topbar title="Seu Plano Personalizado" subtitle="Revise e ajuste seu planejamento de saúde" />
 
           <div className="flex flex-1 flex-col gap-7 overflow-y-auto px-7 pb-8 pt-5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-surface3 [&::-webkit-scrollbar]:w-1">
             <div className="flex items-center gap-4 rounded-[20px] border border-[rgba(0,184,97,0.2)] bg-[linear-gradient(135deg,rgba(0,184,97,0.08),rgba(0,184,97,0.04))] px-6 py-5 animate-fade-up dark:border-[rgba(0,229,122,0.2)] dark:bg-[linear-gradient(135deg,rgba(0,229,122,0.08),rgba(0,229,122,0.04))]">
-              <div className="flex-shrink-0 text-[32px]">✨</div>
+              <div className="flex-shrink-0 text-green"><Icon name="sparkle" className="h-8 w-8" /></div>
               <div>
                 <div className="mb-1 font-display text-base font-bold text-green">Plano Gerado com Sucesso!</div>
                 <div className="text-xs leading-[1.6] text-muted">
@@ -139,7 +140,7 @@ export default function PlanejamentoSaude() {
                 <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-3.5">
                   {planoGerado.consultas.map((c, i) => (
                     <div key={c.id} className="group relative flex cursor-pointer items-center gap-3.5 rounded-[18px] border border-border bg-surface px-5 py-[18px] transition-all animate-fade-up hover:-translate-y-0.5 hover:border-rose hover:bg-[rgba(232,54,93,0.04)] hover:shadow-[0_8px_24px_rgba(232,54,93,0.12)]" style={{ animationDelay: `${i * 0.08}s` }} onClick={() => handleRemoverItem('consultas', c.id)}>
-                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-[14px] bg-[rgba(43,127,255,0.1)] text-[22px]">🩺</div>
+                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-[14px] bg-[rgba(43,127,255,0.1)] text-blue"><Icon name="stethoscope" className="h-6 w-6" /></div>
                       <div className="min-w-0 flex-1">
                         <div className="mb-1 font-display text-[14px] font-bold leading-[1.3] text-text">{c.tipo}</div>
                         <div className="text-[11px] leading-[1.5] text-muted">{c.especialidade}</div>
@@ -160,11 +161,11 @@ export default function PlanejamentoSaude() {
                 <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-3.5">
                   {planoGerado.missoes.map((m, i) => (
                     <div key={m.id} className="group relative flex cursor-pointer items-center gap-3.5 rounded-[18px] border border-border bg-surface px-5 py-[18px] transition-all animate-fade-up hover:-translate-y-0.5 hover:border-rose hover:bg-[rgba(232,54,93,0.04)] hover:shadow-[0_8px_24px_rgba(232,54,93,0.12)]" style={{ animationDelay: `${i * 0.08}s` }} onClick={() => handleRemoverItem('missoes', m.id)}>
-                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-[14px] bg-[rgba(0,184,97,0.1)] text-[22px]">{m.emoji}</div>
+                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-[14px] bg-[rgba(0,184,97,0.1)] text-green"><Icon name={m.icon} className="h-6 w-6" /></div>
                       <div className="min-w-0 flex-1">
                         <div className="mb-1 font-display text-[14px] font-bold leading-[1.3] text-text">{m.titulo}</div>
                         <div className="text-[11px] leading-[1.5] text-muted">{m.desc}</div>
-                        <div className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-bold text-amber">🏆 {m.pts} pts</div>
+                        <div className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-bold text-amber">{m.pts} pts</div>
                       </div>
                       <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg border border-[rgba(232,54,93,0.2)] bg-[rgba(232,54,93,0.1)] text-xs text-rose opacity-0 transition-opacity group-hover:opacity-100">✕</div>
                     </div>
@@ -182,7 +183,7 @@ export default function PlanejamentoSaude() {
                 <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-3.5">
                   {planoGerado.metas.map((m, i) => (
                     <div key={m.id} className="group relative flex cursor-pointer items-center gap-3.5 rounded-[18px] border border-border bg-surface px-5 py-[18px] transition-all animate-fade-up hover:-translate-y-0.5 hover:border-rose hover:bg-[rgba(232,54,93,0.04)] hover:shadow-[0_8px_24px_rgba(232,54,93,0.12)]" style={{ animationDelay: `${i * 0.08}s` }} onClick={() => handleRemoverItem('metas', m.id)}>
-                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-[14px] bg-[rgba(224,144,0,0.1)] text-[22px]">🎯</div>
+                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-[14px] bg-[rgba(224,144,0,0.1)] text-amber"><Icon name="target" className="h-6 w-6" /></div>
                       <div className="min-w-0 flex-1">
                         <div className="mb-1 font-display text-[14px] font-bold leading-[1.3] text-text">{m.titulo}</div>
                         <div className="text-[11px] leading-[1.5] text-muted">{m.desc}</div>
@@ -216,7 +217,7 @@ export default function PlanejamentoSaude() {
     <div className="flex h-screen">
       <Sidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
-        <Topbar title="Planejamento de Saúde" subtitle="Responda algumas perguntas para criar seu plano" emoji="📝" />
+        <Topbar title="Planejamento de Saúde" subtitle="Responda algumas perguntas para criar seu plano" />
 
         <div className="flex flex-1 flex-col items-center justify-center px-7 py-10">
           <div className="w-full max-w-[600px] rounded-3xl border border-border bg-surface p-10 shadow-[0_4px_20px_rgba(0,0,0,0.06)] animate-fade-up">

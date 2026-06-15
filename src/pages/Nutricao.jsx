@@ -101,7 +101,7 @@ export default function Nutricao() {
     <div className="flex h-screen">
       <Sidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
-        <Topbar title="Nutrição e Metabolismo" subtitle="Planejamento alimentar e fortalecimento da imunidade" emoji="🥗" />
+        <Topbar title="Nutrição e Metabolismo" subtitle="Planejamento alimentar e fortalecimento da imunidade" />
 
         <div className={SCROLL}>
 
@@ -112,7 +112,6 @@ export default function Nutricao() {
           </div>
 
           <div className="flex items-center gap-4 rounded-[20px] border border-[rgba(234,88,12,0.15)] bg-[linear-gradient(135deg,#fff7ed,#ffedd5)] px-6 py-5 shadow-[0_2px_12px_rgba(234,88,12,0.07)] dark:border-[rgba(253,186,116,0.15)] dark:bg-[linear-gradient(135deg,#431407,#7c2d12)]">
-            <div className="flex-shrink-0 text-[32px]">🍎</div>
             <div>
               <div className="mb-[3px] font-display text-[15px] font-bold text-[#c2410c] dark:text-[#fdba74]">Agendar Nova Consulta Preventiva</div>
               <div className="text-xs text-[#ea580c] opacity-85 dark:text-[#fdba74] dark:opacity-70">Escolha uma especialidade abaixo e reserve seu horário com um clique.</div>
