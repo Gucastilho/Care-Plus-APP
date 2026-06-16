@@ -8,10 +8,12 @@ import MetasModal from '../components/MetasModal'
 import ConsultaModal from '../components/ConsultaModal'
 import { dailyMissions } from '../data'
 import { Icon } from '../components/icons'
+import { useUserStats } from '../userStats'
 
 export default function Dashboard() {
   const navigate = useNavigate()
   const { toasts, show } = useToast()
+  const { name } = useUserStats()
   const [appts, setAppts] = useState([])
   const [metas, setMetas] = useState([])
   const [metasModalOpen, setMetasModalOpen] = useState(false)
@@ -67,7 +69,7 @@ export default function Dashboard() {
     <div className="flex h-screen">
       <Sidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
-        <Topbar title="Olá, Gustavo" subtitle="Continue sua jornada de bem-estar" />
+        <Topbar title={name ? `Olá, ${name.trim().split(/\s+/)[0]}` : 'Olá!'} subtitle="Continue sua jornada de bem-estar" />
 
         <div className="flex flex-1 gap-5 overflow-hidden px-7 py-5">
           <div className="flex flex-1 flex-col gap-4 overflow-hidden">

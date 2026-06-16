@@ -13,7 +13,14 @@ export function getStats() {
   return {
     points: user?.points ?? STARTING_POINTS,
     streak: user?.streak ?? 1,
+    name: user?.nome || '',
   }
+}
+
+export function setName(nome) {
+  if (!getCurrentUser()) return
+  updateCurrentUser({ nome })
+  emit()
 }
 
 export function addPoints(delta) {

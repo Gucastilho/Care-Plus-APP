@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import ConfigModal from './ConfigModal'
 import { useTour } from './tour-context'
 import { logout, getSession } from '../auth'
+import { useUserStats, setName } from '../userStats'
 
 const NAV = [
   { to: '/dashboard',   label: 'Início',      icon: <path d="M2 6L8 1.5L14 6V14H10V10H6V14H2V6Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/> },
@@ -20,16 +21,19 @@ const NAV_HIGHLIGHT = "z-[50] rounded-lg bg-[rgba(0,184,97,0.1)] text-green ring
 export default function Sidebar() {
   const navigate = useNavigate()
   const { active: tourActive, target: tourTarget } = useTour()
+  const { name } = useUserStats()
   const [configOpen, setConfigOpen] = useState(false)
   const [profile, setProfile] = useState(() => {
     const saved = localStorage.getItem('careplus_profile')
-    return saved ? JSON.parse(saved) : { name: 'Gustavo Castilho', age: '', photo: null }
+    return saved ? JSON.parse(saved) : { age: '', photo: null }
   })
   const session = getSession()
 
   function handleSaveProfile(data) {
-    localStorage.setItem('careplus_profile', JSON.stringify(data))
-    setProfile(data)
+    const next = { age: data.age, photo: data.photo }
+    localStorage.setItem('careplus_profile', JSON.stringify(next))
+    setProfile(next)
+    setName(data.name)
   }
 
   function handleLogout() {
@@ -42,7 +46,7 @@ export default function Sidebar() {
       <ConfigModal
         open={configOpen}
         onClose={() => setConfigOpen(false)}
-        profile={profile}
+        profile={{ name, age: profile.age || '', photo: profile.photo || null }}
         onSave={handleSaveProfile}
       />
       <div className="border-b border-border px-5 pb-6">
@@ -55,7 +59,7 @@ export default function Sidebar() {
           </div>
           <div className="absolute -bottom-1 -right-1.5 rounded-lg bg-green px-[5px] py-0.5 font-display text-[9px] font-bold tracking-[0.02em] text-white">LV 15</div>
         </div>
-        <div className="text-[14px] font-semibold leading-[1.2] text-text">{profile.name}</div>
+        <div className="text-[14px] font-semibold leading-[1.2] text-text">{name || 'Usuário'}</div>
         <div className="mt-0.5 truncate text-[11px] text-muted">{session?.login || 'gustavo@email.com'}</div>
         <div className="mt-2.5">
           <div className="mb-[5px] flex justify-between text-[10px] text-muted"><span>XP 1.340</span><span>2.000</span></div>

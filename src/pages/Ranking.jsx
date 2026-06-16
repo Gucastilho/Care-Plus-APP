@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar'
 import Topbar  from '../components/Topbar'
 import { weeklyRanking, dailyRanking } from '../data'
 import { Icon } from '../components/icons'
+import { useUserStats } from '../userStats'
 
 const POS_BADGE = {
   gold:   'border-none bg-[linear-gradient(135deg,#fbbf24,#f59e0b)] text-white shadow-[0_2px_8px_rgba(245,158,11,0.3)]',
@@ -24,6 +25,7 @@ function getPosContent(pos) {
 
 export default function Ranking() {
   const [tab, setTab] = useState('semanal')
+  const { name } = useUserStats()
   const raw = tab === 'semanal' ? weeklyRanking : dailyRanking
   const sorted = useMemo(() => [...raw].sort((a, b) => b.pts - a.pts), [raw])
 
@@ -66,7 +68,7 @@ export default function Ranking() {
                       <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-[13px] font-bold text-white" style={{ background: p.color }}>{p.initial}</div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-[7px] font-display text-[13px] font-bold text-text">
-                          {p.name}
+                          {p.isUser ? (name || p.name) : p.name}
                           {p.isUser && <span className="rounded-full bg-green px-[7px] py-0.5 font-display text-[9px] font-bold text-white">Você</span>}
                         </div>
                         <div className="mt-px text-[11px] text-muted">Posição #{pos}</div>
@@ -90,7 +92,7 @@ export default function Ranking() {
                   <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-white/20 text-white"><Icon name="doctor" className="h-6 w-6" /></div>
                   <div>
                     <div className="font-display text-[22px] font-bold leading-none">#{userPos}</div>
-                    <div className="mt-0.5 text-xs opacity-90">Gustavo Castilho</div>
+                    <div className="mt-0.5 text-xs opacity-90">{name || 'Você'}</div>
                   </div>
                 </div>
                 <div className="mt-2.5 flex items-center gap-1.5 text-[11px] opacity-85">

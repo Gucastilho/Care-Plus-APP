@@ -15,6 +15,7 @@ function validarIdentificador(valor) {
 export default function Login() {
   const navigate = useNavigate()
   const { start } = useTour()
+  const [nome, setNome] = useState('')
   const [identificador, setIdentificador] = useState('')
   const [senha, setSenha] = useState('')
   const [erro, setErro] = useState('')
@@ -23,6 +24,10 @@ export default function Login() {
 
   function autenticar(modo) {
     setErro('')
+    if (modo === 'register' && !nome.trim()) {
+      setErro('Informe seu nome para se cadastrar.')
+      return
+    }
     if (!identificador.trim() || !senha.trim()) {
       setErro('Preencha o CPF/e-mail e a senha.')
       return
@@ -33,7 +38,7 @@ export default function Login() {
     }
     const resultado = modo === 'login'
       ? doLogin(identificador.trim(), senha)
-      : doRegister(identificador.trim(), senha)
+      : doRegister(identificador.trim(), senha, nome.trim())
 
     if (!resultado.ok) {
       setErro(resultado.error)
@@ -59,6 +64,18 @@ export default function Login() {
           </div>
           <div className="font-display text-[24px] font-bold text-text">Care Plus</div>
           <div className="mt-1 text-[13px] text-muted">Entre para continuar sua jornada de bem-estar</div>
+        </div>
+
+        <div className="mb-4">
+          <label className={LABEL} htmlFor="nome">Nome <span className="font-normal lowercase tracking-normal text-muted2">(para cadastro)</span></label>
+          <input
+            id="nome"
+            className={INPUT}
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+            placeholder="Seu nome completo"
+            autoComplete="name"
+          />
         </div>
 
         <div className="mb-4">

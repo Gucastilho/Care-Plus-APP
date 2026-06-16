@@ -55,7 +55,7 @@ export function updateCurrentUser(patch) {
   return updated
 }
 
-export function register(login, senha) {
+export function register(login, senha, nome) {
   const users = getUsers()
   if (users.some(u => u.login === login)) {
     return { ok: false, error: 'Já existe uma conta com esse CPF ou e-mail.' }
@@ -63,6 +63,7 @@ export function register(login, senha) {
   users.push({
     login,
     senha,
+    nome,
     seenTour: false,
     points: STARTING_POINTS,
     streak: 1,
